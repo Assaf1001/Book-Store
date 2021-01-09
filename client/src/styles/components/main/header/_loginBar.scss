@@ -1,0 +1,33 @@
+.login-bar__container {
+    height: 2rem;
+    width: 100%;
+    background: $darkOrange;
+}
+
+.login-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+
+    a {
+        margin: 0 1rem;
+        color: $black;
+        text-decoration: none;
+        &:hover {
+            span {
+                color: $white;
+            }
+        }
+    }
+    .login-active {
+        color: $white;
+    }
+}
+
+.user {
+    display: flex;
+}
+
+.general {
+}
