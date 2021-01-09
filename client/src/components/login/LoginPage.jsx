@@ -4,10 +4,11 @@ import LoginForm from "./LoginForm";
 import loginBackground from "../../images/loginPageBackground.jpg";
 import SingupForm from "./SingupForm";
 
-const LoginPage = () => {
+const LoginPage = (props) => {
     const [isLoginMode, setIsLoginMode] = useState(true);
-
-    // const onClickLoginMode = () => setIsLoginMode(isLoginMode ? false : true);
+    const errorMessage = props.location.state?.needToLogin
+        ? "You must login!"
+        : "";
 
     return (
         <div
@@ -15,7 +16,11 @@ const LoginPage = () => {
             className="main__container"
         >
             <div className="login-form__container">
-                {isLoginMode ? <LoginForm /> : <SingupForm />}
+                {isLoginMode ? (
+                    <LoginForm errorMessage={errorMessage} />
+                ) : (
+                    <SingupForm />
+                )}
             </div>
             {isLoginMode ? (
                 <div className="login-signup">

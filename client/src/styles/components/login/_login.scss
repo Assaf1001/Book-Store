@@ -88,9 +88,10 @@
 }
 
 .error-message {
-    color: $red;
-    background: #ccc;
+    color: $lightBlue;
+    background: $black;
     border-radius: 5px;
     padding: 0.5rem;
+    margin-bottom: 0.5rem;
     text-align: center;
 }

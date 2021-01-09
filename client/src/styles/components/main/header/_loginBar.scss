@@ -20,8 +20,20 @@
             }
         }
     }
+
     .login-active {
         color: $white;
+    }
+
+    .logout {
+        margin: 0 1rem;
+        color: $black;
+        &:hover {
+            cursor: pointer;
+            span {
+                color: $white;
+            }
+        }
     }
 }
 
@@ -29,5 +41,5 @@
     display: flex;
 }
 
-.general {
-}
+// .general {
+// }

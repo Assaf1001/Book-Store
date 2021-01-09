@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { logInAction } from "../../actions/loginAction";
+import { LoginContext } from "../../context/LoginContext";
+import { saveUserOnCookie } from "../../cookies/cookies";
+import { logIn } from "../../server/auth";
 
-const LoginForm = () => {
+const LoginForm = (props) => {
+    const history = useHistory();
+    const { dispatchUserData } = useContext(LoginContext);
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isEmailInputValid, setIsEmailInputValid] = useState(true);
     const [isPasswordInputValid, setIsPasswordInputValid] = useState(true);
     const [errorMessage, setErrorMessage] = useState("");
+
+    useEffect(() => {
+        if (props.errorMessage !== "") {
+            setErrorMessage(props.errorMessage);
+        }
+    }, [props.errorMessage]);
 
     const isFormValid = () => email.length === 0 || password.length === 0;
 
@@ -33,7 +47,18 @@ const LoginForm = () => {
 
     const onSubmitForm = (event) => {
         event.preventDefault();
-        console.log({ email, password });
+
+        logIn({ email, password })
+            .then((userData) => {
+                dispatchUserData(logInAction(userData));
+                saveUserOnCookie(userData);
+                history.push("/myAccount");
+            })
+            .catch((err) => {
+                if (err.message === "Email or Password are invalid!") {
+                    setErrorMessage(err.message);
+                }
+            });
     };
 
     return (

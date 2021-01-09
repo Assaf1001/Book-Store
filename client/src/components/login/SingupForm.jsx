@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 import validator from "validator";
+import { logInAction } from "../../actions/loginAction";
+import { LoginContext } from "../../context/LoginContext";
+import { saveUserOnCookie } from "../../cookies/cookies";
+import { singUp } from "../../server/auth";
 
 const SingupForm = () => {
-    // const { dispachUserData } = useContext(LoginContext);
+    const { dispatchUserData } = useContext(LoginContext);
+    const history = useHistory();
 
     const [inputClasses, setInputClasses] = useState(["", "", "", ""]);
     const [invalidMessages, setInvalidMessages] = useState(["", "", "", ""]);
@@ -17,8 +23,6 @@ const SingupForm = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordRepeated, setPasswordRepeated] = useState("");
-
-    // const history = useHistory();
 
     const isFormInvalid = () => validInputs.includes(false);
 
@@ -81,6 +85,8 @@ const SingupForm = () => {
             isPasswordValid,
             isPasswordRepeatedValid,
         ]);
+
+        return isEmailValid && isPasswordValid && isPasswordRepeatedValid;
     };
 
     const onInputMame = (event) => {
@@ -90,7 +96,6 @@ const SingupForm = () => {
 
     const onInputEmail = (event) => {
         const newEmail = event.target.value.trim();
-
         validateInput(newEmail, 1, setEmail, "Please enter your email");
     };
 
@@ -109,40 +114,30 @@ const SingupForm = () => {
         );
     };
 
-    // const onSubmitform = (event) => {
-    //     event.preventDefault();
-    //     signUpToSite(email, password)
-    //         .then((userData) => {
-    //             dispachUserData(loginAction(userData));
-    //             saveUserOnCookie(userData);
-    //             history.push("/rooms");
-    //         })
-    //         .catch((err) => {
-    //             if (err.message === "EMAIL_EXISTS") {
-    //                 setInputClasses(["", "", "input-invalid", "", ""]);
-    //                 setInvalidMessages([
-    //                     "",
-    //                     "",
-    //                     "Email is already in use!",
-    //                     "",
-    //                     "",
-    //                 ]);
-    //                 setValidInputs([true, true, false, true, true]);
-    //             }
-    //         });
-    // };
-
     const onSubmitForm = (event) => {
         event.preventDefault();
 
-        onSubmitIsValidInputs();
-
-        console.log({ name, email, password });
+        if (onSubmitIsValidInputs()) {
+            singUp({ name, email, password })
+                .then((userData) => {
+                    dispatchUserData(logInAction(userData));
+                    saveUserOnCookie(userData);
+                    history.push("/myAccount");
+                })
+                .catch((err) => {
+                    if (err.message === "Email exist") {
+                        setInputClasses(["", "input-invalid", "", ""]);
+                        setInvalidMessages([
+                            "",
+                            "Email is already in use!",
+                            "",
+                            "",
+                        ]);
+                        setValidInputs([true, false, true, true]);
+                    }
+                });
+        }
     };
-
-    // const onClickLogin = () => {
-    //     props.setIsLoginMode(true);
-    // };
 
     return (
         <div className="login-form">
@@ -153,7 +148,7 @@ const SingupForm = () => {
                     id="name"
                     placeholder="Name"
                     className={inputClasses[0]}
-                    onInput={onInputMame}
+                    onChange={onInputMame}
                 />
                 {invalidMessages[0] !== "" && (
                     <div className="invalid-message">{invalidMessages[0]}</div>
@@ -163,7 +158,7 @@ const SingupForm = () => {
                     id="email"
                     placeholder="Email"
                     className={inputClasses[1]}
-                    onInput={onInputEmail}
+                    onChange={onInputEmail}
                 />
                 {invalidMessages[1] !== "" && (
                     <div className="invalid-message">{invalidMessages[1]}</div>
@@ -174,7 +169,7 @@ const SingupForm = () => {
                     type="password"
                     placeholder="Password"
                     className={inputClasses[2]}
-                    onInput={onInputPassword}
+                    onChange={onInputPassword}
                 />
                 {invalidMessages[2] !== "" && (
                     <div className="invalid-message">{invalidMessages[2]}</div>
@@ -185,7 +180,7 @@ const SingupForm = () => {
                     type="password"
                     placeholder="Repeat password"
                     className={inputClasses[3]}
-                    onInput={onInputPasswordRepeated}
+                    onChange={onInputPasswordRepeated}
                 />
                 {invalidMessages[3] !== "" && (
                     <div className="invalid-message">{invalidMessages[3]}</div>
