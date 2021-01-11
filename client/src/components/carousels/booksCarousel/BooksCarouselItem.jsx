@@ -13,8 +13,8 @@ const icons = {
     cart: <FontAwesomeIcon icon={faShoppingCart} />,
 };
 
-const CarouselItem = ({ book }) => (
-    <div className="carousel-item">
+const BooksCarouselItem = ({ book }) => (
+    <div className="books-carousel__item">
         <a href="/">
             <img src={book.image} alt={book.title} />
         </a>
@@ -37,4 +37,4 @@ const CarouselItem = ({ book }) => (
     </div>
 );
 
-export default CarouselItem;
+export default BooksCarouselItem;

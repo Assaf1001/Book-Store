@@ -1,9 +1,13 @@
 @import "./base/base";
 @import "./base/settings";
+
+@import "./components/main/header/loginBar";
+
 @import "./components/main/header/header";
 @import "./components/main/footer";
 @import "./components/home/homePage";
 @import "./components/login/login";
 @import "./components/main/pageNotFound";
-
-@import "./components/carousels/carousela";
+@import "./components/customerInfo/customerInfo";
+@import "./components/carousels/booksCarousel";
+@import "./components/carousels/imagesCarousel";

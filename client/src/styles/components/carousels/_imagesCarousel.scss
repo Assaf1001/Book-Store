@@ -1,0 +1,51 @@
+.images-carousel__container {
+    height: 60vh;
+    width: 100%;
+    // min-width: 400px;
+    // min-height: 400px;
+    margin-top: 1rem;
+
+    .react-multi-carousel-dot button {
+        width: 25px;
+        height: 25px;
+        margin: 1rem 0.5rem;
+    }
+
+    .react-multi-carousel-dot--active button {
+        background: $orange;
+    }
+
+    .images-carousel__item {
+        display: flex;
+        flex-direction: column;
+        // justify-content: center;
+        align-items: center;
+
+        height: 60vh;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center 20%;
+        background-clip: inherit;
+
+        h2 {
+            position: absolute;
+            bottom: 110px;
+            font-size: 3.5rem;
+            // color: $orange;
+        }
+
+        button {
+            position: absolute;
+            bottom: 80px;
+            font-size: 1.5rem;
+            background-color: $lightGray;
+            color: $darkBlue;
+            border: none;
+            padding: 0.5rem 1rem;
+
+            span {
+                padding-left: 0.2rem;
+            }
+        }
+    }
+}

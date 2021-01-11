@@ -2,7 +2,10 @@ import React, { useEffect, useReducer } from "react";
 import { setBooksAction } from "../../actions/booksActions";
 import booksReducer, { initialBooksState } from "../../reducers/booksReducer";
 import { getBooksFromDB } from "../../server/DB";
-import Carousela from "../carousels/Carousela";
+import CustomerInfo from "../customerInfo/CustomerInfo";
+
+import BooksCarousel from "../carousels/booksCarousel/BooksCarousel";
+import ImagesCarousel from "../carousels/imagesCarousel/ImagesCarousel";
 
 const HomePage = () => {
     const [books, dispatchBooks] = useReducer(booksReducer, initialBooksState);
@@ -20,8 +23,13 @@ const HomePage = () => {
     return (
         <div className="home-page__container">
             <div className="home-page__content">
-                <Carousela books={books} />
+                <ImagesCarousel />
             </div>
+            <div className="home-page__content center"></div>
+            <div className="home-page__content">
+                <BooksCarousel books={books} />
+            </div>
+            <CustomerInfo />
         </div>
     );
 };

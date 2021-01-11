@@ -9,13 +9,14 @@
 body {
     margin: 0;
     background: $darkBlue;
+    min-width: 350px;
 }
 
 .main__container {
     width: 100%;
-    min-height: calc(100vh - 12rem);
+    min-height: calc(100vh - 11rem);
     // height: 100vh;
-    margin-top: 12rem;
+    // margin-top: 12rem;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -25,4 +26,5 @@ body {
 .center {
     margin: 0 auto;
     max-width: 1440px;
+    min-width: 1024px;
 }

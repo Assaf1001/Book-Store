@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 
+import LoginBar from "../main/header/LoginBar";
 import Header from "../main/header/Header";
 import Footer from "../main/Footer";
 import HomePage from "../home/HomePage";
@@ -15,6 +16,7 @@ import LoginRoute from "./LoginRoute";
 const AppRouter = () => (
     <BrowserRouter>
         <LoginContextProvider>
+            <LoginBar />
             <Header />
             <Switch>
                 <Route path="/" exact>

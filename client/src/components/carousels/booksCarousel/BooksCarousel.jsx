@@ -2,17 +2,17 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-import CarouselItem from "./CarouselItem";
+import BooksCarouselItem from "./BooksCarouselItem";
 
-const Carousela = ({ books }) => {
+const BooksCarousel = ({ books }) => {
     const responsive = {
-        superLargeDesktop: {
-            // the naming can be any, depends on you.
-            breakpoint: { max: 4000, min: 3000 },
-            items: 5,
+        largeDesktop: {
+            breakpoint: { max: 4000, min: 1440 },
+            items: 8,
+            slidesToSlide: 8,
         },
         desktop: {
-            breakpoint: { min: 1024 },
+            breakpoint: { max: 1440, min: 1024 },
             items: 6,
             slidesToSlide: 6,
         },
@@ -21,22 +21,27 @@ const Carousela = ({ books }) => {
             items: 4,
             slidesToSlide: 4,
         },
+        smallTablet: {
+            breakpoint: { max: 650, min: 464 },
+            items: 3,
+            slidesToSlide: 3,
+        },
         mobile: {
             breakpoint: { max: 464, min: 0 },
-            items: 4,
-            slidesToSlide: 4,
+            items: 2,
+            slidesToSlide: 2,
         },
     };
 
     return (
-        <div className="carousel__container">
+        <div className="books-carousel__container">
             <Carousel responsive={responsive}>
                 {books.map((book) => {
-                    return <CarouselItem key={book._id} book={book} />;
+                    return <BooksCarouselItem key={book._id} book={book} />;
                 })}
             </Carousel>
         </div>
     );
 };
 
-export default Carousela;
+export default BooksCarousel;

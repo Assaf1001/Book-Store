@@ -7,7 +7,6 @@ import { deleteUserOnCookie } from "../../../cookies/cookies";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faUser,
-    faHeart,
     faHome,
     faSignInAlt,
     faSignOutAlt,

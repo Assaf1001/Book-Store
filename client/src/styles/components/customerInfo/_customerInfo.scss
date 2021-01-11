@@ -1,0 +1,41 @@
+.customer-info__continer {
+    background-color: $darkBlue;
+    height: 25rem;
+
+    h3 {
+        font-weight: 400;
+        color: $white;
+        font-size: 2.5rem;
+        margin: 3rem 1rem;
+    }
+
+    .customer-info__contnet {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 1rem;
+
+        .customer-info__item--container {
+            cursor: pointer;
+
+            .customer-info__item {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                width: 140px;
+                height: 140px;
+                background: $orange;
+                color: $lightGray;
+                border-radius: 3px;
+                font-size: 3.5rem;
+            }
+
+            p {
+                color: $lightGray;
+                text-align: center;
+                font-size: 1.2rem;
+            }
+        }
+    }
+}
