@@ -44,8 +44,8 @@ const ImagesCarousel = () => {
     return (
         <div className="images-carousel__container">
             <Carousel
-                // autoPlay={true}
-                // autoPlaySpeed={3000}
+                autoPlay={true}
+                autoPlaySpeed={3000}
                 infinite={true}
                 showDots={true}
                 responsive={responsive}
