@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { logInAction } from "../../actions/loginAction";
+import { logInAction } from "../../actions/loginActions";
 import { LoginContext } from "../../context/LoginContext";
 import { saveUserOnCookie } from "../../cookies/cookies";
 import { logIn } from "../../server/auth";
@@ -63,13 +63,14 @@ const LoginForm = (props) => {
 
     return (
         <div className="login-form">
-            <h3>LogIn</h3>
+            <h3>LOG IN</h3>
             {errorMessage !== "" && (
                 <div className="error-message">{errorMessage}</div>
             )}
             <form onSubmit={onSubmitForm}>
                 <label htmlFor="email">Enter your email</label>
                 <input
+                    className={isEmailInputValid ? "" : "input-invalid"}
                     placeholder="Email"
                     id="email"
                     onInput={onInputEmailInput}
@@ -81,6 +82,7 @@ const LoginForm = (props) => {
                 )}
                 <label htmlFor="password">Enter your password</label>
                 <input
+                    className={isPasswordInputValid ? "" : "input-invalid"}
                     placeholder="Password"
                     id="password"
                     type="password"
@@ -92,8 +94,14 @@ const LoginForm = (props) => {
                     </div>
                 )}
                 <button type="submit" disabled={isFormValid()}>
-                    Submit
+                    LOG IN
                 </button>
+                <div className="login-signup">
+                    Not a member yet?{" "}
+                    <span onClick={() => props.setIsLoginMode(false)}>
+                        SIGN UP
+                    </span>
+                </div>
             </form>
         </div>
     );

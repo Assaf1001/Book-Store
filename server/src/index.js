@@ -3,6 +3,7 @@ const cors = require("cors");
 require("./db/mongoose");
 
 const userRouter = require("./routers/userRouter");
+const bookRouter = require("./routers/bookRouter");
 
 const port = process.env.PORT;
 const app = express();
@@ -15,10 +16,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(userRouter);
-
-app.get("/", (req, res) => {
-    res.send("Server is connecet");
-});
+app.use(bookRouter);
 
 app.listen(port, () => {
     console.log("Server is connected, Port:", port);

@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import validator from "validator";
-import { logInAction } from "../../actions/loginAction";
+import { logInAction } from "../../actions/loginActions";
 import { LoginContext } from "../../context/LoginContext";
 import { saveUserOnCookie } from "../../cookies/cookies";
 import { singUp } from "../../server/auth";
 
-const SingupForm = () => {
+const SingupForm = (props) => {
     const { dispatchUserData } = useContext(LoginContext);
     const history = useHistory();
 
@@ -74,10 +74,10 @@ const SingupForm = () => {
             isEmailValid ? "" : "Email invalid",
             isPasswordValid
                 ? ""
-                : "Password must contain capital and regular characters, numbers and must have at least 8 character",
+                : "Password must contain capital character, regular character, a number and must have at least 8 characters",
             isPasswordRepeatedValid
                 ? ""
-                : "The two passwords are not identical",
+                : "The two passwords must be identical",
         ]);
         setValidInputs([
             true,
@@ -141,7 +141,7 @@ const SingupForm = () => {
 
     return (
         <div className="login-form">
-            <h3>SignUp</h3>
+            <h3>SIGN UP</h3>
             <form onSubmit={onSubmitForm}>
                 <label htmlFor="name">Enter your name</label>
                 <input
@@ -187,9 +187,15 @@ const SingupForm = () => {
                 )}
 
                 <button type="submit" disabled={isFormInvalid()}>
-                    Submit
+                    SIGN UP
                 </button>
             </form>
+            <div
+                className="login-signup"
+                onClick={() => props.setIsLoginMode(true)}
+            >
+                Already a member? <span>LOG IN</span>
+            </div>
         </div>
     );
 };

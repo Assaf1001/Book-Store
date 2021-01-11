@@ -1,1 +1,20 @@
+.home-page__container {
+    width: 100%;
+    max-width: 1440px;
+    min-width: 1024px;
+    height: calc(100vh - 12rem);
+    margin: 12rem auto 0;
 
+    .home-page__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        height: 100%;
+
+        // display: grid;
+        // grid-template-columns: repeat(3, 1fr);
+        // grid-template-rows: repeat(3, 1fr);
+        // margin: 0 1rem;s
+    }
+}

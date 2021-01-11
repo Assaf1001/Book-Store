@@ -1,5 +1,8 @@
 import React, { useContext } from "react";
 import { NavLink, useHistory } from "react-router-dom";
+import { LoginContext } from "../../../context/LoginContext";
+import { logOutAction } from "../../../actions/loginActions";
+import { deleteUserOnCookie } from "../../../cookies/cookies";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,22 +11,22 @@ import {
     faHome,
     faSignInAlt,
     faSignOutAlt,
+    faEnvelope,
+    faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import { LoginContext } from "../../../context/LoginContext";
-import { logOutAction } from "../../../actions/loginAction";
-import { deleteUserOnCookie } from "../../../cookies/cookies";
+
+const icons = {
+    user: <FontAwesomeIcon icon={faUser} />,
+    home: <FontAwesomeIcon icon={faHome} />,
+    logIn: <FontAwesomeIcon icon={faSignInAlt} />,
+    logOut: <FontAwesomeIcon icon={faSignOutAlt} />,
+    contactUs: <FontAwesomeIcon icon={faEnvelope} />,
+    help: <FontAwesomeIcon icon={faInfoCircle} />,
+};
 
 const LoginBar = () => {
     const { userData, dispatchUserData } = useContext(LoginContext);
     const history = useHistory();
-
-    const icons = {
-        user: <FontAwesomeIcon icon={faUser} />,
-        heart: <FontAwesomeIcon icon={faHeart} />,
-        home: <FontAwesomeIcon icon={faHome} />,
-        logIn: <FontAwesomeIcon icon={faSignInAlt} />,
-        logOut: <FontAwesomeIcon icon={faSignOutAlt} />,
-    };
 
     const onClickLogout = () => {
         dispatchUserData(logOutAction());
@@ -36,28 +39,32 @@ const LoginBar = () => {
             <div className="login-bar center">
                 <div className="general">
                     <NavLink to="/home" activeClassName="login-active">
-                        <span>{icons.home}</span> Home
+                        <span>{icons.home}</span> HOME
+                    </NavLink>
+                    <NavLink to="/contactUs" activeClassName="login-active">
+                        <span>{icons.contactUs}</span> CONTACT US
+                    </NavLink>
+                    <NavLink to="/help" activeClassName="login-active">
+                        <span>{icons.help}</span> HELP
                     </NavLink>
                 </div>
                 {!!userData.user && (
-                    <span>~~~~~~ Hi {userData.user.name}! ~~~~~~</span>
+                    <span className="greeting">
+                        ~~~~~~ Hi {userData.user.name.toUpperCase()}! ~~~~~~
+                    </span>
                 )}
                 <div className="user">
-                    <NavLink to="/wishList" activeClassName="login-active">
-                        <span>{icons.heart}</span> Wish List
-                    </NavLink>
-
                     <NavLink to="/myAccount" activeClassName="login-active">
-                        <span>{icons.user}</span> My Account
+                        <span>{icons.user}</span> MY ACCOUNT
                     </NavLink>
 
                     {!userData.user ? (
                         <NavLink to="/login" activeClassName="login-active">
-                            <span>{icons.logIn}</span> LogIn/SignUp
+                            <span>{icons.logIn}</span> LOG-IN / SIGN-UP
                         </NavLink>
                     ) : (
                         <div className="logout" onClick={onClickLogout}>
-                            <span>{icons.logOut}</span> LogOut
+                            <span>{icons.logOut}</span> LOG-OUT
                         </div>
                     )}
                 </div>

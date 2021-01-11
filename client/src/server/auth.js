@@ -13,7 +13,7 @@ export const singUp = async ({ name, email, password }) => {
         };
     } catch (err) {
         if (err.message.includes(400)) {
-            throw new Error("Email exist");
+            throw new Error("Email exist"); ///////
         }
     }
 };

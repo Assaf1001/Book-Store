@@ -1,9 +1,74 @@
 .search-bar__container {
-    height: 4rem;
+    height: 6rem;
     width: 100%;
-    background: $orange;
-}
+    background: $darkBlue;
 
-.search-bar {
-    display: flex;
+    .search-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+        a {
+            img {
+                width: 260px;
+                margin-left: 1rem;
+            }
+        }
+    }
+
+    .search__container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 50%;
+        height: 3rem;
+        form {
+            display: flex;
+            width: 100%;
+            .input__container {
+                width: 70%;
+                height: 3rem;
+                background-color: $white;
+                span {
+                    margin: 0 1rem;
+                }
+                input {
+                    height: 100%;
+                    width: calc(100% - 3rem);
+                    border: none;
+                    &:focus {
+                        outline: none;
+                    }
+                }
+                ::placeholder {
+                    color: $orange;
+                }
+            }
+            button {
+                height: 3rem;
+                margin-left: 2rem;
+                padding: 0 3.5rem;
+                background: $orange;
+                border: none;
+                font-size: 1.2rem;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .filter__container {
+        display: flex;
+        align-items: center;
+        color: $orange;
+        margin-right: 1rem;
+        h4 {
+            margin: 0 1rem;
+            font-size: 1.2rem;
+        }
+        &:hover {
+            cursor: pointer;
+        }
+    }
 }

@@ -1,45 +1,52 @@
 .login-bar__container {
-    height: 2rem;
+    height: 3rem;
     width: 100%;
-    background: $darkOrange;
-}
+    background: $lightBlue;
 
-.login-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
+    .login-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
 
-    a {
-        margin: 0 1rem;
-        color: $black;
-        text-decoration: none;
-        &:hover {
-            span {
+        a {
+            font-size: 1.2rem;
+            margin: 0 1rem;
+            color: $black;
+            text-decoration: none;
+            &:hover {
                 color: $white;
+            }
+            span {
+                font-size: 1.2rem;
+            }
+        }
+
+        .login-active {
+            color: $white;
+        }
+
+        .logout {
+            margin: 0 1rem;
+            color: $black;
+            font-size: 1.2rem;
+            &:hover {
+                cursor: pointer;
+                span {
+                    color: $white;
+                }
             }
         }
     }
 
-    .login-active {
-        color: $white;
+    .greeting {
+        font-size: 1.2rem;
     }
 
-    .logout {
-        margin: 0 1rem;
-        color: $black;
-        &:hover {
-            cursor: pointer;
-            span {
-                color: $white;
-            }
-        }
+    .user {
+        display: flex;
     }
-}
 
-.user {
-    display: flex;
+    // .general {
+    // }
 }
-
-// .general {
-// }
