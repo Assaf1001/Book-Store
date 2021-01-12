@@ -3,6 +3,21 @@
     width: 100%;
     margin-top: 1rem;
 
+    .react-multiple-carousel__arrow {
+        height: 60px;
+        width: 60px;
+        background: $lightBlueOpacity;
+        z-index: 5;
+    }
+
+    .react-multiple-carousel__arrow::before {
+        font-size: 30px;
+    }
+
+    .react-multiple-carousel__arrow:hover {
+        background: $lightBlue;
+    }
+
     .react-multi-carousel-dot button {
         width: 25px;
         height: 25px;

@@ -7,8 +7,7 @@ import CustomerInfo from "../customerInfo/CustomerInfo";
 import BooksCarousel from "../carousels/booksCarousel/BooksCarousel";
 import ImagesCarousel from "../carousels/imagesCarousel/ImagesCarousel";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import HomePageBox from "./HomePageBox";
 
 const HomePage = () => {
     const [books, dispatchBooks] = useReducer(booksReducer, initialBooksState);
@@ -43,8 +42,8 @@ const HomePage = () => {
         {
             largeDesktop: {
                 breakpoint: { max: 8000, min: 1440 },
-                items: 8,
-                slidesToSlide: 8,
+                items: 6,
+                slidesToSlide: 6,
             },
             desktop: {
                 breakpoint: { max: 1440, min: 1024 },
@@ -68,7 +67,6 @@ const HomePage = () => {
             },
         },
     ];
-    const title = { best: "BEST OF 2020", sale: "MANGA SALE" };
 
     useEffect(() => {
         getBooksFromDB()
@@ -85,99 +83,88 @@ const HomePage = () => {
             <div className="home-page__content">
                 <ImagesCarousel />
             </div>
-            <div className="home-page__content center middle">
-                <div className="home-page__content--row">
-                    <div className="carousel__container">
-                        <h2>BEST OF 2020</h2>
-                        <BooksCarousel
-                            responsive={responsive[0]}
-                            books={books}
-                        />
-                        <button className="view-more__button">
-                            VIEW MORE <FontAwesomeIcon icon={faChevronRight} />
-                        </button>
+            <div className="home-page__content center">
+                <div className="main-middle">
+                    <div className="home-page__content--row">
+                        <div className="content-left">
+                            <HomePageBox
+                                class={"carousel__container"}
+                                header={"BEST OF 2020"}
+                                url={"/"}
+                            >
+                                <BooksCarousel
+                                    responsive={responsive[0]}
+                                    books={books}
+                                />
+                            </HomePageBox>
+                        </div>
+                        <div className="content-right">
+                            <HomePageBox></HomePageBox>
+                        </div>
                     </div>
-                </div>
-                <div className="home-page__content--row-right">
-                    {/* <div className="carousel__container section2">
-                        <h2>2</h2>
-                        <div>
-                            Lorem ipsum, dolor sit amet consectetur adipisicing
-                            elit. Rem velit dolorum distinctio ea quos quo qui
-                            magnam hic quod beatae nulla aperiam saepe, vero ex
-                            porro recusandae expedita dicta magni cumque
-                            molestiae possimus? Animi, corporis. Atque totam
-                            rerum dolor porro! Harum nostrum delectus neque
-                            optio recusandae iste quae et nobis incidunt
-                            tenetur, dicta totam fugit corporis, sit porro quasi
-                            dignissimos dolorum repellat modi eligendi, ipsum
-                            temporibus officia eius. Ex animi repellendus ut!
-                            Consectetur laboriosam voluptatibus, rerum,
-                            distinctio accusamus maiores, hic corporis et a
-                            pariatur perferendis voluptatum facilis quas. Rerum
-                            hic velit repudiandae blanditiis possimus fugiat
-                            voluptas sit consequatur commodi porro.
+
+                    <div className="home-page__content--row">
+                        <div className="content-left">
+                            <HomePageBox
+                                class={"box3"}
+                                header={"MANGA"}
+                                url={"/"}
+                            >
+                                <p className="text">
+                                    <b>What is manga?</b> Manga is an umbrella
+                                    term for a wide variety of comic books and
+                                    graphic novels originally produced and
+                                    published in Japan. Unlike American comic
+                                    books, which are usually printed in full
+                                    color, Japanese manga is almost always black
+                                    and white. Full-color prints are often only
+                                    used for special releases. <br />
+                                    <br />
+                                    Japanese manga is read right-to-left rather
+                                    than left-to-right, which is the norm for
+                                    English language publications. This can take
+                                    some getting used to if you have only ever
+                                    read English publications as it often feels
+                                    like you’re "reading backwards," but you
+                                    will hardly notice once you’ve practiced
+                                    enough. <br /> <br /> In Japan, a lot of
+                                    manga are released on a monthly or a weekly
+                                    chapter-by-chapter basis through manga
+                                    magazines such as Weekly Shōnen Jump, which
+                                    has been in circulation since 1968. If a
+                                    series is popular enough, its chapters are
+                                    then collected and published into volumes
+                                    called tankōbon volumes, which usually
+                                    feature a few chapters of the overall story.
+                                    <br />
+                                    <br />
+                                    Most manga series are long-running and can
+                                    span multiple volumes. This is something to
+                                    keep in mind when starting a new series as
+                                    it is imperative you read the volumes in the
+                                    correct order. This might be easier for
+                                    small series, such as Naoko Takeuchi's
+                                    Sailor Moon, which only has 12 volumes,
+                                    versus longer-running series such as Akira
+                                    Toriyama's Dragon Ball, which has 42
+                                    volumes.
+                                </p>
+                            </HomePageBox>
                         </div>
-                        <button className="view-more__button">
-                            VIEW MORE <FontAwesomeIcon icon={faChevronRight} />
-                        </button>
-                    </div> */}
-                </div>
-                <div className="home-page__content--row">
-                    <div className="carousel__container section2">
-                        <h2>MANGA</h2>
-                        <div>
-                            Lorem ipsum, dolor sit amet consectetur adipisicing
-                            elit. Rem velit dolorum distinctio ea quos quo qui
-                            magnam hic quod beatae nulla aperiam saepe, vero ex
-                            porro recusandae expedita dicta magni cumque
-                            molestiae possimus? Animi, corporis. Atque totam
-                            rerum dolor porro! Harum nostrum delectus neque
-                            optio recusandae iste quae et nobis incidunt
-                            tenetur, dicta totam fugit corporis, sit porro quasi
-                            dignissimos dolorum repellat modi eligendi, ipsum
-                            temporibus officia eius. Ex animi repellendus ut!
-                            Consectetur laboriosam voluptatibus, rerum,
-                            distinctio accusamus maiores, hic corporis et a
-                            pariatur perferendis voluptatum facilis quas. Rerum
-                            hic velit repudiandae blanditiis possimus fugiat
-                            voluptas sit consequatur commodi porro.
+                        <div className="content-right">
+                            <HomePageBox></HomePageBox>
                         </div>
-                        <button className="view-more__button">
-                            VIEW MORE <FontAwesomeIcon icon={faChevronRight} />
-                        </button>
                     </div>
-                </div>
-                <div className="home-page__content--row-right">
-                    {/* <div className="carousel__container section2">
-                        <h2>4</h2>
-                        <div>
-                            Lorem ipsum, dolor sit amet consectetur adipisicing
-                            elit. Rem velit dolorum distinctio ea quos quo qui
-                            magnam hic quod beatae nulla aperiam saepe, vero ex
-                            porro recusandae expedita dicta magni cumque
-                            molestiae possimus? Animi, corporis. Atque totam
-                            rerum dolor porro! Harum nostrum delectus neque
-                            optio recusandae iste quae et nobis incidunt
-                            tenetur, dicta totam fugit corporis, sit porro quasi
-                            dignissimos dolorum repellat modi eligendi, ipsum
-                            temporibus officia eius. Ex animi repellendus ut!
-                            Consectetur laboriosam voluptatibus, rerum,
-                            distinctio accusamus maiores, hic corporis et a
-                            pariatur perferendis voluptatum facilis quas. Rerum
-                            hic velit repudiandae blanditiis possimus fugiat
-                            voluptas sit consequatur commodi porro.
-                        </div>
-                        <button className="view-more__button">
-                            VIEW MORE <FontAwesomeIcon icon={faChevronRight} />
-                        </button>
-                    </div> */}
                 </div>
             </div>
-            <div className="home-page__content">
-                {/* <div className="carousel__container"> */}
-                <BooksCarousel responsive={responsive[1]} books={books} />
-                {/* </div> */}
+            <div className="on-sale__container">
+                <HomePageBox
+                    class={"carousel__container on-sale center"}
+                    header={"ON SALE"}
+                    url={"/"}
+                >
+                    <BooksCarousel responsive={responsive[1]} books={books} />
+                </HomePageBox>
             </div>
             <CustomerInfo />
         </div>
