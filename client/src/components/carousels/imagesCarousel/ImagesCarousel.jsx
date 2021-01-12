@@ -23,7 +23,7 @@ const imageData = [
             "https://a-static.besthdwallpaper.com/sword-art-online-alicization-alice-synthesis-thirty-eugeo-kirito-wallpaper-1920x1080-18491_48.jpg",
         text: "New MANGA is on the way",
         button: "COMING SOON",
-        textColor: "black",
+        textColor: "white",
     },
     {
         img: "https://wallpapercave.com/wp/fB42Y0H.jpg",

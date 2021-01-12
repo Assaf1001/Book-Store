@@ -23,14 +23,14 @@ const BooksCarouselItem = ({ book }) => (
         <h6>{book.price}$</h6>
         <div className="buttons-container">
             <div className="top-button">
-                <p>VIEW {icons.view}</p>
+                <p>{icons.view} VIEW</p>
             </div>
             <div className="bottom-container">
                 <div className="bottom-button">
-                    <p>WISH {icons.wishList}</p>
+                    <p>{icons.wishList} WISH</p>
                 </div>
                 <div className="bottom-button __2">
-                    <p>ADD {icons.cart}</p>
+                    <p>{icons.cart} ADD</p>
                 </div>
             </div>
         </div>

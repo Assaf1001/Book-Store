@@ -1,8 +1,6 @@
 .images-carousel__container {
     height: 60vh;
     width: 100%;
-    // min-width: 400px;
-    // min-height: 400px;
     margin-top: 1rem;
 
     .react-multi-carousel-dot button {
@@ -18,7 +16,6 @@
     .images-carousel__item {
         display: flex;
         flex-direction: column;
-        // justify-content: center;
         align-items: center;
 
         height: 60vh;
@@ -32,6 +29,7 @@
             bottom: 110px;
             font-size: 3.5rem;
             font-weight: 500;
+            text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
         }
 
         button {
@@ -42,10 +40,19 @@
             color: $darkBlue;
             border: none;
             padding: 0.5rem 1rem;
+            box-shadow: 3px 3px 10px 4px rgba(0, 0, 0, 0.3);
 
             span {
                 padding-left: 0.2rem;
             }
+        }
+    }
+
+    @media screen and (max-width: 375px) {
+        height: 30vh;
+
+        .images-carousel__item {
+            height: 30vh;
         }
     }
 }
