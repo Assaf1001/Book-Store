@@ -52,6 +52,7 @@ const ImagesCarousel = () => {
             >
                 {imageData.map((image) => (
                     <ImagesCarouselItem
+                        key={imageData.indexOf(image)}
                         image={image.img}
                         text={image.text}
                         button={image.button}

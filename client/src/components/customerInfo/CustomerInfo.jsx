@@ -24,15 +24,15 @@ const icons = {
 const infoData = [
     {
         icon: icons.shipping,
-        text: "SHIPPING",
+        text: <p> SHIPPING</p>,
     },
     {
         icon: icons.payment,
-        text: "PAYMENT",
+        text: <p> PAYMENT</p>,
     },
     {
         icon: icons.returns,
-        text: "RETURNS",
+        text: <p> RETURNS</p>,
     },
     {
         icon: icons.privacy,
@@ -44,7 +44,7 @@ const infoData = [
     },
     {
         icon: icons.faq,
-        text: "FAQ",
+        text: <p> FAQ</p>,
     },
     {
         icon: icons.find,

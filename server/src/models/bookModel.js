@@ -6,6 +6,7 @@ const bookSchmea = new mongoose.Schema(
         title: { type: String, required: true, unique: true },
         author: { type: String, required: true },
         price: { type: Number, min: 1, required: true },
+        discountInPercentage: { type: Number, min: 1 },
         category: { type: String },
         details: {
             year: { type: Number },
@@ -14,7 +15,7 @@ const bookSchmea = new mongoose.Schema(
             publisher: { type: String },
             bestSellersRank: { type: String },
             language: { type: String },
-            descrition: { type: String },
+            description: { type: String },
         },
     },
     {

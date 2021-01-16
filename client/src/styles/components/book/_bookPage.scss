@@ -1,0 +1,139 @@
+.book-page__container {
+    width: 100%;
+
+    .book-page__contnet {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        margin: 4rem 1rem 6rem;
+
+        .book {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            background-color: $lightGray;
+            padding: 1rem;
+            .imgae__container {
+                display: flex;
+                justify-content: center;
+                align-self: flex-start;
+                width: 30%;
+                height: 100%;
+                img {
+                    margin-top: 2rem;
+                    height: 35vw;
+                    max-height: 530px;
+                }
+            }
+
+            .book__content {
+                width: 70%;
+                position: relative;
+                h1 {
+                    font-size: 2.5rem;
+                    margin-bottom: 0;
+                    font-weight: 400;
+                }
+                h2 {
+                    font-size: 1.5rem;
+                    margin: 0.2rem 0 0;
+                }
+                h6 {
+                    margin: 0.8rem 0 1rem;
+                    font-size: 1.5rem;
+                    font-weight: 200;
+                }
+                .price-cart {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    position: absolute;
+                    right: 2.5rem;
+                    top: 2.5rem;
+                    border: 1px solid $lightBlue;
+                    background: #ececec;
+                    width: 30%;
+                    min-width: 274px;
+                    padding: 2rem;
+
+                    h3 {
+                        font-size: 2rem;
+                        font-weight: 400;
+                        margin: 0;
+                    }
+                    h4 {
+                        font-size: 1.1rem;
+                        font-weight: 300;
+                        margin: 0.5rem 0;
+                    }
+                    .buttons__container {
+                        border: 1px solid $black;
+                        box-shadow: 2px 2px 8px 3px rgba(0, 0, 0, 0.2);
+                        margin-top: 0.5rem;
+                        button {
+                            height: 2.5rem;
+                            background: $lightBlue;
+                            border: none;
+                            font-size: 1.1rem;
+                            padding: 0 0.5rem;
+
+                            &:hover {
+                                cursor: pointer;
+                            }
+                            &:focus {
+                                outline: none;
+                            }
+                            span {
+                                margin-right: 0.3rem;
+                            }
+                        }
+                        .wishlist-button {
+                            background: $white;
+                            padding: 0 1rem;
+                            border-right: 1px solid $black;
+                        }
+                    }
+                }
+                h4 {
+                    font-size: 1.8rem;
+                    font-weight: 400;
+                    margin: 0;
+                }
+                p {
+                    width: calc(90% - 274px);
+                    margin-top: 0.5rem;
+                    font-size: 1.1rem;
+                }
+
+                .book__details {
+                    margin: 0.5rem 0 1rem;
+                    h5 {
+                        margin: 0 0 0.5rem;
+                        font-size: 1.1rem;
+                    }
+                }
+            }
+        }
+    }
+
+    .carousel__container-header {
+        font-size: 3rem;
+        margin: 0;
+        text-align: center;
+        color: $orange;
+    }
+
+    .carousel__container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0.2rem 1rem 3rem;
+        padding: 2rem 0;
+        background: $lightGray;
+    }
+}

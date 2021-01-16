@@ -8,14 +8,11 @@
         align-items: center;
         height: 100%;
 
-        // border: 2px solid red;
-
         .main-middle {
             padding: 0 1rem;
             display: flex;
-            // height: 1026px;
             width: 100%;
-            margin: 3rem 0;
+            margin: 3rem 0 2rem;
             flex-direction: row;
             flex-wrap: wrap;
 
@@ -89,18 +86,18 @@
             color: $orange;
         }
     }
+}
 
-    .view-more__button {
-        font-size: 1.2rem;
-        background-color: $lightBlue;
-        color: $darkBlue;
-        padding: 0.5rem 1rem;
-        margin-top: 2rem;
-        box-shadow: 2px 2px 8px 3px rgba(0, 0, 0, 0.2);
-        cursor: pointer;
+.view-more__button {
+    font-size: 1.2rem;
+    background-color: $lightBlue;
+    color: $darkBlue;
+    padding: 0.5rem 1rem;
+    margin-top: 2rem;
+    box-shadow: 2px 2px 8px 3px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 
-        &:focus {
-            outline: none;
-        }
+    &:focus {
+        outline: none;
     }
 }

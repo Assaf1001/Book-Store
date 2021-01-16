@@ -12,6 +12,7 @@ import PrivateRoute from "./PrivateRoute";
 import WishListPage from "../wishList/WishListPage";
 import MyAccountPage from "../account/MyAccountPage";
 import LoginRoute from "./LoginRoute";
+import BookPage from "../book/BookPage";
 
 const AppRouter = () => (
     <BrowserRouter>
@@ -28,6 +29,8 @@ const AppRouter = () => (
 
                 <PrivateRoute path="/myAccount" component={MyAccountPage} />
                 <LoginRoute path="/login" component={LoginPage} />
+
+                <Route path="/book/:id" component={BookPage} />
 
                 <Route path="/bestSellers" />
                 <Route path="/newReleases" />

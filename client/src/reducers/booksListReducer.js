@@ -1,6 +1,6 @@
-export const initialBooksState = [];
+export const initialBooksListState = [];
 
-const booksReducer = (books, action) => {
+const booksListReducer = (books, action) => {
     switch (action.type) {
         case "INIT":
             return [...action.books];
@@ -9,4 +9,4 @@ const booksReducer = (books, action) => {
     }
 };
 
-export default booksReducer;
+export default booksListReducer;

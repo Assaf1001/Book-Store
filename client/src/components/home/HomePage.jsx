@@ -1,7 +1,9 @@
 import React, { useEffect, useReducer } from "react";
-import { setBooksAction } from "../../actions/booksActions";
-import booksReducer, { initialBooksState } from "../../reducers/booksReducer";
-import { getBooksFromDB } from "../../server/DB";
+import { setBooksListAction } from "../../actions/booksListActions";
+import booksListReducer, {
+    initialBooksListState,
+} from "../../reducers/booksListReducer";
+import { getBooksByFieldAndValue, getDicountedBooks } from "../../server/DB";
 import CustomerInfo from "../customerInfo/CustomerInfo";
 
 import BooksCarousel from "../carousels/booksCarousel/BooksCarousel";
@@ -10,7 +12,14 @@ import ImagesCarousel from "../carousels/imagesCarousel/ImagesCarousel";
 import HomePageBox from "./HomePageBox";
 
 const HomePage = () => {
-    const [books, dispatchBooks] = useReducer(booksReducer, initialBooksState);
+    const [booksList, dispatchBooksList] = useReducer(
+        booksListReducer,
+        initialBooksListState
+    );
+    const [discountedBooksList, dispatchDicountedBooksList] = useReducer(
+        booksListReducer,
+        initialBooksListState
+    );
     const responsive = [
         {
             largeDesktop: {
@@ -69,9 +78,25 @@ const HomePage = () => {
     ];
 
     useEffect(() => {
-        getBooksFromDB()
+        // getBooks()
+        //     .then((booksData) => {
+        //         dispatchBooks(setBooksAction(booksData));
+        //     })
+        //     .catch((err) => {
+        //         console.log(err.message);
+        //     });
+
+        getBooksByFieldAndValue("author", "hajime isayama")
             .then((booksData) => {
-                dispatchBooks(setBooksAction(booksData));
+                dispatchBooksList(setBooksListAction(booksData));
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+
+        getDicountedBooks()
+            .then((booksData) => {
+                dispatchDicountedBooksList(setBooksListAction(booksData));
             })
             .catch((err) => {
                 console.log(err.message);
@@ -94,12 +119,12 @@ const HomePage = () => {
                             >
                                 <BooksCarousel
                                     responsive={responsive[0]}
-                                    books={books}
+                                    books={booksList}
                                 />
                             </HomePageBox>
                         </div>
                         <div className="content-right">
-                            <HomePageBox></HomePageBox>
+                            <HomePageBox url={"/"}></HomePageBox>
                         </div>
                     </div>
 
@@ -152,7 +177,7 @@ const HomePage = () => {
                             </HomePageBox>
                         </div>
                         <div className="content-right">
-                            <HomePageBox></HomePageBox>
+                            <HomePageBox url={"/"}></HomePageBox>
                         </div>
                     </div>
                 </div>
@@ -163,7 +188,10 @@ const HomePage = () => {
                     header={"ON SALE"}
                     url={"/"}
                 >
-                    <BooksCarousel responsive={responsive[1]} books={books} />
+                    <BooksCarousel
+                        responsive={responsive[1]}
+                        books={discountedBooksList}
+                    />
                 </HomePageBox>
             </div>
             <CustomerInfo />
