@@ -17,17 +17,18 @@ const GenrePage = (props) => {
         initialBooksListState
     );
     const [pageBooksList, setPageBooksList] = useState(booksList);
+    const [filterArray, setFilterArray] = useState(["", "All", "All", "All"]);
 
     const setFilterOptions = (field, innerField) => {
-        const filterArray = [];
+        const filterOptionsArray = [];
 
         return pageBooksList.map((book) => {
             const filterString = innerField
                 ? book[field][innerField]
                 : book[field];
 
-            if (!filterArray.includes(filterString)) {
-                filterArray.push(filterString);
+            if (!filterOptionsArray.includes(filterString)) {
+                filterOptionsArray.push(filterString);
                 return <option key={book._id}>{filterString}</option>;
             }
             return null;
@@ -35,6 +36,7 @@ const GenrePage = (props) => {
     };
 
     useEffect(() => {
+        window.scroll(0, 0);
         getBooksByFieldAndValue("category", genre).then((booksListData) => {
             dispatchBooksList(setBooksListAction(booksListData));
             setPageBooksList(booksListData);
@@ -48,31 +50,73 @@ const GenrePage = (props) => {
                 <div className="filter-form">
                     <form>
                         <label htmlFor="title">Title</label>
-                        <input type="text" id="title" />
-                        <label htmlFor="author">Author</label>
-                        <select
-                            onChange={(event) =>
+                        <input
+                            onInput={(event) => {
+                                const newFilterArray = [...filterArray];
+                                newFilterArray[0] = event.target.value;
+                                setFilterArray(newFilterArray);
                                 dispatchBooksList(
                                     filterBooksListAction(
                                         pageBooksList,
-                                        "author",
-                                        event.target.value
+                                        newFilterArray
                                     )
-                                )
-                            }
+                                );
+                            }}
+                            type="text"
+                            id="title"
+                        />
+                        <label htmlFor="author">Author</label>
+                        <select
+                            onChange={(event) => {
+                                const newFilterArray = [...filterArray];
+                                newFilterArray[1] = event.target.value;
+                                setFilterArray(newFilterArray);
+                                dispatchBooksList(
+                                    filterBooksListAction(
+                                        pageBooksList,
+                                        newFilterArray
+                                    )
+                                );
+                            }}
                             id="author"
                         >
                             <option value="All">All</option>
                             {setFilterOptions("author")}
                         </select>
                         <label htmlFor="genre">Genre</label>
-                        <select id="genre">
-                            <option value="all">All</option>
+                        <select
+                            onChange={(event) => {
+                                const newFilterArray = [...filterArray];
+                                newFilterArray[2] = event.target.value;
+                                setFilterArray(newFilterArray);
+                                dispatchBooksList(
+                                    filterBooksListAction(
+                                        pageBooksList,
+                                        newFilterArray
+                                    )
+                                );
+                            }}
+                            id="genre"
+                        >
+                            <option value="All">All</option>
                             {setFilterOptions("category")}
                         </select>
                         <label htmlFor="language">Language</label>
-                        <select id="language">
-                            <option value="all">All</option>
+                        <select
+                            onChange={(event) => {
+                                const newFilterArray = [...filterArray];
+                                newFilterArray[3] = event.target.value;
+                                setFilterArray(newFilterArray);
+                                dispatchBooksList(
+                                    filterBooksListAction(
+                                        pageBooksList,
+                                        newFilterArray
+                                    )
+                                );
+                            }}
+                            id="language"
+                        >
+                            <option value="All">All</option>
                             {setFilterOptions("details", "language")}
                         </select>
                         <label htmlFor="price-range">Price Range</label>

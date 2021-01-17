@@ -3,9 +3,14 @@ export const setBooksListAction = (books) => ({
     books,
 });
 
-export const filterBooksListAction = (pageBooksList, field, value) => ({
+export const filterBooksListAction = (pageBooksList, filterArray) => ({
     type: "FILTER",
     pageBooksList,
-    field,
-    value,
+    filterArray,
 });
+// export const filterBooksListAction = (pageBooksList, field, value) => ({
+//     type: "FILTER",
+//     pageBooksList,
+//     field,
+//     value,
+// });
