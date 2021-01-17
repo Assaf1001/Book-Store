@@ -78,14 +78,6 @@ const HomePage = () => {
     ];
 
     useEffect(() => {
-        // getBooks()
-        //     .then((booksData) => {
-        //         dispatchBooks(setBooksAction(booksData));
-        //     })
-        //     .catch((err) => {
-        //         console.log(err.message);
-        //     });
-
         getBooksByFieldAndValue("author", "hajime isayama")
             .then((booksData) => {
                 dispatchBooksList(setBooksListAction(booksData));

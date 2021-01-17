@@ -1,7 +1,9 @@
 .login-bar__container {
+    position: relative;
     height: 3rem;
     width: 100%;
     background: $lightBlue;
+    z-index: 11;
 
     .login-bar {
         display: flex;

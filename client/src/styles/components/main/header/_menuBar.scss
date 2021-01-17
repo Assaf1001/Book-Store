@@ -10,7 +10,9 @@
         height: 100%;
         color: $black;
 
-        a {
+        a,
+        h3 {
+            display: inline-block;
             font-size: 1.2rem;
             margin: 0 1rem;
             color: $black;
@@ -27,5 +29,74 @@
         .menu-active {
             color: $lightBlue;
         }
+
+        .dropdown-menu {
+            display: inline-block;
+            position: relative;
+            color: $black;
+            h3 {
+                svg {
+                    // transform: rotateY(180deg);
+                }
+                &:hover {
+                    color: $lightBlue;
+                }
+            }
+            span {
+                font-size: 1.2rem;
+            }
+
+            ul {
+                position: absolute;
+                top: 20px;
+                width: 130px;
+                background: $lightGray;
+
+                margin: 1rem 0;
+                padding: 0 1rem;
+                list-style: none;
+                opacity: 0.95;
+                transform: translateY(-120%);
+                z-index: -1;
+
+                li {
+                    font-size: 1.2rem;
+                    margin: 0.5rem 0;
+
+                    a {
+                        margin: 0;
+                        &:hover {
+                            color: $black;
+                            text-decoration: $lightBlue underline 2px;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @keyframes slide-down {
+        0% {
+            transform: translateY(-120%);
+        }
+        100% {
+            transform: translateY(0px);
+        }
+    }
+    @keyframes slide-up {
+        0% {
+            transform: translateY(0px);
+        }
+        100% {
+            transform: translateY(-120%);
+        }
+    }
+
+    .animate__slide-down {
+        animation: slide-down 0.6s ease-out forwards;
+    }
+    .animate__slide-up {
+        animation: slide-up 0.6s ease-out forwards;
     }
 }
