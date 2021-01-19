@@ -8,9 +8,3 @@ export const filterBooksListAction = (pageBooksList, filterArray) => ({
     pageBooksList,
     filterArray,
 });
-// export const filterBooksListAction = (pageBooksList, field, value) => ({
-//     type: "FILTER",
-//     pageBooksList,
-//     field,
-//     value,
-// });

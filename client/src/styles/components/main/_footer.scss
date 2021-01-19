@@ -2,4 +2,77 @@
     width: 100%;
     height: 20rem;
     background: $lightBlue;
+
+    .footer__content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding-top: 4rem;
+
+        a {
+            display: block;
+            font-size: 1.1rem;
+            text-decoration: none;
+            color: $black;
+            margin: 0.5rem 0;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .section1 {
+            a {
+                img {
+                    width: 260px;
+                    margin-left: 1rem;
+                }
+            }
+        }
+
+        .section4 {
+            width: 35%;
+
+            p {
+                font-size: 1.1rem;
+                margin-top: 0.2rem;
+                line-height: 1.8;
+            }
+            form {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                height: 2.3rem;
+                border: 2px solid $black;
+                background: $white;
+
+                input {
+                    width: 100%;
+                    border: none;
+                    padding-left: 1rem;
+
+                    &:focus {
+                        outline: none;
+                    }
+                }
+                ::placeholder {
+                    color: $orange;
+                }
+                button {
+                    border: none;
+                    border-left: 2px solid #ccc;
+                    height: 100%;
+                    padding: 0 1.5rem;
+                    background: $white;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                    &:focus {
+                        outline: none;
+                    }
+                }
+            }
+        }
+    }
 }

@@ -25,7 +25,10 @@ const booksListReducer = (booksState, action) => {
                     (filterArray[3] === "All" ||
                         book.details.language
                             .toLowerCase()
-                            .includes(filterArray[3].toLowerCase()))
+                            .includes(filterArray[3].toLowerCase())) &&
+                    (Object.keys(filterArray[4]).length === 0 ||
+                        (book.price >= filterArray[4].min &&
+                            book.price <= filterArray[4].max))
             );
             return newBooksState;
 

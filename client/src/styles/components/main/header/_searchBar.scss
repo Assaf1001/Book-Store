@@ -54,11 +54,14 @@
                 &:hover {
                     cursor: pointer;
                 }
+                &:focus {
+                    outline: none;
+                }
             }
         }
     }
 
-    .filter__container {
+    .filter-by__container {
         display: flex;
         align-items: center;
         color: $orange;
