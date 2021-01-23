@@ -42,7 +42,7 @@ export const getBooksByFieldAndValue = async (field, value) => {
 
 export const getBookByID = async (bookId) => {
     try {
-        const res = await Axios.get(`${booksURL}/${bookId}`);
+        const res = await Axios.get(`${booksURL}/id/${bookId}`);
 
         return res.data;
     } catch (err) {

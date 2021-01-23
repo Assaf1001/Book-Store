@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -6,7 +6,9 @@ import {
     faHeart,
     faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { LoginContext } from "../../../context/LoginContext";
+import { addBookToCart } from "../../../server/user";
 
 const icons = {
     view: <FontAwesomeIcon icon={faEye} />,
@@ -15,6 +17,9 @@ const icons = {
 };
 
 const BooksCarouselItem = ({ book }) => {
+    const { userData } = useContext(LoginContext);
+    const history = useHistory();
+
     const calculateDiscount = (price, discount) =>
         price - (price * discount) / 100;
 
@@ -57,7 +62,17 @@ const BooksCarouselItem = ({ book }) => {
                     <div className="bottom-button">
                         <p>{icons.wishList} WISH</p>
                     </div>
-                    <div className="bottom-button __2">
+                    <div
+                        onClick={() => {
+                            if (userData.user) {
+                                addBookToCart(book._id, userData.token);
+                                console.log("added");
+                            } else {
+                                history.push("/myAccount");
+                            }
+                        }}
+                        className="bottom-button __2"
+                    >
                         <p>{icons.cart} ADD</p>
                     </div>
                 </div>

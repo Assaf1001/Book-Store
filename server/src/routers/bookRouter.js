@@ -1,5 +1,5 @@
 const express = require("express");
-// const auth = require("../middleware/auth");
+const auth = require("../middleware/auth");
 const Book = require("../models/bookModel");
 
 const router = new express.Router();
@@ -84,7 +84,7 @@ router.get("/books/find", async (req, res) => {
 });
 
 // Get Book by id
-router.get("/books/:id", async (req, res) => {
+router.get("/books/id/:id", async (req, res) => {
     const _id = req.params.id;
     try {
         const book = await Book.findOne({ _id });

@@ -15,6 +15,7 @@ import LoginRoute from "./LoginRoute";
 import BookPage from "../book/BookPage";
 import SearchResultPage from "../searchResult/SearchResultPage";
 import GenrePage from "../genres/GenrePage";
+import CartPage from "../cart/CartPage";
 
 const AppRouter = () => (
     <BrowserRouter>
@@ -44,7 +45,7 @@ const AppRouter = () => (
                 <Route path="/coomingSoon" />
 
                 <PrivateRoute path="/wishList" component={WishListPage} />
-                <PrivateRoute path="/cart" />
+                <PrivateRoute path="/cart" component={CartPage} />
                 <Route path="*" component={PageNotFound} />
             </Switch>
             <Footer />

@@ -1,6 +1,7 @@
 const express = require("express");
 const User = require("../models/userModel");
 const auth = require("../middleware/auth");
+const mongoose = require("mongoose");
 
 const router = new express.Router();
 
@@ -141,6 +142,40 @@ router.patch("/users/me", auth, async (req, res) => {
         res.send(req.user);
     } catch (err) {
         res.status(500).send();
+    }
+});
+
+// Add book to Cart
+router.post("/users/me/addToCart", auth, async (req, res) => {
+    const user = req.user;
+    const bookId = req.body.bookId;
+
+    try {
+        user.books.cart.push(bookId);
+        await user.save();
+
+        res.status(201).send(bookId);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+//Get Books from Cart
+router.get("/users/me/cart", auth, async (req, res) => {
+    const user = req.user;
+
+    try {
+        await user.populate({ path: "books.cart" }).execPopulate();
+
+        if (user.books.cart.length === 0) {
+            return res.status(404).send({
+                status: 404,
+                message: "Cannot find any books",
+            });
+        }
+        res.send(user.books.cart);
+    } catch (err) {
+        res.status(500).send(err);
     }
 });
 

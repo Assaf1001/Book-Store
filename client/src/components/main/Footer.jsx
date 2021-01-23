@@ -12,7 +12,12 @@ const Footer = () => {
         <div className="footer__container">
             <div className="footer__content center">
                 <div className="section1">
-                    <NavLink to="/home">
+                    <NavLink
+                        onClick={() => {
+                            window.scroll(0, 0);
+                        }}
+                        to="/home"
+                    >
                         <img src={logo} alt="logo" />
                     </NavLink>
                 </div>

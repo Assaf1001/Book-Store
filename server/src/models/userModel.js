@@ -41,17 +41,20 @@ const userSchema = new mongoose.Schema(
         books: {
             wishList: [
                 {
-                    book: { type: mongoose.Schema.Types.ObjectId, ref: "Book" },
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "Book",
                 },
             ],
             cart: [
                 {
-                    book: { type: mongoose.Schema.Types.ObjectId, ref: "Book" },
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "Book",
                 },
             ],
             purchased: [
                 {
-                    book: { type: mongoose.Schema.Types.ObjectId, ref: "Book" },
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "Book",
                 },
             ],
         },
@@ -100,7 +103,7 @@ userSchema.methods.generateAuthToken = async function () {
         { _id: user._id.toString() },
         process.env.JWT_SECRET,
         {
-            expiresIn: "1 hour",
+            expiresIn: "1 day",
         }
     );
 
