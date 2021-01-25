@@ -27,3 +27,19 @@ export const getCart = async (token) => {
         throw new Error(err.response.data.message);
     }
 };
+
+export const updateBookQuantity = async (bookId, quantity, token) => {
+    try {
+        const res = await Axios.post(
+            `${userURL}/cart/`,
+            { bookId, quantity },
+            {
+                headers: { Authorization: `Bearer ${token}` },
+            }
+        );
+
+        return res.data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
+    }
+};

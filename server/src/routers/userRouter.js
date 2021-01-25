@@ -179,4 +179,40 @@ router.get("/users/me/cart", auth, async (req, res) => {
     }
 });
 
+// Update Quantity in Cart
+router.post("/users/me/cart", auth, async (req, res) => {
+    const user = req.user;
+    const cart = user.books.cart;
+    const bookId = req.body.bookId;
+    const quantity = req.body.quantity;
+
+    try {
+        let currentQuantity = 0;
+        for (let book of cart) {
+            if (book.toString() === bookId) currentQuantity++;
+        }
+
+        if (quantity < currentQuantity) {
+            let timesToRemove = currentQuantity - quantity;
+            for (let i = cart.length - 1; i >= 0 && timesToRemove > 0; i--) {
+                if (cart[i].toString() === bookId) {
+                    cart.splice(i, 1);
+                    timesToRemove--;
+                }
+            }
+        } else if (quantity > currentQuantity) {
+            let timesToAdd = quantity - currentQuantity;
+            for (let i = 0; i < timesToAdd; i++) {
+                cart.push(bookId);
+            }
+        }
+
+        await user.populate({ path: "books.cart" }).execPopulate();
+        await user.save();
+        res.send(user.books.cart);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
 module.exports = router;

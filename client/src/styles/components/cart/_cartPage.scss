@@ -3,7 +3,7 @@
     align-items: flex-start;
     justify-content: center;
     padding: 0 1rem;
-    margin-top: 2rem;
+    margin-top: 4rem;
     margin-bottom: 3rem;
 
     .cart-page__content {
@@ -14,18 +14,27 @@
 
         h1 {
             font-size: 3rem;
+            font-weight: 400;
+            color: $darkBlue;
+            margin-left: 3rem;
+        }
+        h2 {
+            font-size: 3rem;
+            font-weight: 400;
             color: $orange;
-            text-align: center;
+            margin-left: 3rem;
+            margin-top: 2rem;
         }
 
         .cart__content {
-            width: 100%;
+            width: calc(70% - 1rem);
+            background: $lightGray;
 
             .cart-item__container {
                 display: flex;
                 position: relative;
-                background: $lightGray;
-                margin: 0 2rem 1rem 0;
+                background: $white;
+                margin: 2rem 3rem;
                 padding: 1rem;
 
                 .section1 {
@@ -73,11 +82,11 @@
                 }
 
                 .section3 {
-                    position: absolute;
-                    right: 0;
-                    top: 2rem;
-                    width: 132px;
-                    margin-right: 0.5rem;
+                    // position: absolute;
+                    // right: 0;
+                    // top: 2rem;
+                    // width: 132px;
+                    // margin-right: 0.5rem;
 
                     form {
                         display: flex;
@@ -119,12 +128,12 @@
         }
 
         .checkout__content {
-            width: 30%;
+            width: calc(30% - 1rem);
             min-width: 325px;
+            background: $lightGray;
             div {
                 width: 100%;
                 height: 500px;
-                background: $lightGray;
             }
         }
     }

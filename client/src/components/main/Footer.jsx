@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
-import logo from "../../images/logo.png";
+import logoDown from "../../images/logodown.svg";
 
 const Footer = () => {
     const onSubmitForm = (event) => {
@@ -18,7 +18,7 @@ const Footer = () => {
                         }}
                         to="/home"
                     >
-                        <img src={logo} alt="logo" />
+                        <img src={logoDown} alt="logo-down" />
                     </NavLink>
                 </div>
                 <div className="section2">
