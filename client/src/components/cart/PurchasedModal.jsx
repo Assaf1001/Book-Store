@@ -1,0 +1,43 @@
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faHome, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { LoginContext } from "../../context/LoginContext";
+
+const icons = {
+    user: <FontAwesomeIcon icon={faUser} />,
+    home: <FontAwesomeIcon icon={faHome} />,
+    cheack: <FontAwesomeIcon icon={faCheck} />,
+};
+
+const PurchasedModal = ({ orderNumber }) => {
+    const { userData } = useContext(LoginContext);
+    const userFirstName = userData.user.name.split(" ")[0].toUpperCase();
+
+    return (
+        <div className="purchased-modal">
+            <div className="purchased-modal__content">
+                <div className="circle">
+                    <span>{icons.cheack}</span>
+                </div>
+                <h1>THANK YOU {userFirstName}! </h1>
+                <h2>Your order completed successfully</h2>
+                <h3>
+                    The order details sent via Email to {userData.user.email}
+                    <br /> Order number #{orderNumber}
+                </h3>
+                <div className="buttons">
+                    <Link to="/home">
+                        <span>{icons.home}</span> HOME
+                    </Link>
+                    <Link to="/myAccount">
+                        <span>{icons.user}</span> MY ACCOUNT
+                    </Link>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default PurchasedModal;

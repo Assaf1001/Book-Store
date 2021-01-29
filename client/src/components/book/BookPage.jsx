@@ -4,7 +4,7 @@ import { setBooksListAction } from "../../actions/booksListActions";
 import booksListReducer, {
     initialBooksListState,
 } from "../../reducers/booksListReducer";
-import { getBookByID, getBooksByFieldAndValue } from "../../server/DB";
+import { getBookByID, getBooksByFieldAndValue } from "../../server/books";
 import BooksCarousel from "../carousels/booksCarousel/BooksCarousel";
 import Book from "./Book";
 

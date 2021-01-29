@@ -5,7 +5,7 @@ const USER_DATA = "user-data";
 export const saveUserOnCookie = (userData) => {
     const jsonUserData = JSON.stringify(userData);
     Cookies.set(USER_DATA, jsonUserData, {
-        expires: 1 / 24,
+        expires: 1,
         sameSite: "strict",
         // secure: true,
     });

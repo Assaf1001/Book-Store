@@ -192,7 +192,7 @@ router.post("/users/me/cart", auth, async (req, res) => {
             if (book.toString() === bookId) currentQuantity++;
         }
 
-        if (quantity < currentQuantity) {
+        if (quantity < currentQuantity || quantity === 0) {
             let timesToRemove = currentQuantity - quantity;
             for (let i = cart.length - 1; i >= 0 && timesToRemove > 0; i--) {
                 if (cart[i].toString() === bookId) {
@@ -210,6 +210,33 @@ router.post("/users/me/cart", auth, async (req, res) => {
         await user.populate({ path: "books.cart" }).execPopulate();
         await user.save();
         res.send(user.books.cart);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+// Add purchase
+router.post("/users/me/purchased", auth, async (req, res) => {
+    const user = req.user;
+    const purchased = req.body;
+
+    try {
+        user.purchased.push(purchased);
+        await user.save();
+        res.send();
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+// Empty Cart
+router.patch("/users/me/cart", auth, async (req, res) => {
+    const user = req.user;
+
+    try {
+        user.books.cart = [];
+        await user.save();
+        res.send();
     } catch (err) {
         res.status(500).send(err);
     }

@@ -4,6 +4,7 @@ require("./db/mongoose");
 
 const userRouter = require("./routers/userRouter");
 const bookRouter = require("./routers/bookRouter");
+const generalRouter = require("./routers/generalRouter");
 
 const port = process.env.PORT;
 const app = express();
@@ -17,6 +18,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(userRouter);
 app.use(bookRouter);
+app.use(generalRouter);
 
 app.listen(port, () => {
     console.log("Server is connected, Port:", port);

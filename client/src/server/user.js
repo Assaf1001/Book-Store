@@ -43,3 +43,35 @@ export const updateBookQuantity = async (bookId, quantity, token) => {
         throw new Error(err.response.data.message);
     }
 };
+
+export const addPurchased = async (purchased, token) => {
+    try {
+        const res = await Axios.post(
+            `${userURL}/purchased`,
+            { purchased },
+            {
+                headers: { Authorization: `Bearer ${token}` },
+            }
+        );
+
+        return res.data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
+    }
+};
+
+export const emptyCart = async (token) => {
+    try {
+        const res = await Axios.patch(
+            `${userURL}/cart`,
+            {},
+            {
+                headers: { Authorization: `Bearer ${token}` },
+            }
+        );
+
+        return res.data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
+    }
+};

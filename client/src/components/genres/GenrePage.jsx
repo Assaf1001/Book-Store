@@ -3,7 +3,7 @@ import { setBooksListAction } from "../../actions/booksListActions";
 import booksListReducer, {
     initialBooksListState,
 } from "../../reducers/booksListReducer";
-import { getBooksByFieldAndValue } from "../../server/DB";
+import { getBooksByFieldAndValue } from "../../server/books";
 import BooksCarouselItem from "../carousels/booksCarousel/BooksCarouselItem";
 import Filter from "../main/Filter";
 

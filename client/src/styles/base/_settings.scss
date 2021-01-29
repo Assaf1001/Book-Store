@@ -28,3 +28,15 @@ body {
     max-width: 1440px;
     min-width: 1024px;
 }
+
+button,
+a {
+    text-decoration: none;
+    color: $black;
+    &:hover {
+        cursor: pointer;
+    }
+    &:focus {
+        outline: none;
+    }
+}

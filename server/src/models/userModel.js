@@ -30,14 +30,19 @@ const userSchema = new mongoose.Schema(
                 }
             },
         },
-        phoneNumber: { type: String },
-        adress: {
-            line1: { type: String },
-            line2: { type: String },
-            city: { type: String },
-            state: { type: String },
-            postCode: { type: String },
-        },
+        // phoneNumber: { type: String },
+        // adress: {
+        //     line1: { type: String },
+        //     line2: { type: String },
+        //     city: { type: String },
+        //     state: { type: String },
+        //     postCode: { type: String },
+        // },
+        purchased: [
+            {
+                type: Object,
+            },
+        ],
         books: {
             wishList: [
                 {
@@ -46,12 +51,6 @@ const userSchema = new mongoose.Schema(
                 },
             ],
             cart: [
-                {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: "Book",
-                },
-            ],
-            purchased: [
                 {
                     type: mongoose.Schema.Types.ObjectId,
                     ref: "Book",

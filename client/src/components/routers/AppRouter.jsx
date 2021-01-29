@@ -16,6 +16,7 @@ import BookPage from "../book/BookPage";
 import SearchResultPage from "../searchResult/SearchResultPage";
 import GenrePage from "../genres/GenrePage";
 import CartPage from "../cart/CartPage";
+import PaymentPage from "../cart/PaymentPage";
 
 const AppRouter = () => (
     <BrowserRouter>
@@ -46,6 +47,8 @@ const AppRouter = () => (
 
                 <PrivateRoute path="/wishList" component={WishListPage} />
                 <PrivateRoute path="/cart" component={CartPage} />
+                <PrivateRoute path="/payment" component={PaymentPage} />
+
                 <Route path="*" component={PageNotFound} />
             </Switch>
             <Footer />

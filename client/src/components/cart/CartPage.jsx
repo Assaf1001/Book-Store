@@ -3,34 +3,49 @@ import { LoginContext } from "../../context/LoginContext";
 import { getCart } from "../../server/user";
 import CartItem from "./CartPageItem";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { Link, Route } from "react-router-dom";
+
 const CartPage = () => {
     const { userData } = useContext(LoginContext);
     const [cart, setCart] = useState([]);
+    const [subtotal, setSubtotal] = useState([0, 0]);
 
     const setBooksQuantity = (cartData) => {
         const cart = [];
+        let subtotalCount = 0;
+        let subtotalPrice = 0;
+
         cartData.forEach((book) => {
             let isIncluded = false;
             for (let obj in cart) {
                 if (cart[obj]._id === book._id) {
                     cart[obj].quantity++;
+                    subtotalCount++;
+                    subtotalPrice += book.price;
                     isIncluded = true;
                     break;
                 }
             }
             if (!isIncluded) {
                 book.quantity = 1;
+                subtotalCount++;
+                subtotalPrice += book.price;
                 cart.push(book);
             }
         });
-        return cart;
+        return { cart, subtotalCount, subtotalPrice };
     };
 
     useEffect(() => {
         getCart(userData.token)
             .then((cartData) => {
-                const cart = setBooksQuantity(cartData);
+                const { cart, subtotalCount, subtotalPrice } = setBooksQuantity(
+                    cartData
+                );
                 setCart(cart);
+                setSubtotal([subtotalCount, subtotalPrice]);
             })
             .catch((err) => {
                 console.log(err);
@@ -42,19 +57,47 @@ const CartPage = () => {
             <div className="cart-page__content">
                 <div className="cart__content">
                     <h1>Shopping Cart</h1>
-                    {cart.map((book) => (
-                        <CartItem
-                            key={book._id}
-                            book={book}
-                            userData={userData}
-                            setCart={setCart}
-                            setBooksQuantity={setBooksQuantity}
-                        />
-                    ))}
+                    {cart.length === 0 ? (
+                        <h2 className="empty">CART IS EMPTY!</h2>
+                    ) : (
+                        cart.map((book) => (
+                            <CartItem
+                                key={book._id}
+                                book={book}
+                                userData={userData}
+                                setCart={setCart}
+                                setBooksQuantity={setBooksQuantity}
+                                subtotal={subtotal}
+                                setSubtotal={setSubtotal}
+                            />
+                        ))
+                    )}
                 </div>
                 <div className="checkout__content">
                     <h2>Summary</h2>
-                    <div></div>
+                    <div className="checkout__box">
+                        <div>
+                            <h3>Subtotal ({subtotal[0]} items)</h3>
+                            <h3>{subtotal[1]} $</h3>
+                        </div>
+                        <div>
+                            <h3>Shipping</h3>
+                            <h3>0 $</h3>
+                        </div>
+                        <div className="line"></div>
+                        <div>
+                            <h4>Total</h4>
+                            <h4>{subtotal[1]} $</h4>
+                        </div>
+                    </div>
+                    <Link
+                        to={{
+                            pathname: "/payment",
+                            state: { total: subtotal[1], cart },
+                        }}
+                    >
+                        Checkout <FontAwesomeIcon icon={faArrowRight} />
+                    </Link>
                 </div>
             </div>
         </div>

@@ -9,7 +9,7 @@ export const singUp = async ({ name, email, password }) => {
 
         return {
             token: res.data.token,
-            user: { name: res.data.user.name, id: res.data.user._id },
+            user: { name: res.data.user.name, email: res.data.user.email },
         };
     } catch (err) {
         if (err.message.includes(400)) {
@@ -24,7 +24,7 @@ export const logIn = async ({ email, password }) => {
 
         return {
             token: res.data.token,
-            user: { name: res.data.user.name, id: res.data.user._id },
+            user: { name: res.data.user.name, email: res.data.user.email },
         };
     } catch (err) {
         if (err.message.includes(400)) {
