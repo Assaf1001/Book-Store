@@ -4,11 +4,14 @@ import booksListReducer, {
     initialBooksListState,
 } from "../../reducers/booksListReducer";
 import { getBooksByFieldAndValue } from "../../server/books";
+import AddToCartModal from "../carousels/booksCarousel/AddToCartModal";
 import BooksCarouselItem from "../carousels/booksCarousel/BooksCarouselItem";
 import Filter from "../main/Filter";
 
 const GenrePage = (props) => {
     const genre = props.match.params.genre;
+    const [isAdded, setIsAdded] = useState(false);
+    const [addedBook, setAddedBook] = useState({});
 
     const [booksList, dispatchBooksList] = useReducer(
         booksListReducer,
@@ -37,6 +40,7 @@ const GenrePage = (props) => {
 
     return (
         <div className="genres-page__container center">
+            {isAdded && <div className="blur-background"></div>}
             <Filter
                 dispatchBooksList={dispatchBooksList}
                 pageBooksList={pageBooksList}
@@ -49,11 +53,19 @@ const GenrePage = (props) => {
                 ) : (
                     <div className="grid__container">
                         {booksList.map((book) => (
-                            <BooksCarouselItem key={book._id} book={book} />
+                            <BooksCarouselItem
+                                key={book._id}
+                                book={book}
+                                setIsAdded={setIsAdded}
+                                setAddedBook={setAddedBook}
+                            />
                         ))}
                     </div>
                 )}
             </div>
+            {isAdded && (
+                <AddToCartModal setIsAdded={setIsAdded} addedBook={addedBook} />
+            )}
         </div>
     );
 };

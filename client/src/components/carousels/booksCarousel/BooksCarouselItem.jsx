@@ -16,7 +16,7 @@ const icons = {
     cart: <FontAwesomeIcon icon={faShoppingCart} />,
 };
 
-const BooksCarouselItem = ({ book }) => {
+const BooksCarouselItem = ({ book, setIsAdded, setAddedBook }) => {
     const { userData } = useContext(LoginContext);
     const history = useHistory();
 
@@ -29,7 +29,10 @@ const BooksCarouselItem = ({ book }) => {
                 <img src={book.image} alt={book.title} />
             </Link>
 
-            <h4>{book.title}</h4>
+            <Link to={`/book/${book._id}`}>
+                <h4>{book.title}</h4>
+            </Link>
+
             <h5>{book.author}</h5>
             <div style={{ display: "flex" }}>
                 <h6
@@ -53,10 +56,12 @@ const BooksCarouselItem = ({ book }) => {
             )}
             <div className="buttons-container">
                 <div className="top-button">
-                    <Link to={`/book/${book._id}`}>
-                        {" "}
-                        <p>{icons.view} VIEW</p>{" "}
-                    </Link>
+                    <div>
+                        <Link to={`/book/${book._id}`}>
+                            {" "}
+                            <p>{icons.view} VIEW</p>{" "}
+                        </Link>
+                    </div>
                 </div>
                 <div className="bottom-container">
                     <div className="bottom-button">
@@ -66,7 +71,8 @@ const BooksCarouselItem = ({ book }) => {
                         onClick={() => {
                             if (userData.user) {
                                 addBookToCart(book._id, userData.token);
-                                console.log("added");
+                                setIsAdded(true);
+                                setAddedBook(book);
                             } else {
                                 history.push("/myAccount");
                             }

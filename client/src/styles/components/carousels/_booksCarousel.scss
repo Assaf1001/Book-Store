@@ -4,7 +4,7 @@
     height: 100%;
 
     .react-multiple-carousel__arrow {
-        height: 96%;
+        height: 110%;
         border-radius: 0;
         background: $lightBlueOpacity;
         z-index: 5;
@@ -13,6 +13,7 @@
 
     .react-multiple-carousel__arrow::before {
         font-size: 35px;
+        padding-bottom: 1rem;
     }
 
     .react-multiple-carousel__arrow:hover {
@@ -34,16 +35,15 @@
     align-items: center;
     justify-content: center;
     margin-top: 0;
-    a {
+
+    a,
+    p {
         color: $black;
         text-decoration: none;
-        padding-bottom: 1rem;
-        margin-top: 1rem;
         img {
             height: 220px;
-        }
-        &:hover {
-            color: $orange;
+            margin-bottom: 1rem;
+            // padding-top: 1rem;
         }
     }
     h5,
@@ -72,6 +72,17 @@
         margin-top: 0.5rem;
         background: $white;
 
+        div {
+            div {
+                &:hover {
+                    cursor: pointer;
+                    p {
+                        color: $orange;
+                    }
+                }
+            }
+        }
+
         .top-button {
             border: 2px solid $black;
             border-bottom: none;
@@ -88,6 +99,93 @@
             }
             .__2 {
                 border-left: none;
+            }
+        }
+    }
+}
+
+.add-to-cart-modal {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: calc(50vh - 200px);
+    margin: 0 auto;
+    width: 700px;
+    height: 490px;
+    background: $lightGray;
+    border: 2px solid $darkBlue;
+    border-radius: 10px;
+    z-index: 10;
+
+    .add-to-cart-modal__content {
+        display: grid;
+        grid-template-areas: "a b" "a b" "c c";
+        height: 100%;
+        width: 100%;
+        padding-bottom: 2rem;
+        img {
+            grid-area: a;
+            width: 220px;
+            margin: 2rem 0 0 4.5rem;
+        }
+        .text {
+            grid-area: b;
+            h1 {
+                color: $darkBlue;
+                margin-top: 2rem;
+                font-size: 2rem;
+                font-weight: 500;
+                text-align: center;
+            }
+            h2 {
+                color: $darkBlue;
+                font-size: 1.8rem;
+                font-weight: 400;
+                text-align: center;
+                padding: 0;
+            }
+            .circle {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 2rem auto 0;
+                height: 150px;
+                width: 150px;
+                border: 2px solid $darkBlue;
+                border-radius: 50%;
+                background: $lightBlue;
+                span {
+                    font-size: 4.5rem;
+                    margin-top: 0.5rem;
+                }
+            }
+        }
+        .buttons {
+            grid-area: c;
+
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            a,
+            .button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 40%;
+                height: 3rem;
+                border: none;
+                background: $lightBlue;
+                font-size: 1.1rem;
+                font-weight: 400;
+
+                span {
+                    font-size: 1.1rem;
+                    margin-right: 0.5rem;
+                    color: $black;
+                }
+                &:hover {
+                    cursor: pointer;
+                }
             }
         }
     }

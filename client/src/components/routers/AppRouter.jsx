@@ -17,6 +17,7 @@ import SearchResultPage from "../searchResult/SearchResultPage";
 import GenrePage from "../genres/GenrePage";
 import CartPage from "../cart/CartPage";
 import PaymentPage from "../cart/PaymentPage";
+import AddItemsContextProvider from "../../context/AddItemsContext";
 
 const AppRouter = () => (
     <BrowserRouter>
@@ -27,19 +28,21 @@ const AppRouter = () => (
                 <Route path="/" exact>
                     <Redirect to="/home" />
                 </Route>
-                <Route path="/home" component={HomePage} />
+                <AddItemsContextProvider>
+                    <Route path="/home" component={HomePage} />
+                    <Route path="/genres/:genre" component={GenrePage} />
+                    <Route path="/book/:id" component={BookPage} />
+                    <Route
+                        path="/searchResult/:result"
+                        component={SearchResultPage}
+                    />
+                </AddItemsContextProvider>
+
                 <Route path="/contactUs" />
                 <Route path="/help" />
 
                 <PrivateRoute path="/myAccount" component={MyAccountPage} />
                 <LoginRoute path="/login" component={LoginPage} />
-
-                <Route path="/genres/:genre" component={GenrePage} />
-                <Route path="/book/:id" component={BookPage} />
-                <Route
-                    path="/searchResult/:result"
-                    component={SearchResultPage}
-                />
 
                 <Route path="/bestSellers" />
                 <Route path="/newReleases" />
