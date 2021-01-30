@@ -3,22 +3,7 @@ import { Link } from "react-router-dom";
 
 import { updateBookQuantity } from "../../server/user";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faHeart,
-    faShoppingCart,
-    faCheck,
-    faTruck,
-    faTimes,
-} from "@fortawesome/free-solid-svg-icons";
-
-const icons = {
-    wishList: <FontAwesomeIcon icon={faHeart} />,
-    cart: <FontAwesomeIcon icon={faShoppingCart} />,
-    check: <FontAwesomeIcon icon={faCheck} />,
-    truck: <FontAwesomeIcon icon={faTruck} />,
-    delete: <FontAwesomeIcon icon={faTimes} />,
-};
+import icons from "../../icons/icons";
 
 const CartItem = ({
     book,

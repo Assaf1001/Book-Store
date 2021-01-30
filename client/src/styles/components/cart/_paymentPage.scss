@@ -152,11 +152,11 @@
 }
 
 .purchased-modal {
-    position: absolute;
+    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 6rem;
+    top: calc(50vh - 250px);
     width: 45%;
     height: 55%;
     min-width: 566px;
@@ -210,7 +210,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                width: 30%;
+                width: 40%;
                 height: 3rem;
                 border: none;
                 background: $lightBlue;

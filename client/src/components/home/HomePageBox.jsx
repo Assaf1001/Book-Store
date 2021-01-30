@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import icons from "../../icons/icons";
 
 const HomePageBox = (props) => (
     <div className={"box " + props.class}>
@@ -10,7 +9,7 @@ const HomePageBox = (props) => (
         {props.children}
         <Link to={props.url}>
             <button className="view-more__button">
-                VIEW MORE <FontAwesomeIcon icon={faChevronRight} />
+                VIEW MORE <span>{icons.rightArrow}</span>
             </button>
         </Link>
     </div>

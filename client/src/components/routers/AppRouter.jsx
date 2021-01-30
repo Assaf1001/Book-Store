@@ -24,11 +24,12 @@ const AppRouter = () => (
         <LoginContextProvider>
             <LoginBar />
             <Header />
-            <Switch>
-                <Route path="/" exact>
-                    <Redirect to="/home" />
-                </Route>
-                <AddItemsContextProvider>
+            <AddItemsContextProvider>
+                <Switch>
+                    <Route path="/" exact>
+                        <Redirect to="/home" />
+                    </Route>
+
                     <Route path="/home" component={HomePage} />
                     <Route path="/genres/:genre" component={GenrePage} />
                     <Route path="/book/:id" component={BookPage} />
@@ -36,24 +37,24 @@ const AppRouter = () => (
                         path="/searchResult/:result"
                         component={SearchResultPage}
                     />
-                </AddItemsContextProvider>
+                    <LoginRoute path="/login" component={LoginPage} />
 
-                <Route path="/contactUs" />
-                <Route path="/help" />
+                    <Route path="/contactUs" />
+                    <Route path="/help" />
 
-                <PrivateRoute path="/myAccount" component={MyAccountPage} />
-                <LoginRoute path="/login" component={LoginPage} />
+                    <PrivateRoute path="/myAccount" component={MyAccountPage} />
 
-                <Route path="/bestSellers" />
-                <Route path="/newReleases" />
-                <Route path="/coomingSoon" />
+                    <Route path="/bestSellers" />
+                    <Route path="/newReleases" />
+                    <Route path="/coomingSoon" />
 
-                <PrivateRoute path="/wishList" component={WishListPage} />
-                <PrivateRoute path="/cart" component={CartPage} />
-                <PrivateRoute path="/payment" component={PaymentPage} />
+                    <PrivateRoute path="/wishList" component={WishListPage} />
+                    <PrivateRoute path="/cart" component={CartPage} />
+                    <PrivateRoute path="/payment" component={PaymentPage} />
 
-                <Route path="*" component={PageNotFound} />
-            </Switch>
+                    <Route path="*" component={PageNotFound} />
+                </Switch>
+            </AddItemsContextProvider>
             <Footer />
         </LoginContextProvider>
     </BrowserRouter>

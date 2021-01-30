@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { setBooksListAction } from "../../actions/booksListActions";
 import booksListReducer, {
@@ -7,12 +7,13 @@ import booksListReducer, {
 import { getBookByID, getBooksByFieldAndValue } from "../../server/books";
 import BooksCarousel from "../carousels/booksCarousel/BooksCarousel";
 import Book from "./Book";
+import { AddItemsContext } from "../../context/AddItemsContext";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import icons from "../../icons/icons";
 
 const BookPage = (props) => {
     const bookId = props.match.params.id;
+    const { isItemAdded } = useContext(AddItemsContext);
     const [book, setBook] = useState({});
     const [booksList, dispatchBooksList] = useReducer(
         booksListReducer,
@@ -74,23 +75,26 @@ const BookPage = (props) => {
     }, [book.category]);
 
     return (
-        <div className="book-page__container center">
-            <div className="book-page__contnet">
-                {book._id && <Book book={book} />}
+        <div>
+            <div className="book-page__container center">
+                <div className="book-page__contnet">
+                    {book._id && <Book book={book} />}
+                </div>
+                {book._id && (
+                    <h3 className="carousel__container-header">
+                        MORE OF {book.category.toUpperCase()} MANGA
+                    </h3>
+                )}
+                <div className="carousel__container">
+                    <BooksCarousel responsive={responsive} books={booksList} />
+                    <Link to={"/"}>
+                        <button className="view-more__button">
+                            VIEW MORE <span>{icons.rightArrow}</span>
+                        </button>
+                    </Link>
+                </div>
             </div>
-            {book._id && (
-                <h3 className="carousel__container-header">
-                    MORE OF {book.category.toUpperCase()} MANGA
-                </h3>
-            )}
-            <div className="carousel__container">
-                <BooksCarousel responsive={responsive} books={booksList} />
-                <Link to={"/"}>
-                    <button className="view-more__button">
-                        VIEW MORE <FontAwesomeIcon icon={faChevronRight} />
-                    </button>
-                </Link>
-            </div>
+            {isItemAdded && <div className="blur-background"></div>}
         </div>
     );
 };

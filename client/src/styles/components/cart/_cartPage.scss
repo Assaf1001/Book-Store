@@ -191,6 +191,7 @@
                     }
                     h4 {
                         font-size: 1.3rem;
+                        font-weight: 400;
                         margin: 0.5rem 0;
                     }
                 }
@@ -207,8 +208,13 @@
                 padding: 0.8rem 0;
                 border: none;
                 background: $lightBlue;
-                font-size: 1.1rem;
+                font-size: 1.2rem;
                 text-align: center;
+
+                span {
+                    margin-left: 0.2rem;
+                    font-size: 1.2rem;
+                }
             }
         }
     }

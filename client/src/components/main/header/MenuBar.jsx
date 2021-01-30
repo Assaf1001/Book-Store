@@ -1,18 +1,7 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faChevronDown,
-    faHeart,
-    faShoppingCart,
-} from "@fortawesome/free-solid-svg-icons";
-
-const icons = {
-    downArrow: <FontAwesomeIcon icon={faChevronDown} />,
-    wishList: <FontAwesomeIcon icon={faHeart} />,
-    cart: <FontAwesomeIcon icon={faShoppingCart} />,
-};
+import icons from "../../../icons/icons";
 
 const MenuBar = () => {
     const [dropDownClassName, setdropDownClassName] = useState("");

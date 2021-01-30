@@ -135,5 +135,12 @@
         margin: 0.2rem 1rem 3rem;
         padding: 2rem 0;
         background: $lightGray;
+
+        .view-more__button {
+            span {
+                margin-left: 0.2rem;
+                font-size: 1.2rem;
+            }
+        }
     }
 }

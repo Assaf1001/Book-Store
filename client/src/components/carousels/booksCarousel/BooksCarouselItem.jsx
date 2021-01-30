@@ -1,23 +1,15 @@
 import React, { useContext } from "react";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faEye,
-    faHeart,
-    faShoppingCart,
-} from "@fortawesome/free-solid-svg-icons";
 import { Link, useHistory } from "react-router-dom";
 import { LoginContext } from "../../../context/LoginContext";
 import { addBookToCart } from "../../../server/user";
+import { AddItemsContext } from "../../../context/AddItemsContext";
 
-const icons = {
-    view: <FontAwesomeIcon icon={faEye} />,
-    wishList: <FontAwesomeIcon icon={faHeart} />,
-    cart: <FontAwesomeIcon icon={faShoppingCart} />,
-};
+import icons from "../../../icons/icons";
 
-const BooksCarouselItem = ({ book, setIsAdded, setAddedBook }) => {
+const BooksCarouselItem = ({ book }) => {
     const { userData } = useContext(LoginContext);
+    const { setIsItemAdded, setAddedBook } = useContext(AddItemsContext);
     const history = useHistory();
 
     const calculateDiscount = (price, discount) =>
@@ -71,7 +63,7 @@ const BooksCarouselItem = ({ book, setIsAdded, setAddedBook }) => {
                         onClick={() => {
                             if (userData.user) {
                                 addBookToCart(book._id, userData.token);
-                                setIsAdded(true);
+                                setIsItemAdded(true);
                                 setAddedBook(book);
                             } else {
                                 history.push("/myAccount");

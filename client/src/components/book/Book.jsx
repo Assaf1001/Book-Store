@@ -1,21 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
+import { LoginContext } from "../../context/LoginContext";
+import { AddItemsContext } from "../../context/AddItemsContext";
+import { useHistory } from "react-router-dom";
+import { addBookToCart } from "../../server/user";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faHeart,
-    faShoppingCart,
-    faCheck,
-    faTruck,
-} from "@fortawesome/free-solid-svg-icons";
-
-const icons = {
-    wishList: <FontAwesomeIcon icon={faHeart} />,
-    cart: <FontAwesomeIcon icon={faShoppingCart} />,
-    check: <FontAwesomeIcon icon={faCheck} />,
-    truck: <FontAwesomeIcon icon={faTruck} />,
-};
+import icons from "../../icons/icons";
 
 const Book = ({ book }) => {
+    const { userData } = useContext(LoginContext);
+    const { setIsItemAdded, setAddedBook } = useContext(AddItemsContext);
+
+    const history = useHistory();
+
     return (
         <div className="book">
             <div className="imgae__container">
@@ -36,7 +32,17 @@ const Book = ({ book }) => {
                         <button className="wishlist-button">
                             {icons.wishList}
                         </button>
-                        <button>
+                        <button
+                            onClick={() => {
+                                if (userData.user) {
+                                    addBookToCart(book._id, userData.token);
+                                    setIsItemAdded(true);
+                                    setAddedBook(book);
+                                } else {
+                                    history.push("/myAccount");
+                                }
+                            }}
+                        >
                             <span>{icons.cart}</span> ADD TO CART
                         </button>
                     </div>

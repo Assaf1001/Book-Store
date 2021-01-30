@@ -4,24 +4,7 @@ import { LoginContext } from "../../../context/LoginContext";
 import { logOutAction } from "../../../actions/loginActions";
 import { deleteUserOnCookie } from "../../../cookies/cookies";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faUser,
-    faHome,
-    faSignInAlt,
-    faSignOutAlt,
-    faEnvelope,
-    faInfoCircle,
-} from "@fortawesome/free-solid-svg-icons";
-
-const icons = {
-    user: <FontAwesomeIcon icon={faUser} />,
-    home: <FontAwesomeIcon icon={faHome} />,
-    logIn: <FontAwesomeIcon icon={faSignInAlt} />,
-    logOut: <FontAwesomeIcon icon={faSignOutAlt} />,
-    contactUs: <FontAwesomeIcon icon={faEnvelope} />,
-    help: <FontAwesomeIcon icon={faInfoCircle} />,
-};
+import icons from "../../../icons/icons";
 
 const LoginBar = () => {
     const { userData, dispatchUserData } = useContext(LoginContext);

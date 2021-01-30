@@ -1,7 +1,6 @@
 import React from "react";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import icons from "../../../icons/icons";
 
 const ImagesCarouselItem = ({ image, text, button, textColor }) => (
     <div
@@ -12,7 +11,7 @@ const ImagesCarouselItem = ({ image, text, button, textColor }) => (
     >
         <h2 style={{ color: `${textColor.toString()}` }}>{text}</h2>
         <button>
-            {button} <FontAwesomeIcon icon={faChevronRight} />
+            {button} {icons.rightArrow}
         </button>
     </div>
 );

@@ -1,25 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faShoppingCart,
-    faShoppingBasket,
-    faPlus,
-} from "@fortawesome/free-solid-svg-icons";
+import { AddItemsContext } from "../../../context/AddItemsContext";
 
-const icons = {
-    cart: <FontAwesomeIcon icon={faShoppingCart} />,
-    basket: <FontAwesomeIcon icon={faShoppingBasket} />,
-    plus: <FontAwesomeIcon icon={faPlus} />,
-};
+import icons from "../../../icons/icons";
 
-const AddToCartModal = ({ setIsAdded, addedBook }) => {
+const AddToCartModal = () => {
+    const { setIsItemAdded, addedBook } = useContext(AddItemsContext);
+
+    window.onclick = (event) => {
+        if (event.target.matches(".blur-background")) {
+            setIsItemAdded(false);
+        }
+    };
+
     return (
         <div className="add-to-cart-modal">
             <div className="add-to-cart-modal__content">
                 <img src={addedBook.image} alt={addedBook.title} />
-                <div className="text">
+                <div className="content">
                     <div className="circle">
                         <span>{icons.plus}</span>
                     </div>
@@ -32,7 +31,7 @@ const AddToCartModal = ({ setIsAdded, addedBook }) => {
                     <div
                         className="button"
                         onClick={() => {
-                            setIsAdded(false);
+                            setIsItemAdded(false);
                         }}
                     >
                         <span>{icons.basket}</span> CONTINUE SHOPPING

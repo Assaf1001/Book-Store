@@ -1,15 +1,9 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faHome, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { LoginContext } from "../../context/LoginContext";
 
-const icons = {
-    user: <FontAwesomeIcon icon={faUser} />,
-    home: <FontAwesomeIcon icon={faHome} />,
-    cheack: <FontAwesomeIcon icon={faCheck} />,
-};
+import icons from "../../icons/icons";
 
 const PurchasedModal = ({ orderNumber }) => {
     const { userData } = useContext(LoginContext);
@@ -19,7 +13,7 @@ const PurchasedModal = ({ orderNumber }) => {
         <div className="purchased-modal">
             <div className="purchased-modal__content">
                 <div className="circle">
-                    <span>{icons.cheack}</span>
+                    <span>{icons.check}</span>
                 </div>
                 <h1>THANK YOU {userFirstName}! </h1>
                 <h2>Your order completed successfully</h2>

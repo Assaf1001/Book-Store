@@ -1,5 +1,6 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import { setBooksListAction } from "../../actions/booksListActions";
+import { AddItemsContext } from "../../context/AddItemsContext";
 import booksListReducer, {
     initialBooksListState,
 } from "../../reducers/booksListReducer";
@@ -10,8 +11,7 @@ import Filter from "../main/Filter";
 
 const GenrePage = (props) => {
     const genre = props.match.params.genre;
-    const [isAdded, setIsAdded] = useState(false);
-    const [addedBook, setAddedBook] = useState({});
+    const { isItemAdded } = useContext(AddItemsContext);
 
     const [booksList, dispatchBooksList] = useReducer(
         booksListReducer,
@@ -40,7 +40,6 @@ const GenrePage = (props) => {
 
     return (
         <div className="genres-page__container center">
-            {isAdded && <div className="blur-background"></div>}
             <Filter
                 dispatchBooksList={dispatchBooksList}
                 pageBooksList={pageBooksList}
@@ -53,19 +52,13 @@ const GenrePage = (props) => {
                 ) : (
                     <div className="grid__container">
                         {booksList.map((book) => (
-                            <BooksCarouselItem
-                                key={book._id}
-                                book={book}
-                                setIsAdded={setIsAdded}
-                                setAddedBook={setAddedBook}
-                            />
+                            <BooksCarouselItem key={book._id} book={book} />
                         ))}
                     </div>
                 )}
             </div>
-            {isAdded && (
-                <AddToCartModal setIsAdded={setIsAdded} addedBook={addedBook} />
-            )}
+            {isItemAdded && <div className="blur-background"></div>}
+            {isItemAdded && <AddToCartModal />}
         </div>
     );
 };

@@ -2,32 +2,15 @@ import React from "react";
 
 import InfoItem from "./InfoItem";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faTruck,
-    faCreditCard,
-    faRedoAlt,
-    faShieldAlt,
-    faQuestionCircle,
-    faMapMarkerAlt,
-} from "@fortawesome/free-solid-svg-icons";
-
-const icons = {
-    shipping: <FontAwesomeIcon icon={faTruck} />,
-    payment: <FontAwesomeIcon icon={faCreditCard} />,
-    returns: <FontAwesomeIcon icon={faRedoAlt} />,
-    privacy: <FontAwesomeIcon icon={faShieldAlt} />,
-    faq: <FontAwesomeIcon icon={faQuestionCircle} />,
-    find: <FontAwesomeIcon icon={faMapMarkerAlt} />,
-};
+import icons from "../../icons/icons";
 
 const infoData = [
     {
-        icon: icons.shipping,
+        icon: icons.truck,
         text: <p> SHIPPING</p>,
     },
     {
-        icon: icons.payment,
+        icon: icons.creditCard,
         text: <p> PAYMENT</p>,
     },
     {

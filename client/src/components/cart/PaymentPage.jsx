@@ -1,19 +1,11 @@
 import React, { useContext, useState } from "react";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCreditCard, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { faCcVisa, faPaypal } from "@fortawesome/free-brands-svg-icons";
 import { addPurchased, emptyCart } from "../../server/user";
 import { LoginContext } from "../../context/LoginContext";
 import PurchasedModal from "./PurchasedModal";
 import { getOrderNumber } from "../../server/general";
 
-const icons = {
-    creditCard: <FontAwesomeIcon icon={faCreditCard} />,
-    visa: <FontAwesomeIcon icon={faCcVisa} />,
-    paypal: <FontAwesomeIcon icon={faPaypal} />,
-    rightArrow: <FontAwesomeIcon icon={faArrowRight} />,
-};
+import icons from "../../icons/icons";
 
 const PaymentPage = (props) => {
     const total = props.location.state?.total;

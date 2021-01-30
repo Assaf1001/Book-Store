@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import { setBooksListAction } from "../../actions/booksListActions";
 import booksListReducer, {
     initialBooksListState,
@@ -10,9 +10,10 @@ import BooksCarousel from "../carousels/booksCarousel/BooksCarousel";
 import ImagesCarousel from "../carousels/imagesCarousel/ImagesCarousel";
 
 import HomePageBox from "./HomePageBox";
+import { AddItemsContext } from "../../context/AddItemsContext";
 
 const HomePage = () => {
-    const [isAdded, setIsAdded] = useState(false);
+    const { isItemAdded } = useContext(AddItemsContext);
 
     const [booksList, dispatchBooksList] = useReducer(
         booksListReducer,
@@ -99,8 +100,6 @@ const HomePage = () => {
 
     return (
         <div className="home-page__container">
-            {isAdded && <div className="blur-background"></div>}
-
             <div className="home-page__content">
                 <ImagesCarousel />
             </div>
@@ -116,8 +115,6 @@ const HomePage = () => {
                                 <BooksCarousel
                                     responsive={responsive[0]}
                                     books={booksList}
-                                    isAdded={isAdded}
-                                    setIsAdded={setIsAdded}
                                 />
                             </HomePageBox>
                         </div>
@@ -193,6 +190,7 @@ const HomePage = () => {
                 </HomePageBox>
             </div>
             <CustomerInfo />
+            {isItemAdded && <div className="blur-background"></div>}
         </div>
     );
 };

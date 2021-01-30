@@ -3,18 +3,7 @@ import { NavLink } from "react-router-dom";
 
 import logo from "../../../images/logo.png";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faSearch,
-    faFilter,
-    faChevronDown,
-} from "@fortawesome/free-solid-svg-icons";
-
-const icons = {
-    search: <FontAwesomeIcon icon={faSearch} />,
-    fliter: <FontAwesomeIcon icon={faFilter} />,
-    downArrow: <FontAwesomeIcon icon={faChevronDown} />,
-};
+import icons from "../../../icons/icons";
 
 const SearchBar = () => {
     return (

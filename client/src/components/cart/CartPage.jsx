@@ -2,10 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../../context/LoginContext";
 import { getCart } from "../../server/user";
 import CartItem from "./CartPageItem";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Link, Route } from "react-router-dom";
+
+import icons from "../../icons/icons";
 
 const CartPage = () => {
     const { userData } = useContext(LoginContext);
@@ -96,7 +95,7 @@ const CartPage = () => {
                             state: { total: subtotal[1], cart },
                         }}
                     >
-                        Checkout <FontAwesomeIcon icon={faArrowRight} />
+                        Checkout <span>{icons.rightArrow}</span>
                     </Link>
                 </div>
             </div>
