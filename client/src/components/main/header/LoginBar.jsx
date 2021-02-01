@@ -32,7 +32,8 @@ const LoginBar = () => {
                 </div>
                 {!!userData.user && (
                     <span className="greeting">
-                        ~~~~~~ Hi {userData.user.name.toUpperCase()}! ~~~~~~
+                        Hi {userData.isAdmin && "ADMIN"} ,{" "}
+                        {userData.user.name.toUpperCase()}!
                     </span>
                 )}
                 <div className="user">

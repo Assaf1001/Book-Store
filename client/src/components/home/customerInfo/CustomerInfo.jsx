@@ -2,7 +2,7 @@ import React from "react";
 
 import InfoItem from "./InfoItem";
 
-import icons from "../../icons/icons";
+import icons from "../../../icons/icons";
 
 const infoData = [
     {

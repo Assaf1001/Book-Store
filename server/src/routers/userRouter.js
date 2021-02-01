@@ -221,7 +221,7 @@ router.post("/users/me/purchased", auth, async (req, res) => {
     const purchased = req.body;
 
     try {
-        user.purchased.push(purchased);
+        user.purchased.unshift(purchased);
         await user.save();
         res.send();
     } catch (err) {
@@ -237,6 +237,18 @@ router.patch("/users/me/cart", auth, async (req, res) => {
         user.books.cart = [];
         await user.save();
         res.send();
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+// Get Orders
+router.get("/users/me/purchased", auth, (req, res) => {
+    const user = req.user;
+
+    try {
+        const orders = user.purchased;
+        res.send(orders);
     } catch (err) {
         res.status(500).send(err);
     }

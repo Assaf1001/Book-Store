@@ -36,7 +36,12 @@ const AddToCartModal = () => {
                     >
                         <span>{icons.basket}</span> CONTINUE SHOPPING
                     </div>
-                    <Link to="/cart">
+                    <Link
+                        onClick={() => {
+                            setIsItemAdded(false);
+                        }}
+                        to="/cart"
+                    >
                         <span>{icons.cart}</span> GO TO CART
                     </Link>
                 </div>

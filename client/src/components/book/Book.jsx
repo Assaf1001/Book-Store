@@ -1,14 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { LoginContext } from "../../context/LoginContext";
 import { AddItemsContext } from "../../context/AddItemsContext";
 import { useHistory } from "react-router-dom";
 import { addBookToCart } from "../../server/user";
 
 import icons from "../../icons/icons";
+import RemoveBookModal from "../admin/RemoveBookModal";
 
-const Book = ({ book }) => {
+const Book = ({ book, setIsBlurBackground }) => {
     const { userData } = useContext(LoginContext);
     const { setIsItemAdded, setAddedBook } = useContext(AddItemsContext);
+    // const [isRemoveBook, setIsRemoveBook] = useState(false);
 
     const history = useHistory();
 
@@ -71,7 +73,28 @@ const Book = ({ book }) => {
                         <span>{book.details.bestSellersRank}</span>
                     </h5>
                 </div>
+                {userData.isAdmin && (
+                    <div className="admin-control">
+                        <h2>Admin Control</h2>
+                        <button>EDIT BOOK</button>
+                        <button
+                        // onClick={() => {
+                        //     if (isRemoveBook) {
+                        //         setIsRemoveBook(false);
+                        //         setIsBlurBackground(false);
+                        //     } else {
+                        //         setIsRemoveBook(true);
+                        //         setIsBlurBackground(true);
+                        //     }
+                        // }}
+                        >
+                            REMOVE BOOK
+                        </button>
+                        {/* {isRemoveBook && <RemoveBookModal />} */}
+                    </div>
+                )}
             </div>
+            {/* {userData.isAdmin && <div className="blur-background"></div> */}
         </div>
     );
 };

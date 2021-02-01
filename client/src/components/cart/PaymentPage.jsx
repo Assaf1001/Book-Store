@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { addPurchased, emptyCart } from "../../server/user";
 import { LoginContext } from "../../context/LoginContext";
@@ -6,24 +6,35 @@ import PurchasedModal from "./PurchasedModal";
 import { getOrderNumber } from "../../server/general";
 
 import icons from "../../icons/icons";
+import { useHistory } from "react-router-dom";
 
 const PaymentPage = (props) => {
     const total = props.location.state?.total;
+    const cart = props.location.state?.cart;
 
     const { userData } = useContext(LoginContext);
     const [orderNumber, setOrderNumber] = useState(0);
     const [isPurchased, setIsPurchased] = useState(false);
 
+    const history = useHistory();
+
+    useEffect(() => {
+        if (!cart || cart.length === 0) {
+            history.push("/pageNotFound");
+        }
+    }, [cart, history]);
+
     const onSubmitForm = async (event) => {
         event.preventDefault();
+
+        const orderNumberData = await getOrderNumber();
+        setOrderNumber(orderNumberData);
 
         const fields = event.target;
         const purchasedObj = {
             date: Date(),
-            orderNumber: await getOrderNumber().then((orderNumberData) =>
-                setOrderNumber(orderNumberData)
-            ),
-            cart: props.location.state?.cart,
+            orderNumber: orderNumberData,
+            cart,
             info: {
                 billingInfo: {
                     fullName: fields[0].value,

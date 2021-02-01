@@ -10,6 +10,7 @@ const imageData = [
         text: "Become a MANGA member..",
         button: "SIGN UP",
         textColor: "#ff6600",
+        to: '{ "pathname": "/login", "state": { "signUp": true } }',
     },
     {
         img:
@@ -17,6 +18,7 @@ const imageData = [
         text: "Check out our new releases!",
         button: "NEW RELEASES",
         textColor: "white",
+        to: "/newReleases",
     },
     {
         img:
@@ -24,12 +26,14 @@ const imageData = [
         text: "New MANGA is on the way",
         button: "COMING SOON",
         textColor: "white",
+        to: "/comingSoon",
     },
     {
         img: "https://wallpapercave.com/wp/fB42Y0H.jpg",
         text: "We will be happy to hear from you",
         button: "CONTACT US",
         textColor: "white",
+        to: "/contactUs",
     },
 ];
 
@@ -53,10 +57,11 @@ const ImagesCarousel = () => {
                 {imageData.map((image) => (
                     <ImagesCarouselItem
                         key={imageData.indexOf(image)}
-                        image={image.img}
+                        img={image.img}
                         text={image.text}
                         button={image.button}
                         textColor={image.textColor}
+                        to={image.to}
                     />
                 ))}
             </Carousel>

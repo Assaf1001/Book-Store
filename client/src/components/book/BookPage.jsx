@@ -20,7 +20,15 @@ const BookPage = (props) => {
         initialBooksListState
     );
 
+    // const [isBlurBackground, setIsBlurBackground] = useState(false);
+
     const history = useHistory();
+
+    // window.onclick = (event) => {
+    //     if (event.target.matches(".blur-background")) {
+    //         setIsBlurBackground(false);
+    //     }
+    // };
 
     const responsive = {
         largeDesktop: {
@@ -78,7 +86,12 @@ const BookPage = (props) => {
         <div>
             <div className="book-page__container center">
                 <div className="book-page__contnet">
-                    {book._id && <Book book={book} />}
+                    {book._id && (
+                        <Book
+                            book={book}
+                            // setIsBlurBackground={setIsBlurBackground}
+                        />
+                    )}
                 </div>
                 {book._id && (
                     <h3 className="carousel__container-header">
@@ -95,6 +108,9 @@ const BookPage = (props) => {
                 </div>
             </div>
             {isItemAdded && <div className="blur-background"></div>}
+            {/* {(isItemAdded || isBlurBackground) && (
+                <div className="blur-background"></div>
+            )} */}
         </div>
     );
 };

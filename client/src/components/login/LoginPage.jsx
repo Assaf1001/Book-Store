@@ -4,7 +4,9 @@ import LoginForm from "./LoginForm";
 import SingupForm from "./SingupForm";
 
 const LoginPage = (props) => {
-    const [isLoginMode, setIsLoginMode] = useState(true);
+    const [isLoginMode, setIsLoginMode] = useState(
+        props.location.state?.signUp ? false : true
+    );
     const errorMessage = props.location.state?.needToLogin
         ? "You must login!"
         : "";

@@ -4,8 +4,8 @@
         flex-direction: column;
         align-items: center;
         width: 60%;
-        margin-top: 3rem;
-        margin-bottom: 2rem;
+        margin-top: 4rem;
+        margin-bottom: 3rem;
         padding: 2rem;
         background: $lightGray;
 
@@ -160,6 +160,7 @@
     width: 45%;
     height: 55%;
     min-width: 566px;
+    min-height: 500px;
     background: $lightGray;
     border: 2px solid $darkBlue;
     border-radius: 10px;

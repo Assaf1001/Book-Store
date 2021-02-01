@@ -1,0 +1,226 @@
+.my-account-page__content {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 16rem);
+    min-height: 600px;
+    padding: 1rem;
+
+    .menu__container {
+        width: 25%;
+        background-color: white;
+
+        div {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 2rem;
+            height: 16.66%;
+            font-size: 1.8rem;
+            border: 2px solid $white;
+            span {
+                font-size: 1.8rem;
+                margin-right: 1rem;
+                color: rgb(116, 114, 114);
+            }
+
+            &:hover {
+                cursor: pointer;
+                border: 2px solid $lightBlue;
+            }
+        }
+
+        .menu-active {
+            background: $lightBlue;
+            border: 2px solid $lightBlue;
+        }
+    }
+
+    .content__container {
+        background-color: whitesmoke;
+        width: 75%;
+        height: 100%;
+        overflow: auto;
+
+        .greeting {
+            height: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            h1 {
+                margin: 0;
+                padding-top: 4rem;
+                text-align: center;
+                color: $white;
+                font-size: 3.5rem;
+                font-weight: 400;
+                text-shadow: 0px 3px 6px $darkBlue;
+            }
+        }
+
+        .box {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            margin-top: 3rem;
+            .icon {
+                width: 10%;
+                font-size: 2.5rem;
+                margin-left: 3rem;
+                margin-top: 0.3rem;
+                color: rgb(116, 114, 114);
+            }
+            .content {
+                width: 90%;
+                h2 {
+                    font-size: 2.8rem;
+                    font-weight: 400;
+                    margin: 0;
+                    margin-bottom: 3rem;
+                }
+            }
+        }
+
+        .my-details {
+            height: 100%;
+            .content {
+                height: 100%;
+                .forms {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    width: 100%;
+                    height: 100%;
+
+                    .details-form {
+                        width: 40%;
+                    }
+
+                    .password-form {
+                        width: 40%;
+                        margin-left: 4vw;
+                    }
+
+                    form {
+                        label {
+                            display: block;
+                            margin: 1rem 0 -0.5rem 1rem;
+                        }
+
+                        input,
+                        select {
+                            display: block;
+                            width: 95%;
+                            padding: 0.8rem 1rem;
+                            border: none;
+                            margin: 1rem 1rem 0.5rem 1rem;
+
+                            &:focus {
+                                outline: none;
+                            }
+                        }
+
+                        ::placeholder {
+                            color: $lightBlue;
+                        }
+
+                        button {
+                            width: calc(100% - 1rem);
+                            margin: 2.5rem 0 0 1rem;
+                            padding: 0.8rem 4rem;
+                            border: none;
+                            background: $lightBlue;
+                            font-size: 1.1rem;
+
+                            span {
+                                margin-left: 1rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .my-orders {
+            overflow: auto;
+            height: 90%;
+            .content {
+                h5 {
+                    color: $lightBlue;
+                    font-size: 4rem;
+                    text-align: center;
+                }
+
+                .order-item {
+                    display: grid;
+                    grid-template-areas: "a a c" "b b c" "b b c";
+                    background: $white;
+                    width: 90%;
+                    margin-bottom: 1rem;
+                    padding: 1rem 2rem;
+
+                    .details {
+                        grid-area: a;
+
+                        display: flex;
+
+                        .part1 {
+                            h3 {
+                                font-size: 2rem;
+                                font-weight: 400;
+                                margin: 0;
+                            }
+                            p {
+                                margin-top: 1rem;
+                            }
+                        }
+                        .part2 {
+                            margin-left: 4rem;
+                            h4 {
+                                font-size: 1.3rem;
+                                font-weight: 400;
+                                margin: 1rem 0 0.8rem;
+                            }
+                            p {
+                                text-align: center;
+                                margin-top: 0;
+                            }
+                        }
+                    }
+                    .image-container {
+                        grid-area: b;
+
+                        img {
+                            width: 80px;
+                            margin-right: 1rem;
+                        }
+                    }
+                    .buttons {
+                        grid-area: c;
+
+                        display: flex;
+                        flex-direction: column;
+                        margin-top: 3rem;
+
+                        button {
+                            width: 100%;
+                            margin: 2rem 0 0 1rem;
+                            padding: 0.8rem 4rem;
+                            border: none;
+                            background: $lightBlue;
+                            font-size: 1.1rem;
+                        }
+                        .track-button {
+                            background: $white;
+                            border: 2px solid $lightBlue;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

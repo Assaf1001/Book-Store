@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../../context/LoginContext";
 import { getCart } from "../../server/user";
 import CartItem from "./CartPageItem";
-import { Link, Route } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import icons from "../../icons/icons";
 
@@ -10,6 +10,8 @@ const CartPage = () => {
     const { userData } = useContext(LoginContext);
     const [cart, setCart] = useState([]);
     const [subtotal, setSubtotal] = useState([0, 0]);
+
+    const history = useHistory();
 
     const setBooksQuantity = (cartData) => {
         const cart = [];
@@ -89,14 +91,17 @@ const CartPage = () => {
                             <h4>{subtotal[1]} $</h4>
                         </div>
                     </div>
-                    <Link
-                        to={{
-                            pathname: "/payment",
-                            state: { total: subtotal[1], cart },
+                    <button
+                        onClick={() => {
+                            history.push({
+                                pathname: "/payment",
+                                state: { total: subtotal[1], cart },
+                            });
                         }}
+                        disabled={cart.length === 0}
                     >
-                        Checkout <span>{icons.rightArrow}</span>
-                    </Link>
+                        CHECKOUT <span>{icons.rightArrow}</span>
+                    </button>
                 </div>
             </div>
         </div>

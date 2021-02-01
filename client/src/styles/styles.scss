@@ -8,7 +8,7 @@
 @import "./components/home/homePage";
 @import "./components/login/login";
 @import "./components/main/pageNotFound";
-@import "./components/customerInfo/customerInfo";
+@import "./components/home/customerInfo";
 @import "./components/carousels/booksCarousel";
 @import "./components/carousels/imagesCarousel";
 @import "./components/book/bookPage";
@@ -18,3 +18,5 @@
 @import "./components/main/filter";
 @import "./components/cart/cartPage";
 @import "./components/cart/paymentPage";
+@import "./components/myAccount/myAccountPage";
+@import "./components/admin/admin";

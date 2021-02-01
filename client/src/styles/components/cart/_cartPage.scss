@@ -5,6 +5,7 @@
     padding: 0 1rem;
     margin-top: 4rem;
     margin-bottom: 3rem;
+    min-height: calc(100vh - 18rem);
 
     .cart-page__content {
         display: flex;
@@ -23,6 +24,7 @@
             font-weight: 400;
             color: $darkBlue;
             margin-left: 3rem;
+            margin-top: 2rem;
         }
         h2 {
             font-size: 3rem;
@@ -203,17 +205,23 @@
                 }
             }
 
-            a {
+            button {
                 margin: 0 2rem 2rem;
                 padding: 0.8rem 0;
                 border: none;
                 background: $lightBlue;
-                font-size: 1.2rem;
                 text-align: center;
 
-                span {
-                    margin-left: 0.2rem;
+                a {
                     font-size: 1.2rem;
+                    span {
+                        margin-left: 0.2rem;
+                        font-size: 1.2rem;
+                    }
+                }
+                &:disabled {
+                    background: #ccc;
+                    cursor: not-allowed;
                 }
             }
         }

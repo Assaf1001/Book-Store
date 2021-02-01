@@ -5,6 +5,7 @@
     padding: 0 1rem;
     margin-top: 4rem;
     margin-bottom: 3rem;
+    min-height: calc(100vh - 18rem);
 
     .genres__container {
         flex-grow: 1;

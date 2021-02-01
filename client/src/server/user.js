@@ -75,3 +75,15 @@ export const emptyCart = async (token) => {
         throw new Error(err.response.data.message);
     }
 };
+
+export const getOrders = async (token) => {
+    try {
+        const res = await Axios.get(`${userURL}/purchased`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        return res.data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
+    }
+};

@@ -21,6 +21,7 @@
                 color: $white;
             }
             span {
+                margin-right: 0.3rem;
                 font-size: 1.2rem;
             }
         }
@@ -33,6 +34,10 @@
             margin: 0 1rem;
             color: $black;
             font-size: 1.2rem;
+            span {
+                margin-right: 0.3rem;
+                font-size: 1.2rem;
+            }
             &:hover {
                 cursor: pointer;
                 color: $white;
