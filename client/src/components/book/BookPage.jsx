@@ -4,31 +4,51 @@ import { setBooksListAction } from "../../actions/booksListActions";
 import booksListReducer, {
     initialBooksListState,
 } from "../../reducers/booksListReducer";
-import { getBookByID, getBooksByFieldAndValue } from "../../server/books";
+import {
+    getBookByID,
+    getBooksByFieldAndValue,
+    removeBook,
+} from "../../server/books";
 import BooksCarousel from "../carousels/booksCarousel/BooksCarousel";
 import Book from "./Book";
 import { AddItemsContext } from "../../context/AddItemsContext";
+import AdminModal from "../admin/AdminModal";
+import { LoginContext } from "../../context/LoginContext";
 
 import icons from "../../icons/icons";
+import EditBookModal from "../admin/EditBookModal";
 
 const BookPage = (props) => {
     const bookId = props.match.params.id;
-    const { isItemAdded } = useContext(AddItemsContext);
+    const { userData } = useContext(LoginContext);
+    const {
+        isItemAdded,
+        isModalActive,
+        toggleModal,
+        modalMessage,
+        isEditBook,
+    } = useContext(AddItemsContext);
+
     const [book, setBook] = useState({});
     const [booksList, dispatchBooksList] = useReducer(
         booksListReducer,
         initialBooksListState
     );
 
-    // const [isBlurBackground, setIsBlurBackground] = useState(false);
-
     const history = useHistory();
 
-    // window.onclick = (event) => {
-    //     if (event.target.matches(".blur-background")) {
-    //         setIsBlurBackground(false);
-    //     }
-    // };
+    const onClickRemoveBook = (bookId, token) => {
+        if (userData.isAdmin) {
+            removeBook(bookId, token)
+                .then(() => {
+                    toggleModal();
+                    history.push(`/genres/${book.category}`);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    };
 
     const responsive = {
         largeDesktop: {
@@ -68,7 +88,7 @@ const BookPage = (props) => {
                 console.log(err);
                 history.push("/pageNotFound");
             });
-    }, [bookId, history]);
+    }, [bookId, history, isEditBook]);
 
     useEffect(() => {
         if (book.category) {
@@ -84,14 +104,29 @@ const BookPage = (props) => {
 
     return (
         <div>
+            {(isItemAdded || isModalActive) && (
+                <div onClick={toggleModal} className="blur-background"></div>
+            )}
+            {isEditBook && <EditBookModal book={book} />}
+            {isModalActive && (
+                <AdminModal
+                    message={modalMessage}
+                    closeButton={isEditBook ? "CLOSE" : "NO"}
+                >
+                    {!isEditBook && (
+                        <button
+                            onClick={() => {
+                                onClickRemoveBook(book._id, userData.token);
+                            }}
+                        >
+                            YES
+                        </button>
+                    )}
+                </AdminModal>
+            )}
             <div className="book-page__container center">
                 <div className="book-page__contnet">
-                    {book._id && (
-                        <Book
-                            book={book}
-                            // setIsBlurBackground={setIsBlurBackground}
-                        />
-                    )}
+                    {book._id && <Book book={book} />}
                 </div>
                 {book._id && (
                     <h3 className="carousel__container-header">
@@ -107,10 +142,6 @@ const BookPage = (props) => {
                     </Link>
                 </div>
             </div>
-            {isItemAdded && <div className="blur-background"></div>}
-            {/* {(isItemAdded || isBlurBackground) && (
-                <div className="blur-background"></div>
-            )} */}
         </div>
     );
 };

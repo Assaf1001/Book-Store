@@ -27,13 +27,14 @@ const PaymentPage = (props) => {
     const onSubmitForm = async (event) => {
         event.preventDefault();
 
-        const orderNumberData = await getOrderNumber();
+        const orderNumberData = await getOrderNumber(userData.token);
         setOrderNumber(orderNumberData);
 
         const fields = event.target;
         const purchasedObj = {
             date: Date(),
             orderNumber: orderNumberData,
+            total,
             cart,
             info: {
                 billingInfo: {

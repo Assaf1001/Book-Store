@@ -20,7 +20,7 @@
             span {
                 font-size: 1.8rem;
                 margin-right: 1rem;
-                color: rgb(116, 114, 114);
+                color: $darkBlue;
             }
 
             &:hover {
@@ -72,7 +72,7 @@
                 font-size: 2.5rem;
                 margin-left: 3rem;
                 margin-top: 0.3rem;
-                color: rgb(116, 114, 114);
+                color: $darkBlue;
             }
             .content {
                 width: 90%;
@@ -217,6 +217,21 @@
                         .track-button {
                             background: $white;
                             border: 2px solid $lightBlue;
+                        }
+                    }
+
+                    .view-order__modal {
+                        h2 {
+                            font-size: 1.3rem;
+                            margin-bottom: 1rem;
+                        }
+                        button {
+                            width: 100%;
+                            margin: 2rem 0 2rem 1rem;
+                            padding: 0.8rem 4rem;
+                            border: none;
+                            background: $lightBlue;
+                            font-size: 1.1rem;
                         }
                     }
                 }

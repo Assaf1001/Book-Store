@@ -1,12 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const auth = require("../middleware/auth");
+const validator = require("validator");
+const { userAuth, adminAuth } = require("../middleware/auth");
 const General = require("../models/generalModel");
+const User = require("../models/userModel");
 
 const router = new express.Router();
 
 // Generate first order number and set value to 1
-router.post("/general/orderNumber", async (req, res) => {
+router.post("/general/orderNumber", adminAuth, async (req, res) => {
     const firstOrderNumber = new General({ orderNumber: 1 });
 
     try {
@@ -18,7 +20,7 @@ router.post("/general/orderNumber", async (req, res) => {
 });
 
 // Get order number and increase by 1
-router.get("/general/orderNumber", async (req, res) => {
+router.get("/general/orderNumber", userAuth, async (req, res) => {
     try {
         const orderNumber = await General.findOne({
             orderNumber: { $exists: true },
@@ -31,58 +33,56 @@ router.get("/general/orderNumber", async (req, res) => {
     }
 });
 
-// Check if user is an admin
-router.get("/general/admins", auth, async (req, res) => {
-    const user = req.user;
-
-    try {
-        const generalData = await General.find({});
-        const adminsArr = generalData[0].admins;
-
-        const isUserAdmin = adminsArr.includes(user.email);
-
-        res.send(isUserAdmin);
-    } catch (err) {
-        res.status(500).send(err);
-    }
-});
-
 // Add Admin
-router.post("/general/admins", auth, async (req, res) => {
-    const user = req.user;
+router.post("/general/admins", adminAuth, async (req, res) => {
     const newAdmin = req.body.newAdmin;
 
     try {
-        const generalData = await General.find({});
-        const adminsArr = generalData[0].admins;
+        if (!validator.isEmail(newAdmin)) {
+            return res.status(400).send("Please enter a valid email adress");
+        }
 
-        const isUserAdmin = adminsArr.includes(user.email);
-
-        if (!isUserAdmin) {
-            return res.status(401).send("Unauthoraized");
+        const adminUsers = await User.find({ isAdmin: true });
+        const adminsArr = [];
+        for (let admin of adminUsers) {
+            adminsArr.push(admin.email);
         }
 
         const isNewAdminAlreadyAdmin = adminsArr.includes(newAdmin);
-
         if (isNewAdminAlreadyAdmin) {
             return res.status(400).send("User is already an admin!");
         }
 
-        adminsArr.push(newAdmin);
-        generalData[0].admins = adminsArr;
-        await generalData[0].save();
+        const user = await User.findOneAndUpdate(
+            { email: newAdmin },
+            { isAdmin: true }
+        );
 
-        res.send(generalData[0]);
+        if (!user) {
+            return res
+                .status(400)
+                .send("This email does not belong to any user");
+        }
+
+        res.send(`${newAdmin} Added successfully`);
     } catch (err) {
-        res.status(500).send(err);
+        console.log(err);
+        if (err.message.includes("validation failed")) {
+            const errArr = err.message.split(":");
+            return res.status(400).send(errArr[2]);
+        }
+        res.status(500).send();
     }
 });
 
 // Get Admins List
-router.get("/general/admins/list", auth, async (req, res) => {
+router.get("/general/admins/list", adminAuth, async (req, res) => {
     try {
-        const generalData = await General.find({});
-        const adminsArr = generalData[0].admins;
+        const adminUsers = await User.find({ isAdmin: true });
+        const adminsArr = [];
+        for (let admin of adminUsers) {
+            adminsArr.push(admin.email);
+        }
 
         res.send(adminsArr);
     } catch (err) {
@@ -91,18 +91,27 @@ router.get("/general/admins/list", auth, async (req, res) => {
 });
 
 // Remove Admin
-router.patch("/general/admins", auth, async (req, res) => {
-    const admin = req.body.adminToRemove;
+router.patch("/general/admins", adminAuth, async (req, res) => {
+    const adminToRemove = req.body.adminToRemove;
 
     try {
-        const adminsArr = await General.findOne({
-            admins: admin,
-        });
+        const adminUsers = await User.find({ isAdmin: true });
+        const adminsArr = [];
+        for (let admin of adminUsers) {
+            adminsArr.push(admin.email);
+        }
+        if (adminsArr.length <= 1) {
+            return res
+                .status(400)
+                .send("Admins list must contain at least 1 admin");
+        }
 
-        adminsArr.admins.splice(adminsArr.admins.indexOf(admin), 1);
-        await adminsArr.save();
+        const admin = await User.findOneAndUpdate(
+            { email: adminToRemove },
+            { isAdmin: false }
+        );
 
-        res.send(adminsArr.admins);
+        res.send(`${admin.email} Removed succsessfully`);
     } catch (err) {
         res.status(500).send(err);
     }

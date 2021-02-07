@@ -101,6 +101,7 @@ const HomePage = () => {
 
     return (
         <div className="home-page__container">
+            {isItemAdded && <div className="blur-background"></div>}
             <div className="home-page__content">
                 <ImagesCarousel />
             </div>
@@ -156,7 +157,6 @@ const HomePage = () => {
                 </HomePageBox>
             </div>
             <CustomerInfo />
-            {isItemAdded && <div className="blur-background"></div>}
         </div>
     );
 };

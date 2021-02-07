@@ -9,7 +9,7 @@ import AddToCartModal from "../carousels/booksCarousel/AddToCartModal";
 import BooksCarouselItem from "../carousels/booksCarousel/BooksCarouselItem";
 import Filter from "../main/Filter";
 
-const GenrePage = (props) => {
+const BookListPage = (props) => {
     const genre = props.match.params.genre;
     const { isItemAdded } = useContext(AddItemsContext);
 
@@ -73,4 +73,4 @@ const GenrePage = (props) => {
     );
 };
 
-export default GenrePage;
+export default BookListPage;

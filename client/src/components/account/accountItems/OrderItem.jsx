@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { AddItemsContext } from "../../../context/AddItemsContext";
+import ViewOrderModal from "./ViewOrderModal";
 
 const OrderItem = ({ order }) => {
+    const { toggleModal, isModalActive } = useContext(AddItemsContext);
+    const [isViewOrder, setIsViewOrder] = useState(false);
+
     const formatDate = (date) => {
         const dateArr = date.split(" ");
         switch (dateArr[1]) {
@@ -64,6 +69,13 @@ const OrderItem = ({ order }) => {
 
     return (
         <div className="order-item">
+            {isViewOrder && isModalActive && (
+                <ViewOrderModal
+                    order={order}
+                    formatDate={formatDate}
+                    setIsViewOrder={setIsViewOrder}
+                />
+            )}
             <div className="details">
                 <div className="part1">
                     <h3>We've sent it!</h3>
@@ -76,7 +88,14 @@ const OrderItem = ({ order }) => {
             </div>
             <div className="image-container">{getImages(order.cart)}</div>
             <div className="buttons">
-                <button>VIEW ORDER</button>
+                <button
+                    onClick={() => {
+                        setIsViewOrder(true);
+                        toggleModal();
+                    }}
+                >
+                    VIEW ORDER
+                </button>
                 <button className="track-button">TRACK ORDER</button>
             </div>
         </div>

@@ -2,9 +2,11 @@ import Axios from "axios";
 
 const generalURL = `${process.env.REACT_APP_DB}/general`;
 
-export const getOrderNumber = async () => {
+export const getOrderNumber = async (token) => {
     try {
-        const res = await Axios.get(`${generalURL}/orderNumber`);
+        const res = await Axios.get(`${generalURL}/orderNumber`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
 
         return res.data.orderNumber;
     } catch (err) {
@@ -19,7 +21,6 @@ export const addAdmin = async (newAdmin, token) => {
             { newAdmin },
             { headers: { Authorization: `Bearer ${token}` } }
         );
-
         return res.data;
     } catch (err) {
         throw new Error(err.response.data);

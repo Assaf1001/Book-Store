@@ -1,4 +1,4 @@
-export const intialUserDataState = { user: null, toekn: "", isAdmin: false };
+export const intialUserDataState = { user: null, toekn: "", isAdmin: null };
 
 const logInReducer = (userData, action) => {
     switch (action.type) {

@@ -1,16 +1,19 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { LoginContext } from "../../context/LoginContext";
 import { AddItemsContext } from "../../context/AddItemsContext";
 import { useHistory } from "react-router-dom";
 import { addBookToCart } from "../../server/user";
 
 import icons from "../../icons/icons";
-import RemoveBookModal from "../admin/RemoveBookModal";
 
-const Book = ({ book, setIsBlurBackground }) => {
+const Book = ({ book }) => {
     const { userData } = useContext(LoginContext);
-    const { setIsItemAdded, setAddedBook } = useContext(AddItemsContext);
-    // const [isRemoveBook, setIsRemoveBook] = useState(false);
+    const {
+        setIsItemAdded,
+        setAddedBook,
+        toggleModal,
+        setIsEditBook,
+    } = useContext(AddItemsContext);
 
     const history = useHistory();
 
@@ -76,25 +79,25 @@ const Book = ({ book, setIsBlurBackground }) => {
                 {userData.isAdmin && (
                     <div className="admin-control">
                         <h2>Admin Control</h2>
-                        <button>EDIT BOOK</button>
                         <button
-                        // onClick={() => {
-                        //     if (isRemoveBook) {
-                        //         setIsRemoveBook(false);
-                        //         setIsBlurBackground(false);
-                        //     } else {
-                        //         setIsRemoveBook(true);
-                        //         setIsBlurBackground(true);
-                        //     }
-                        // }}
+                            onClick={() => {
+                                setIsEditBook(true);
+                            }}
+                        >
+                            EDIT BOOK
+                        </button>
+                        <button
+                            onClick={() => {
+                                toggleModal(
+                                    `Are you sure you want to remove ${book.title}`
+                                );
+                            }}
                         >
                             REMOVE BOOK
                         </button>
-                        {/* {isRemoveBook && <RemoveBookModal />} */}
                     </div>
                 )}
             </div>
-            {/* {userData.isAdmin && <div className="blur-background"></div> */}
         </div>
     );
 };

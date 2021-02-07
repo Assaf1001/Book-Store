@@ -30,6 +30,7 @@ const userSchema = new mongoose.Schema(
                 }
             },
         },
+        isAdmin: { type: Boolean },
         // phoneNumber: { type: String },
         // adress: {
         //     line1: { type: String },

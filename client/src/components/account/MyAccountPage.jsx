@@ -7,9 +7,11 @@ import Greeting from "./accountItems/Greeting";
 import MyDetails from "./accountItems/MyDetails";
 import MyOrders from "./accountItems/MyOrders";
 import AdressBook from "./accountItems/AdressBook";
+import { AddItemsContext } from "../../context/AddItemsContext";
 
 const MyAccountPage = () => {
     const { userData } = useContext(LoginContext);
+    const { isModalActive, toggleModal } = useContext(AddItemsContext);
 
     const [activeComponent, setActiveComponent] = useState("");
     const [activeClass, setActiveClass] = useState(["menu-active", "", "", ""]);
@@ -56,6 +58,9 @@ const MyAccountPage = () => {
 
     return (
         <div className="main__container">
+            {isModalActive && (
+                <div onClick={toggleModal} className="blur-background"></div>
+            )}
             <div className="my-account-page__content center">
                 <div className="menu__container">
                     <div

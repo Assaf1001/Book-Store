@@ -43,11 +43,21 @@ const MenuBar = () => {
                             <li>
                                 <Link to={"/genres/adventure"}>Adevnture</Link>
                             </li>
-                            <li>Drama</li>
-                            <li>Adevnture</li>
-                            <li>Adevnture</li>
-                            <li>Adevnture</li>
-                            <li>Adevnture</li>
+                            <li>
+                                <Link to={"/genres/fantasy"}> Fantasy</Link>
+                            </li>
+                            <li>
+                                <Link to={"/genres/comedy"}> Comedy</Link>
+                            </li>
+                            <li>
+                                <Link to={"/genres/drama"}> Drama</Link>
+                            </li>
+                            <li>
+                                <Link to={"/genres/romance"}> Romance</Link>
+                            </li>
+                            <li>
+                                <Link to={"/genres/horror"}> Horror</Link>
+                            </li>
                         </ul>
                     </div>
                     <NavLink to="/bestSellers" activeClassName="menu-active">

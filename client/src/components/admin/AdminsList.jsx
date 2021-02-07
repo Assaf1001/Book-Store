@@ -3,21 +3,26 @@ import { LoginContext } from "../../context/LoginContext";
 import { getAdminsList, removeAdmin } from "../../server/general";
 
 import icons from "../../icons/icons";
+import { AddItemsContext } from "../../context/AddItemsContext";
+import AdminModal from "./AdminModal";
 
 const AdminsList = () => {
     const { userData } = useContext(LoginContext);
+    const { isModalActive, modalMessage, toggleModal } = useContext(
+        AddItemsContext
+    );
     const [adminsList, setAdminsList] = useState([]);
 
-    const onclickRemoveAdmin = (admin, token) => {
-        if (adminsList.length <= 1) return;
-
-        removeAdmin(admin, token)
-            .then((adminsListData) => {
-                // console.log(adminsListData);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+    const onclickRemoveAdmin = (adminToRemove, token) => {
+        if (userData.isAdmin) {
+            removeAdmin(adminToRemove, token)
+                .then((removedAdminData) => {
+                    toggleModal(removedAdminData.toString());
+                })
+                .catch((err) => {
+                    toggleModal(err.toString());
+                });
+        }
     };
 
     useEffect(() => {
@@ -32,6 +37,9 @@ const AdminsList = () => {
 
     return (
         <div className="admins-list__container">
+            {isModalActive && (
+                <AdminModal message={modalMessage} closeButton={"CLOSE"} />
+            )}
             <h1>Admins List</h1>
             {adminsList.map((admin) => (
                 <div key={admin}>

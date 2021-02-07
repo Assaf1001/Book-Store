@@ -1,6 +1,6 @@
 const express = require("express");
 const User = require("../models/userModel");
-const auth = require("../middleware/auth");
+const { userAuth } = require("../middleware/auth");
 const mongoose = require("mongoose");
 
 const router = new express.Router();
@@ -39,7 +39,7 @@ router.post("/users/login", async (req, res) => {
 });
 
 // LogOut
-router.post("/users/logout", auth, async (req, res) => {
+router.post("/users/logout", userAuth, async (req, res) => {
     try {
         req.user.tokens = req.user.tokens.filter(
             (token) => token.token !== req.token
@@ -53,7 +53,7 @@ router.post("/users/logout", auth, async (req, res) => {
 });
 
 // LogOut from all devices
-router.post("/users/logoutAll/", auth, async (req, res) => {
+router.post("/users/logoutAll/", userAuth, async (req, res) => {
     try {
         req.user.tokens = [];
         await req.user.save();
@@ -65,7 +65,7 @@ router.post("/users/logoutAll/", auth, async (req, res) => {
 });
 
 // Delete User
-router.delete("/users/me", auth, async (req, res) => {
+router.delete("/users/me", userAuth, async (req, res) => {
     try {
         await req.user.remove();
         res.send(req.user);
@@ -107,7 +107,7 @@ router.delete("/users/me", auth, async (req, res) => {
 //     res.status(500).send();
 //   }
 // });
-router.patch("/users/me", auth, async (req, res) => {
+router.patch("/users/me", userAuth, async (req, res) => {
     const allowedUpdates = ["first"];
     // const allowedUpdates = ["{ details: { name: { first } } }"];
     // const allowedUpdates = ["details.name.first"];
@@ -146,7 +146,7 @@ router.patch("/users/me", auth, async (req, res) => {
 });
 
 // Add book to Cart
-router.post("/users/me/addToCart", auth, async (req, res) => {
+router.post("/users/me/addToCart", userAuth, async (req, res) => {
     const user = req.user;
     const bookId = req.body.bookId;
 
@@ -161,7 +161,7 @@ router.post("/users/me/addToCart", auth, async (req, res) => {
 });
 
 //Get Books from Cart
-router.get("/users/me/cart", auth, async (req, res) => {
+router.get("/users/me/cart", userAuth, async (req, res) => {
     const user = req.user;
 
     try {
@@ -180,7 +180,7 @@ router.get("/users/me/cart", auth, async (req, res) => {
 });
 
 // Update Quantity in Cart
-router.post("/users/me/cart", auth, async (req, res) => {
+router.post("/users/me/cart", userAuth, async (req, res) => {
     const user = req.user;
     const cart = user.books.cart;
     const bookId = req.body.bookId;
@@ -216,7 +216,7 @@ router.post("/users/me/cart", auth, async (req, res) => {
 });
 
 // Add purchase
-router.post("/users/me/purchased", auth, async (req, res) => {
+router.post("/users/me/purchased", userAuth, async (req, res) => {
     const user = req.user;
     const purchased = req.body;
 
@@ -230,7 +230,7 @@ router.post("/users/me/purchased", auth, async (req, res) => {
 });
 
 // Empty Cart
-router.patch("/users/me/cart", auth, async (req, res) => {
+router.patch("/users/me/cart", userAuth, async (req, res) => {
     const user = req.user;
 
     try {
@@ -243,7 +243,7 @@ router.patch("/users/me/cart", auth, async (req, res) => {
 });
 
 // Get Orders
-router.get("/users/me/purchased", auth, (req, res) => {
+router.get("/users/me/purchased", userAuth, (req, res) => {
     const user = req.user;
 
     try {

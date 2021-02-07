@@ -58,7 +58,8 @@
             display: block;
             margin-bottom: -0.5rem;
         }
-        input {
+        input,
+        select {
             display: block;
             width: 100%;
             padding: 0.8rem 1rem;
@@ -125,17 +126,23 @@
 
             display: flex;
             flex-direction: column;
-            button {
-                align-self: center;
-                width: 60%;
-                margin-top: 2.5rem;
-                padding: 0.8rem 4rem;
-                border: none;
-                background: $lightBlue;
-                font-size: 1.1rem;
 
-                span {
+            .buttons-container {
+                margin-top: 0;
+                display: flex;
+                justify-content: center;
+                button {
+                    align-self: center;
+                    width: 60%;
+                    margin-top: 2.5rem;
+                    padding: 0.8rem 4rem;
+                    border: none;
+                    background: $lightBlue;
+                    font-size: 1.1rem;
+
                     margin-left: 1rem;
+                    span {
+                    }
                 }
             }
         }
@@ -233,5 +240,60 @@
                 cursor: pointer;
             }
         }
+    }
+}
+
+.admin__modal {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    left: 0;
+    right: 0;
+    top: calc(50vh - 250px);
+    margin: 0 auto;
+    width: 550px;
+    min-height: 280px;
+    background: $lightGray;
+    border: 2px solid $darkBlue;
+    border-radius: 10px;
+    z-index: 8;
+
+    h1 {
+        margin: 2rem 0;
+        font-size: 2.2rem;
+        align-self: center;
+        text-align: center;
+    }
+
+    .buttons-container {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 4rem;
+        margin-bottom: 2rem;
+        width: 100%;
+        button {
+            width: 45%;
+            padding: 0.8rem 4rem;
+            border: none;
+            background: $lightBlue;
+            font-size: 1.1rem;
+        }
+    }
+}
+
+.edit-book__modal {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    width: 80%;
+    min-height: 600px;
+
+    .edit-book__modal-contnet {
+        margin-top: 540px;
     }
 }

@@ -1,11 +1,21 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 import logo from "../../../images/logo.png";
 
 import icons from "../../../icons/icons";
 
 const SearchBar = () => {
+    const history = useHistory();
+
+    const OnSubmitForm = (event) => {
+        event.preventDefault();
+        const searchValue = event.target[0].value;
+
+        if (searchValue.length === 0) return;
+        history.push(`/searchResult/${searchValue}`);
+    };
+
     return (
         <div className="search-bar__container">
             <div className="search-bar center">
@@ -13,7 +23,7 @@ const SearchBar = () => {
                     <img src={logo} alt="logo" />
                 </NavLink>
                 <div className="search__container">
-                    <form>
+                    <form onSubmit={OnSubmitForm}>
                         <div className="input__container">
                             <span>{icons.search}</span>
                             <input

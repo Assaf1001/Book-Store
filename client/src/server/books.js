@@ -37,6 +37,7 @@ export const getBooksByFieldAndValue = async (field, value) => {
         if (err.response.status === 404) {
             throw new Error(err.response.data.message);
         }
+        throw new Error(err.response.data);
     }
 };
 
@@ -51,5 +52,46 @@ export const getBookByID = async (bookId) => {
         } else {
             throw new Error(err);
         }
+    }
+};
+
+export const addBook = async (book, token) => {
+    try {
+        const res = await Axios.post(
+            `${booksURL}/new`,
+            { book },
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        return res.data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
+    }
+};
+
+export const editBook = async (bookId, book, token) => {
+    try {
+        const res = await Axios.patch(
+            `${booksURL}/id`,
+            { bookId, book },
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        return res.data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
+    }
+};
+
+export const removeBook = async (bookId, token) => {
+    try {
+        const res = await Axios.delete(`${booksURL}/id`, {
+            headers: { Authorization: `Bearer ${token}` },
+            data: { bookId },
+        });
+
+        return res.data;
+    } catch (err) {
+        throw new Error(err.response.data.message);
     }
 };
