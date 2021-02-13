@@ -80,12 +80,6 @@ router.get("/books/find", async (req, res) => {
     try {
         const books = await Book.find(searchObj);
 
-        // if (books.length === 0) {
-        //     return res.status(404).send({
-        //         status: 404,
-        //         message: "Cannot find any books",
-        //     });
-        // }
         if (books.length === 0) {
             return res.send([]);
         }

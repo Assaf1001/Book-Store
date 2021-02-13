@@ -1,12 +1,16 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-
 import { AddItemsContext } from "../../../context/AddItemsContext";
 
 import icons from "../../../icons/icons";
 
 const AddToCartModal = () => {
-    const { setIsItemAdded, addedBook } = useContext(AddItemsContext);
+    const {
+        setIsItemAdded,
+        isAddedToWishList,
+        setIsAddedToWishList,
+        addedBook,
+    } = useContext(AddItemsContext);
 
     window.onclick = (event) => {
         if (event.target.matches(".blur-background")) {
@@ -25,12 +29,15 @@ const AddToCartModal = () => {
                     <h1>
                         {addedBook.title} <br /> by {addedBook.author}
                     </h1>
-                    <h2>ADDED TO CART!</h2>
+                    <h2>
+                        ADDED TO {isAddedToWishList ? "WISH LIST" : "CART"}!
+                    </h2>
                 </div>
                 <div className="buttons">
                     <div
                         className="button"
                         onClick={() => {
+                            setIsAddedToWishList(false);
                             setIsItemAdded(false);
                         }}
                     >
@@ -38,11 +45,15 @@ const AddToCartModal = () => {
                     </div>
                     <Link
                         onClick={() => {
+                            setIsAddedToWishList(false);
                             setIsItemAdded(false);
                         }}
-                        to="/cart"
+                        to={isAddedToWishList ? "/wishList" : "/cart"}
                     >
-                        <span>{icons.cart}</span> GO TO CART
+                        <span>
+                            {isAddedToWishList ? icons.wishList : icons.cart}
+                        </span>{" "}
+                        GO TO {isAddedToWishList ? "WISH LIST" : "CART"}
                     </Link>
                 </div>
             </div>

@@ -31,14 +31,6 @@ const userSchema = new mongoose.Schema(
             },
         },
         isAdmin: { type: Boolean },
-        // phoneNumber: { type: String },
-        // adress: {
-        //     line1: { type: String },
-        //     line2: { type: String },
-        //     city: { type: String },
-        //     state: { type: String },
-        //     postCode: { type: String },
-        // },
         purchased: [
             {
                 type: Object,

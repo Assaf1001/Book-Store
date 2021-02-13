@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../../context/LoginContext";
+import { AddItemsContext } from "../../context/AddItemsContext";
 import { getAdminsList, removeAdmin } from "../../server/general";
 
-import icons from "../../icons/icons";
-import { AddItemsContext } from "../../context/AddItemsContext";
 import AdminModal from "./AdminModal";
+
+import icons from "../../icons/icons";
 
 const AdminsList = () => {
     const { userData } = useContext(LoginContext);
@@ -26,13 +27,19 @@ const AdminsList = () => {
     };
 
     useEffect(() => {
-        getAdminsList(userData.token)
-            .then((adminsListData) => {
-                setAdminsList(adminsListData);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        let isComponentExist = true;
+
+        if (isComponentExist) {
+            getAdminsList(userData.token)
+                .then((adminsListData) => {
+                    setAdminsList(adminsListData);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+
+        return () => (isComponentExist = false);
     }, [userData.token, adminsList]);
 
     return (

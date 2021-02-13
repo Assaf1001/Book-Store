@@ -1,21 +1,24 @@
 .customer-info__continer {
     background-color: $darkBlue;
-    height: 25rem;
+    min-height: 25rem;
 
     h3 {
         font-weight: 400;
         color: $white;
         font-size: 2.5rem;
-        margin: 3rem 1rem;
+        margin: 3rem 4vw;
     }
 
     .customer-info__contnet {
-        display: flex;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
         margin: 0 1rem;
 
         .customer-info__item--container {
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
 
             .customer-info__item {
                 display: flex;
@@ -36,6 +39,26 @@
                 text-align: center;
                 font-size: 1.2rem;
             }
+        }
+    }
+}
+
+@media (max-width: $tablet) {
+    h3 {
+        text-align: center;
+    }
+    .customer-info__continer {
+        margin-bottom: 1rem;
+        .customer-info__contnet {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+}
+
+@media (max-width: $mobile) {
+    .customer-info__continer {
+        .customer-info__contnet {
+            grid-template-columns: repeat(2, 1fr);
         }
     }
 }

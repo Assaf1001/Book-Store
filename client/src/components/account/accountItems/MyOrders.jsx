@@ -1,22 +1,29 @@
 import React, { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../../../context/LoginContext";
+import { getOrders } from "../../../server/user";
+
+import OrderItem from "./OrderItem";
 
 import icons from "../../../icons/icons";
-import { getOrders } from "../../../server/user";
-import OrderItem from "./OrderItem";
 
 const MyOrders = () => {
     const { userData } = useContext(LoginContext);
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
-        getOrders(userData.token)
-            .then((ordersData) => {
-                setOrders(ordersData);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        let isComponentExist = true;
+
+        if (isComponentExist) {
+            getOrders(userData.token)
+                .then((ordersData) => {
+                    setOrders(ordersData);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+
+        return () => (isComponentExist = false);
     }, [userData.token]);
 
     return (

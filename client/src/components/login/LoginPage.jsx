@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import LoginForm from "./LoginForm";
 
+import LoginForm from "./LoginForm";
 import SingupForm from "./SingupForm";
 
 const LoginPage = (props) => {

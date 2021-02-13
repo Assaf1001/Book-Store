@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-
-import { addPurchased, emptyCart } from "../../server/user";
+import { useHistory } from "react-router-dom";
 import { LoginContext } from "../../context/LoginContext";
-import PurchasedModal from "./PurchasedModal";
+import { addPurchased, emptyCart } from "../../server/user";
 import { getOrderNumber } from "../../server/general";
 
+import PurchasedModal from "./PurchasedModal";
+
 import icons from "../../icons/icons";
-import { useHistory } from "react-router-dom";
 
 const PaymentPage = (props) => {
     const total = props.location.state?.total;
@@ -19,9 +19,15 @@ const PaymentPage = (props) => {
     const history = useHistory();
 
     useEffect(() => {
-        if (!cart || cart.length === 0) {
-            history.push("/pageNotFound");
+        let isComponentExist = true;
+
+        if (isComponentExist) {
+            if (!cart || cart.length === 0) {
+                history.push("/pageNotFound");
+            }
         }
+
+        return () => (isComponentExist = false);
     }, [cart, history]);
 
     const onSubmitForm = async (event) => {

@@ -1,5 +1,6 @@
 .filter__container {
     width: 20%;
+    min-width: 285px;
     margin-right: 2rem;
     background: $lightGray;
 
@@ -10,52 +11,50 @@
         margin-bottom: 1.5rem;
     }
 
-    .filter-form {
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
         padding: 0 0 1rem 1rem;
-        form {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
 
-            label {
-                font-size: 1.3rem;
+        label {
+            font-size: 1.3rem;
+        }
+        input,
+        select {
+            width: calc(100% - 1rem);
+            padding: 0.5rem 1rem;
+            margin: 0.2rem 0 1rem 0;
+            font-size: 1.1rem;
+            border: 1px solid $lightBlue;
+
+            &:focus {
+                outline: none;
             }
-            input,
-            select {
-                width: calc(100% - 1rem);
-                padding: 0.5rem 1rem;
-                margin: 0.2rem 0 1rem 0;
+        }
+
+        .input-range {
+            width: calc(100% - 3rem);
+            align-self: center;
+            margin: 1.5rem 1rem 1.5rem 0;
+
+            .input-range__track {
+                transition: left 0.1s ease-out, width 0.1s ease-out;
+            }
+            .input-range__track--active {
+                background: $lightBlue;
+            }
+            .input-range__slider-container {
+                transition: left 0.1s ease-out;
+            }
+            .input-range__slider {
+                background: $lightBlue;
+                border: none;
+            }
+            .input-range__label-container {
+                color: $black;
                 font-size: 1.1rem;
-                border: 1px solid $lightBlue;
-
-                &:focus {
-                    outline: none;
-                }
-            }
-
-            .input-range {
-                width: calc(100% - 3rem);
-                align-self: center;
-                margin: 1.5rem 1rem 1.5rem 0;
-
-                .input-range__track {
-                    transition: left 0.1s ease-out, width 0.1s ease-out;
-                }
-                .input-range__track--active {
-                    background: $lightBlue;
-                }
-                .input-range__slider-container {
-                    transition: left 0.1s ease-out;
-                }
-                .input-range__slider {
-                    background: $lightBlue;
-                    border: none;
-                }
-                .input-range__label-container {
-                    color: $black;
-                    font-size: 1.1rem;
-                }
             }
         }
     }

@@ -1,7 +1,7 @@
 const express = require("express");
+const bcrypt = require("bcryptjs");
 const User = require("../models/userModel");
 const { userAuth } = require("../middleware/auth");
-const mongoose = require("mongoose");
 
 const router = new express.Router();
 
@@ -68,90 +68,206 @@ router.post("/users/logoutAll/", userAuth, async (req, res) => {
 router.delete("/users/me", userAuth, async (req, res) => {
     try {
         await req.user.remove();
-        res.send(req.user);
+        res.send(req.user.email);
     } catch (err) {
         res.send.status(500);
     }
 });
 
 // Edit details
-// router.patch("/users/me", auth, async (req, res) => {
-//   const updates = Object.keys(req.body);
-//   // const allowedUpdates = ["email"];
-//   const allowedUpdates = [{ details: { name: "first" } }];
-//   const isValidUpdate = updates.every((update) =>
-//     allowedUpdates.includes(update)
-//   );
-//   console.log(req.body);
-//   console.log(allowedUpdates);
-//   console.log(updates);
-//   console.log(isValidUpdate);
-
-//   if (!isValidUpdate) {
-//     return res.status(400).send({ error: "Invalid update!" });
-//   }
-
-//   try {
-//     updates.forEach((update) => {
-//       // console.log(update);
-//       // console.log(user);
-//       return (req.user[update] = req.body[update]);
-//     });
-//     // user.details.name.first = req.body.details.name.first;
-//     // user.details.name.first = "asd";
-//     // console.log(user);
-//     await req.user.save();
-
-//     res.send(req.user);
-//   } catch (err) {
-//     res.status(500).send();
-//   }
-// });
 router.patch("/users/me", userAuth, async (req, res) => {
-    const allowedUpdates = ["first"];
-    // const allowedUpdates = ["{ details: { name: { first } } }"];
-    // const allowedUpdates = ["details.name.first"];
-
-    let isValidUpdate = false;
-    for (let update in req.body) {
-        console.log(update);
-        if (allowedUpdates.includes(update)) {
-            isValidUpdate = true;
-        }
-    }
-
-    console.log(req.body);
-    console.log(allowedUpdates);
-    // console.log(updates);
-    console.log(isValidUpdate);
-
-    if (!isValidUpdate) {
-        return res.status(400).send({ error: "Invalid update!" });
-    }
+    const _id = req.user._id;
+    const update = req.body.update;
 
     try {
-        for (let update in req.body) {
-            // console.log(update);
-            req.user[update] = req.body[update];
+        const user = await User.findOneAndUpdate({ _id }, update, {
+            runValidators: true,
+            returnOriginal: false,
+        });
+
+        res.send({ user, token: req.token });
+    } catch (err) {
+        if (err.keyValue) {
+            let key = Object.keys(err.keyValue)[0];
+            key = key.includes(".") ? key.split(".")[1] : key;
+            const value = err.keyValue[key];
+
+            return res.status(400).send({
+                status: 400,
+                message: `The ${key} ${value} is already in use`,
+            });
         }
-        // user.details.name.first = req.body.details.name.first;
-        // user.details.name.first = "asd";
-        // console.log(req.user);
+        res.status(500).send(err);
+    }
+});
+
+// Change Password
+router.patch("/users/me/changePassword", userAuth, async (req, res) => {
+    const password = req.body.password;
+    const newPassword = req.body.newPassword;
+    const repeatedNewPassword = req.body.repeatedNewPassword;
+
+    try {
+        const isMatch = await bcrypt.compare(password, req.user.password);
+
+        if (newPassword.length === 0 || repeatedNewPassword.length === 0) {
+            return res
+                .status(400)
+                .send({ status: 400, message: "Please enter new password" });
+        }
+
+        if (!isMatch) {
+            return res
+                .status(400)
+                .send({ status: 400, message: "Wrong Password" });
+        }
+
+        if (newPassword === password) {
+            return res.status(400).send({
+                status: 400,
+                message:
+                    "new password cannot be the same like current password",
+            });
+        }
+
+        if (newPassword !== repeatedNewPassword) {
+            return res.status(400).send({
+                status: 400,
+                message: "Two passwords must be identical",
+            });
+        }
+
+        const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+        const isLegalPassword = passwordRegex.test(newPassword);
+
+        if (!isLegalPassword) {
+            return res.status(400).send({
+                status: 400,
+                message:
+                    "Password must contain capital character, regular character, a number and must have at least 8 characters",
+            });
+        }
+
+        req.user.password = newPassword;
         await req.user.save();
 
-        res.send(req.user);
+        res.send();
     } catch (err) {
         res.status(500).send();
     }
 });
 
-// Add book to Cart
+// Add book to Wish List
+router.post("/users/me/addToWishList", userAuth, async (req, res) => {
+    const user = req.user;
+    const bookId = req.body.bookId;
+
+    try {
+        if (user.books.wishList.includes(bookId)) {
+            return res
+                .status(400)
+                .send({ status: 400, message: "Book is already in Wish List" });
+        }
+
+        user.books.wishList.unshift(bookId);
+        await user.save();
+
+        res.status(201).send(bookId);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+// Move Book from Cart to Wish List
+router.post("/users/me/moveToCart", userAuth, async (req, res) => {
+    const user = req.user;
+    const bookId = req.body.bookId;
+
+    try {
+        user.books.wishList.splice(user.books.cart.indexOf(bookId), 1);
+        user.books.cart.unshift(bookId);
+
+        await user.save();
+
+        res.send(user.books.wishList);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+// Move All Books from Cart to Wish List
+router.post("/users/me/moveAllToCart", userAuth, async (req, res) => {
+    const user = req.user;
+    const books = req.body.books;
+
+    try {
+        for (let bookId of books) {
+            user.books.cart.unshift(bookId);
+        }
+        user.books.wishList = [];
+
+        await user.save();
+
+        res.send();
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+//Get Books from WishList
+router.get("/users/me/wishList", userAuth, async (req, res) => {
+    const user = req.user;
+
+    try {
+        await user.populate({ path: "books.wishList" }).execPopulate();
+
+        if (user.books.wishList.length === 0) {
+            return res.status(404).send({
+                status: 404,
+                message: "Cannot find any books",
+            });
+        }
+        res.send(user.books.wishList);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+// Remove Book from Wish List
+router.patch("/users/me/removeFromWishList", userAuth, async (req, res) => {
+    const user = req.user;
+    const bookId = req.body.bookId;
+
+    try {
+        user.books.wishList.splice(user.books.wishList.indexOf(bookId), 1);
+        await user.save();
+
+        res.send(user.books.wishList);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+// Empty WishList
+router.patch("/users/me/wishList", userAuth, async (req, res) => {
+    const user = req.user;
+
+    try {
+        user.books.wishList = [];
+        await user.save();
+        res.send();
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+// Add Book to Cart
 router.post("/users/me/addToCart", userAuth, async (req, res) => {
     const user = req.user;
     const bookId = req.body.bookId;
 
     try {
-        user.books.cart.push(bookId);
+        user.books.cart.unshift(bookId);
         await user.save();
 
         res.status(201).send(bookId);

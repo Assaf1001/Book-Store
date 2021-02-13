@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { logInAction } from "../../actions/loginActions";
 import { LoginContext } from "../../context/LoginContext";
+import { logInAction } from "../../actions/loginActions";
 import { saveUserOnCookie } from "../../cookies/cookies";
 import { logIn } from "../../server/auth";
 
@@ -16,9 +16,15 @@ const LoginForm = (props) => {
     const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
-        if (props.errorMessage !== "") {
-            setErrorMessage(props.errorMessage);
+        let isComponentExist = true;
+
+        if (isComponentExist) {
+            if (props.errorMessage !== "") {
+                setErrorMessage(props.errorMessage);
+            }
         }
+
+        return () => (isComponentExist = false);
     }, [props.errorMessage]);
 
     const isFormValid = () => email.length === 0 || password.length === 0;

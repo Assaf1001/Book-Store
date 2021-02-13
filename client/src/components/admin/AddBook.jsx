@@ -2,6 +2,7 @@ import React, { createRef, useContext, useEffect, useState } from "react";
 import { AddItemsContext } from "../../context/AddItemsContext";
 import { LoginContext } from "../../context/LoginContext";
 import { addBook, editBook } from "../../server/books";
+
 import AdminModal from "./AdminModal";
 
 const AddBook = ({ bookToEdit }) => {
@@ -34,10 +35,16 @@ const AddBook = ({ bookToEdit }) => {
     };
 
     useEffect(() => {
-        if (bookToEdit && bookToEdit.discountInPercentage) {
-            setCheckboxClass("checkbox active");
-            setIsDiscountDisabled(false);
+        let isComponentExist = true;
+
+        if (isComponentExist) {
+            if (bookToEdit && bookToEdit.discountInPercentage) {
+                setCheckboxClass("checkbox active");
+                setIsDiscountDisabled(false);
+            }
         }
+
+        return () => (isComponentExist = false);
     }, [bookToEdit]);
 
     const onSubmitForm = (event) => {

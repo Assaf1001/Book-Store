@@ -23,6 +23,7 @@ import {
     faShieldAlt,
     faQuestionCircle,
     faMapMarkerAlt,
+    faBars,
 } from "@fortawesome/free-solid-svg-icons";
 import { faCcVisa, faPaypal } from "@fortawesome/free-brands-svg-icons";
 
@@ -52,6 +53,7 @@ const icons = {
     privacy: <FontAwesomeIcon icon={faShieldAlt} />,
     faq: <FontAwesomeIcon icon={faQuestionCircle} />,
     find: <FontAwesomeIcon icon={faMapMarkerAlt} />,
+    hamburger: <FontAwesomeIcon icon={faBars} />,
 };
 
 export default icons;

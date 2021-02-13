@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { LoginContext } from "../../context/LoginContext";
 import { AddItemsContext } from "../../context/AddItemsContext";
-import { useHistory } from "react-router-dom";
-import { addBookToCart } from "../../server/user";
+import { addBookToCart, addBookToWishList } from "../../server/user";
 
 import icons from "../../icons/icons";
 
@@ -10,12 +10,43 @@ const Book = ({ book }) => {
     const { userData } = useContext(LoginContext);
     const {
         setIsItemAdded,
+        setIsAddedToWishList,
         setAddedBook,
         toggleModal,
         setIsEditBook,
     } = useContext(AddItemsContext);
 
     const history = useHistory();
+
+    const onClickAddToCart = () => {
+        if (userData.user) {
+            addBookToWishList(book._id, userData.token)
+                .then(() => {
+                    setIsItemAdded(true);
+                    setIsAddedToWishList(true);
+                    setAddedBook(book);
+                })
+                .catch((err) => {
+                    setIsAddedToWishList(true);
+                    toggleModal(err.message.toString());
+                });
+        } else {
+            history.push("/myAccount");
+        }
+    };
+
+    const onClickAddToWishList = () => {
+        if (userData.user) {
+            addBookToCart(book._id, userData.token)
+                .then(() => {
+                    setIsItemAdded(true);
+                    setAddedBook(book);
+                })
+                .catch((err) => console.log(err));
+        } else {
+            history.push("/myAccount");
+        }
+    };
 
     return (
         <div className="book">
@@ -34,20 +65,13 @@ const Book = ({ book }) => {
                     <h4>{icons.check} Available</h4>
                     <h4>{icons.truck} Free delivery worldwide</h4>
                     <div className="buttons__container">
-                        <button className="wishlist-button">
+                        <button
+                            onClick={onClickAddToCart}
+                            className="wishlist-button"
+                        >
                             {icons.wishList}
                         </button>
-                        <button
-                            onClick={() => {
-                                if (userData.user) {
-                                    addBookToCart(book._id, userData.token);
-                                    setIsItemAdded(true);
-                                    setAddedBook(book);
-                                } else {
-                                    history.push("/myAccount");
-                                }
-                            }}
-                        >
+                        <button onClick={onClickAddToWishList}>
                             <span>{icons.cart}</span> ADD TO CART
                         </button>
                     </div>
@@ -76,6 +100,24 @@ const Book = ({ book }) => {
                         <span>{book.details.bestSellersRank}</span>
                     </h5>
                 </div>
+                <div className="price-cart--mobile">
+                    <h3>{book.price} $</h3>
+                    <div>
+                        <h4>{icons.check} Available</h4>
+                        <h4>{icons.truck} Free delivery worldwide</h4>
+                    </div>
+                    <div className="buttons__container">
+                        <button
+                            onClick={onClickAddToCart}
+                            className="wishlist-button"
+                        >
+                            {icons.wishList}
+                        </button>
+                        <button onClick={onClickAddToWishList}>
+                            <span>{icons.cart}</span> ADD TO CART
+                        </button>
+                    </div>
+                </div>
                 {userData.isAdmin && (
                     <div className="admin-control">
                         <h2>Admin Control</h2>
@@ -89,7 +131,7 @@ const Book = ({ book }) => {
                         <button
                             onClick={() => {
                                 toggleModal(
-                                    `Are you sure you want to remove ${book.title}`
+                                    `Are you sure you want to remove ${book.title}?`
                                 );
                             }}
                         >

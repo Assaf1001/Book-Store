@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
 import { updateBookQuantity } from "../../server/user";
 
 import icons from "../../icons/icons";
@@ -81,45 +80,47 @@ const CartItem = ({
                     )}
                 </div>
             </div>
-            <div className="section3">
-                <form onSubmit={onSubmitUpdateQuantity}>
-                    <div>
-                        <label htmlFor="quantity">Quantity:</label>
-                        <input
-                            onChange={(event) =>
-                                setQuantity(event.target.value)
-                            }
-                            type="number"
-                            min="1"
-                            max="99"
-                            value={quantity}
-                        />
-                    </div>
-                    <button type="submit">Update</button>
-                </form>
-                <h4>
+            <div className="right">
+                <div className="section3">
+                    <form onSubmit={onSubmitUpdateQuantity}>
+                        <div>
+                            <label htmlFor="quantity">Quantity:</label>
+                            <input
+                                onChange={(event) =>
+                                    setQuantity(event.target.value)
+                                }
+                                type="number"
+                                min="1"
+                                max="99"
+                                value={quantity}
+                            />
+                        </div>
+                        <button type="submit">Update</button>
+                    </form>
+                    <h4>
+                        <span>
+                            {icons.check} {"  "}
+                        </span>
+                        Available
+                    </h4>
+                    <h4>
+                        <span>{icons.truck}</span>Free delivery
+                    </h4>
+                </div>
+                <div className="section4">
                     <span>
-                        {icons.check} {"  "}
+                        {book.discountInPercentage
+                            ? calculateDiscount(
+                                  book.price,
+                                  book.discountInPercentage
+                              ) * book.quantity
+                            : book.price * book.quantity}{" "}
+                        $
                     </span>
-                    Available
-                </h4>
-                <h4>
-                    <span>{icons.truck}</span>Free delivery
-                </h4>
-            </div>
-            <div className="section4">
-                <span>
-                    {book.discountInPercentage
-                        ? calculateDiscount(
-                              book.price,
-                              book.discountInPercentage
-                          ) * book.quantity
-                        : book.price * book.quantity}{" "}
-                    $
-                </span>
-            </div>
-            <div className="section5">
-                <i onClick={onClickRemoveItem}>{icons.delete}</i>
+                </div>
+                <div className="section5">
+                    <i onClick={onClickRemoveItem}>{icons.delete}</i>
+                </div>
             </div>
         </div>
     );

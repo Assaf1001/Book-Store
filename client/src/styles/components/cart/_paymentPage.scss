@@ -4,6 +4,7 @@
         flex-direction: column;
         align-items: center;
         width: 60%;
+        min-width: 900px;
         margin-top: 4rem;
         margin-bottom: 3rem;
         padding: 2rem;
@@ -235,4 +236,70 @@
     width: 100%;
     height: 100%;
     z-index: 7;
+}
+
+@media (max-width: $tablet) {
+    .payment-page {
+        .payment-page__contnet {
+            margin-top: 3rem;
+            width: calc(100% - 2rem);
+            min-width: 0px;
+            .payment-method {
+                width: 80%;
+                .payment-box {
+                    min-width: 200px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: $mobile) {
+    .payment-page {
+        .payment-page__contnet {
+            .payment-method {
+                flex-direction: column;
+                width: 100%;
+            }
+            .payment-form {
+                label,
+                input,
+                select,
+                button {
+                    margin-left: 0 !important;
+                }
+                button {
+                    padding-left: 0;
+                    padding-right: 0;
+                    width: 100%;
+                }
+                .info {
+                    flex-direction: column;
+                    align-items: center;
+                    .billing-info {
+                        width: 100%;
+                    }
+                    .credit-card-info {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+    .purchased-modal {
+        width: calc(100% - 2rem);
+        top: 1rem;
+        min-width: 350px;
+        height: calc(100% - 2rem);
+        max-height: 100%;
+        .purchased-modal__content {
+            .buttons {
+                flex-direction: column;
+                a {
+                    width: 80%;
+                    margin-top: 1rem;
+                }
+            }
+        }
+    }
 }

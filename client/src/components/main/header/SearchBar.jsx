@@ -13,6 +13,7 @@ const SearchBar = () => {
         const searchValue = event.target[0].value;
 
         if (searchValue.length === 0) return;
+        event.target[0].value = "";
         history.push(`/searchResult/${searchValue}`);
     };
 

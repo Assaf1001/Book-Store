@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import { LoginContext } from "../../context/LoginContext";
-import { addAdmin } from "../../server/general";
 import { AddItemsContext } from "../../context/AddItemsContext";
+import { addAdmin } from "../../server/general";
+
 import AdminModal from "./AdminModal";
 
 const AddAdmin = () => {

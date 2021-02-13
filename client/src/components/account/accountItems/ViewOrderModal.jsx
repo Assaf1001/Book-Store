@@ -20,7 +20,7 @@ const ViewOrderModal = ({ order, formatDate, setIsViewOrder }) => {
     };
 
     return (
-        <div className="admin__modal">
+        <div className="admin__modal absolute">
             <div className="view-order__modal">
                 <h1>View Order: #{order.orderNumber}</h1>
                 <h2>Ordered at: {formatDate(order.date)}</h2>

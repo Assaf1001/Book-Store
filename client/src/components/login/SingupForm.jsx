@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
 import validator from "validator";
-import { logInAction } from "../../actions/loginActions";
+import { useHistory } from "react-router-dom";
 import { LoginContext } from "../../context/LoginContext";
+import { logInAction } from "../../actions/loginActions";
 import { saveUserOnCookie } from "../../cookies/cookies";
 import { singUp } from "../../server/auth";
 

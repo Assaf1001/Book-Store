@@ -8,5 +8,15 @@
     top: 0;
     left: 0;
     z-index: 6;
-    min-width: 1024px;
+    // min-width: 1024px;
+}
+
+@media (max-width: $tablet) {
+    .header {
+        display: none;
+    }
+}
+
+.header-moblie__container {
+    display: none;
 }

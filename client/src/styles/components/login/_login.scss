@@ -85,3 +85,24 @@
     font-weight: 700;
     text-align: center;
 }
+
+@media (max-width: $tablet) {
+    .login-form__container {
+        width: 60%;
+        min-width: 500px;
+        max-width: none;
+        .login-form {
+            label {
+                text-align: center;
+                margin: 0 0 -0.5rem 0;
+            }
+        }
+    }
+}
+
+@media (max-width: $mobile) {
+    .login-form__container {
+        width: calc(100% - 2rem);
+        min-width: 0;
+    }
+}

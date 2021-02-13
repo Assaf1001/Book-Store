@@ -1,15 +1,19 @@
 import React, { useContext } from "react";
-
 import { Link, useHistory } from "react-router-dom";
 import { LoginContext } from "../../../context/LoginContext";
-import { addBookToCart } from "../../../server/user";
 import { AddItemsContext } from "../../../context/AddItemsContext";
+import { addBookToCart, addBookToWishList } from "../../../server/user";
 
 import icons from "../../../icons/icons";
 
 const BooksCarouselItem = ({ book }) => {
     const { userData } = useContext(LoginContext);
-    const { setIsItemAdded, setAddedBook } = useContext(AddItemsContext);
+    const {
+        setIsItemAdded,
+        setIsAddedToWishList,
+        setAddedBook,
+        toggleModal,
+    } = useContext(AddItemsContext);
     const history = useHistory();
 
     const calculateDiscount = (price, discount) =>
@@ -56,15 +60,36 @@ const BooksCarouselItem = ({ book }) => {
                     </div>
                 </div>
                 <div className="bottom-container">
-                    <div className="bottom-button">
+                    <div
+                        onClick={() => {
+                            if (userData.user) {
+                                addBookToWishList(book._id, userData.token)
+                                    .then(() => {
+                                        setIsItemAdded(true);
+                                        setIsAddedToWishList(true);
+                                        setAddedBook(book);
+                                    })
+                                    .catch((err) => {
+                                        setIsAddedToWishList(true);
+                                        toggleModal(err.message.toString());
+                                    });
+                            } else {
+                                history.push("/myAccount");
+                            }
+                        }}
+                        className="bottom-button"
+                    >
                         <p>{icons.wishList} WISH</p>
                     </div>
                     <div
                         onClick={() => {
                             if (userData.user) {
-                                addBookToCart(book._id, userData.token);
-                                setIsItemAdded(true);
-                                setAddedBook(book);
+                                addBookToCart(book._id, userData.token)
+                                    .then(() => {
+                                        setIsItemAdded(true);
+                                        setAddedBook(book);
+                                    })
+                                    .catch((err) => console.log(err));
                             } else {
                                 history.push("/myAccount");
                             }

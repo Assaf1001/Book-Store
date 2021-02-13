@@ -5,13 +5,21 @@ import booksListReducer, {
     initialBooksListState,
 } from "../../reducers/booksListReducer";
 import { getBooksByFieldAndValue } from "../../server/books";
-import AddToCartModal from "../carousels/booksCarousel/AddToCartModal";
+
 import BooksCarouselItem from "../carousels/booksCarousel/BooksCarouselItem";
 import Filter from "../main/Filter";
+import AddToCartModal from "../carousels/booksCarousel/AddToCartModal";
+import AdminModal from "../admin/AdminModal";
 
 const SearchResultPage = (props) => {
     const result = props.match.params.result;
-    const { isItemAdded } = useContext(AddItemsContext);
+    const {
+        isItemAdded,
+        toggleModal,
+        setIsAddedToWishList,
+        isModalActive,
+        modalMessage,
+    } = useContext(AddItemsContext);
 
     const [booksList, dispatchBooksList] = useReducer(
         booksListReducer,
@@ -22,6 +30,10 @@ const SearchResultPage = (props) => {
 
     const getPriceRange = (booksList) => {
         const arr = [];
+
+        if (booksList.length === 0) {
+            return { min: 0, max: 1 };
+        }
         booksList.forEach((book) => {
             arr.push(book.price);
         });
@@ -29,85 +41,35 @@ const SearchResultPage = (props) => {
         return { min: Math.min(...arr), max: Math.max(...arr) };
     };
 
-    // let books = [];
-    // useEffect(() => {
-    //     window.scroll(0, 0);
-    //     getBooksByFieldAndValue("title", result)
-    //         .then((data) => {
-    //             books = data;
-    //             console.log(data)
-    //         })
-    //         .then((booksListData) => {
-    //             dispatchBooksList(setBooksListAction(booksListData));
-    //             setPageBooksList(booksListData);
-    //             setPriceRange(getPriceRange(booksListData));
-    //         })
-    //         .catch((err) => {
-    //             if (err.message === "Cannot find any books") {
-    //                 dispatchBooksList(
-    //                     setBooksListAction(initialBooksListState)
-    //                 );
-    //                 setPageBooksList(initialBooksListState);
-    //                 setPriceRange({ min: 0, max: 1 });
-    //             }
-    //         });
-    // }, [result]);
-
-    // useEffect(() => {
-    //     window.scroll(0, 0);
-    //     (async () => {
-    //         const searchByTitleData = await getBooksByFieldAndValue(
-    //             "title",
-    //             result
-    //         );
-    //         const searchByAuthorData = await getBooksByFieldAndValue(
-    //             "author",
-    //             result
-    //         );
-    //         const booksData = searchByAuthorData;
-    //         // const booksData = searchByTitleData.concat(searchByAuthorData);
-    //         console.log(searchByAuthorData);
-    //         return booksData;
-    //     })()
-    //         .then((booksData) => {
-    //             dispatchBooksList(setBooksListAction(booksData));
-    //             setPageBooksList(booksData);
-    //             setPriceRange(getPriceRange(booksData));
-    //         })
-    //         .catch((err) => {
-    //             if (err.message === "Cannot find any books") {
-    //                 dispatchBooksList(
-    //                     setBooksListAction(initialBooksListState)
-    //                 );
-    //                 setPageBooksList(initialBooksListState);
-    //                 setPriceRange({ min: 0, max: 1 });
-    //             }
-    //         });
-    // }, [result]);
-
     useEffect(() => {
-        const setSearch = async () => {
-            const searchByTitleData = await getBooksByFieldAndValue(
-                "title",
-                result
-            );
-            const searchByAuthorData = await getBooksByFieldAndValue(
-                "author",
-                result
-            );
-            const booksData = searchByTitleData.concat(searchByAuthorData);
-            return booksData;
-        };
-        setSearch()
-            .then((booksData) => {
-                window.scroll(0, 0);
-                dispatchBooksList(setBooksListAction(booksData));
-                setPageBooksList(booksData);
-                setPriceRange(getPriceRange(booksData));
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        let isComponentExist = true;
+
+        if (isComponentExist) {
+            const setSearch = async () => {
+                const searchByTitleData = await getBooksByFieldAndValue(
+                    "title",
+                    result
+                );
+                const searchByAuthorData = await getBooksByFieldAndValue(
+                    "author",
+                    result
+                );
+                const booksData = searchByTitleData.concat(searchByAuthorData);
+                return booksData;
+            };
+            setSearch()
+                .then((booksData) => {
+                    window.scroll(0, 0);
+                    dispatchBooksList(setBooksListAction(booksData));
+                    setPageBooksList(booksData);
+                    setPriceRange(getPriceRange(booksData));
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+
+        return () => (isComponentExist = false);
     }, [result]);
 
     return (
@@ -129,8 +91,19 @@ const SearchResultPage = (props) => {
                     </div>
                 )}
             </div>
-            {isItemAdded && <div className="blur-background"></div>}
+            {(isItemAdded || isModalActive) && (
+                <div
+                    onClick={() => {
+                        if (isModalActive) toggleModal();
+                        else setIsAddedToWishList(false);
+                    }}
+                    className="blur-background"
+                ></div>
+            )}
             {isItemAdded && <AddToCartModal />}
+            {isModalActive && (
+                <AdminModal message={modalMessage} closeButton={"CLOSE"} />
+            )}
         </div>
     );
 };

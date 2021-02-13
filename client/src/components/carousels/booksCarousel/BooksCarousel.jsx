@@ -1,13 +1,20 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
+import { AddItemsContext } from "../../../context/AddItemsContext";
+
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 import BooksCarouselItem from "./BooksCarouselItem";
 import AddToCartModal from "./AddToCartModal";
-import { AddItemsContext } from "../../../context/AddItemsContext";
+import AdminModal from "../../admin/AdminModal";
 
 const BooksCarousel = ({ responsive, books }) => {
-    const { isItemAdded } = useContext(AddItemsContext);
+    const {
+        isItemAdded,
+        modalMessage,
+        isModalActive,
+        isAddedToWishList,
+    } = useContext(AddItemsContext);
 
     return (
         <div className="books-carousel__container">
@@ -17,6 +24,9 @@ const BooksCarousel = ({ responsive, books }) => {
                 })}
             </Carousel>
             {isItemAdded && <AddToCartModal />}
+            {isModalActive && isAddedToWishList && (
+                <AdminModal message={modalMessage} closeButton={"CLOSE"} />
+            )}
         </div>
     );
 };

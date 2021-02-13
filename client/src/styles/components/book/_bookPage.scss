@@ -2,10 +2,6 @@
     width: 100%;
 
     .book-page__contnet {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
         height: 100%;
         margin: 4rem 1rem 6rem;
 
@@ -25,8 +21,8 @@
                 height: 100%;
                 img {
                     margin-top: 2rem;
-                    height: 35vw;
-                    max-height: 530px;
+                    width: 80%;
+                    max-width: 350px;
                 }
             }
 
@@ -47,6 +43,9 @@
                     margin: 0.8rem 0 1rem;
                     font-size: 1.5rem;
                     font-weight: 200;
+                }
+                .price-cart--mobile {
+                    display: none;
                 }
                 .price-cart {
                     display: flex;
@@ -161,7 +160,7 @@
 
     h2 {
         font-weight: 400;
-        font-size: 1.8rem;
+        font-size: 2rem !important;
         margin-top: 0;
     }
 
@@ -190,5 +189,133 @@
         width: 200px;
         height: 200px;
         z-index: 100;
+    }
+}
+
+@media (max-width: $tablet) {
+    .book-page__container {
+        .book-page__contnet {
+            .book {
+                flex-direction: column;
+                .imgae__container {
+                    align-self: center;
+                    img {
+                        width: 120%;
+                    }
+                }
+                .book__content {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 100%;
+                    .price-cart {
+                        display: none;
+                    }
+                    .price-cart--mobile {
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        align-items: center;
+                        flex-wrap: wrap;
+                        border: 1px solid $lightBlue;
+                        background: #ececec;
+                        width: 100%;
+                        padding: 2rem;
+                        text-align: center;
+                        h3 {
+                            font-size: 2rem;
+                            font-weight: 400;
+                            margin: 0;
+                        }
+                        h4 {
+                            font-size: 1.1rem;
+                            font-weight: 300;
+                            margin: 0.5rem 0;
+                        }
+                    }
+                    .buttons__container {
+                        border: 1px solid $black;
+                        box-shadow: 2px 2px 8px 3px rgba(0, 0, 0, 0.2);
+                        margin-top: 0.5rem;
+
+                        button {
+                            height: 2.5rem;
+                            background: $lightBlue;
+                            border: none;
+                            font-size: 1.1rem;
+                            padding: 0 0.5rem;
+
+                            &:hover {
+                                cursor: pointer;
+                            }
+                            &:focus {
+                                outline: none;
+                            }
+                            span {
+                                margin-right: 0.3rem;
+                            }
+                        }
+                        .wishlist-button {
+                            background: $white;
+                            padding: 0 1rem;
+                            border-right: 1px solid $black;
+                        }
+                    }
+                    p {
+                        width: 80%;
+                        text-align: center;
+                    }
+                    h5 {
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+
+    .admin-control {
+        position: static;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-top: 1rem;
+        button {
+            width: 30%;
+            margin-top: 0;
+        }
+    }
+}
+
+@media (max-width: $mobile) {
+    .book-page__container {
+        .book-page__contnet {
+            .book {
+                .book__content {
+                    .price-cart--mobile {
+                        flex-direction: column;
+                        justify-content: center;
+                    }
+                }
+                .imgae__container {
+                    img {
+                        width: 170%;
+                    }
+                }
+            }
+        }
+    }
+
+    .admin-control {
+        position: static;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-top: 1rem;
+        button {
+            min-width: 210px;
+            margin-top: 1rem;
+        }
     }
 }

@@ -1,28 +1,30 @@
 import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { setBooksListAction } from "../../actions/booksListActions";
+import { AddItemsContext } from "../../context/AddItemsContext";
+import { LoginContext } from "../../context/LoginContext";
 import booksListReducer, {
     initialBooksListState,
 } from "../../reducers/booksListReducer";
+import { setBooksListAction } from "../../actions/booksListActions";
 import {
     getBookByID,
     getBooksByFieldAndValue,
     removeBook,
 } from "../../server/books";
-import BooksCarousel from "../carousels/booksCarousel/BooksCarousel";
+
 import Book from "./Book";
-import { AddItemsContext } from "../../context/AddItemsContext";
+import BooksCarousel from "../carousels/booksCarousel/BooksCarousel";
 import AdminModal from "../admin/AdminModal";
-import { LoginContext } from "../../context/LoginContext";
+import EditBookModal from "../admin/EditBookModal";
 
 import icons from "../../icons/icons";
-import EditBookModal from "../admin/EditBookModal";
 
 const BookPage = (props) => {
     const bookId = props.match.params.id;
     const { userData } = useContext(LoginContext);
     const {
         isItemAdded,
+        setIsAddedToWishList,
         isModalActive,
         toggleModal,
         modalMessage,
@@ -79,33 +81,51 @@ const BookPage = (props) => {
     };
 
     useEffect(() => {
-        getBookByID(bookId)
-            .then((bookData) => {
-                setBook(bookData);
-                window.scroll(0, 0);
-            })
-            .catch((err) => {
-                console.log(err);
-                history.push("/pageNotFound");
-            });
-    }, [bookId, history, isEditBook]);
+        let isComponentExist = true;
 
-    useEffect(() => {
-        if (book.category) {
-            getBooksByFieldAndValue("category", book.category)
-                .then((booksData) => {
-                    dispatchBooksList(setBooksListAction(booksData));
+        if (isComponentExist) {
+            getBookByID(bookId)
+                .then((bookData) => {
+                    setBook(bookData);
+                    window.scroll(0, 0);
                 })
                 .catch((err) => {
                     console.log(err);
+                    history.push("/pageNotFound");
                 });
         }
+
+        return () => (isComponentExist = false);
+    }, [bookId, history, isEditBook]);
+
+    useEffect(() => {
+        let isComponentExist = true;
+
+        if (isComponentExist) {
+            if (book.category) {
+                getBooksByFieldAndValue("category", book.category)
+                    .then((booksData) => {
+                        dispatchBooksList(setBooksListAction(booksData));
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
+        }
+
+        return (isComponentExist = false);
     }, [book.category]);
 
     return (
         <div>
             {(isItemAdded || isModalActive) && (
-                <div onClick={toggleModal} className="blur-background"></div>
+                <div
+                    onClick={() => {
+                        if (isModalActive) toggleModal();
+                        else setIsAddedToWishList(false);
+                    }}
+                    className="blur-background"
+                ></div>
             )}
             {isEditBook && <EditBookModal book={book} />}
             {isModalActive && (

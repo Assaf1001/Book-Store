@@ -1,17 +1,28 @@
 import React, { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../../context/LoginContext";
-
-import icons from "../../icons/icons";
+import { AddItemsContext } from "../../context/AddItemsContext";
+import { logOutAction } from "../../actions/loginActions";
+import { useHistory } from "react-router-dom";
+import { deleteUserOnCookie } from "../../cookies/cookies";
 
 import Greeting from "./accountItems/Greeting";
 import MyDetails from "./accountItems/MyDetails";
 import MyOrders from "./accountItems/MyOrders";
 import AdressBook from "./accountItems/AdressBook";
-import { AddItemsContext } from "../../context/AddItemsContext";
+import AdminModal from "../admin/AdminModal";
+
+import icons from "../../icons/icons";
+import { deleteAccount } from "../../server/auth";
 
 const MyAccountPage = () => {
-    const { userData } = useContext(LoginContext);
-    const { isModalActive, toggleModal } = useContext(AddItemsContext);
+    const { userData, dispatchUserData } = useContext(LoginContext);
+    const {
+        isModalActive,
+        toggleModal,
+        modalMessage,
+        isChangeDetails,
+    } = useContext(AddItemsContext);
+    const history = useHistory();
 
     const [activeComponent, setActiveComponent] = useState("");
     const [activeClass, setActiveClass] = useState(["menu-active", "", "", ""]);
@@ -25,10 +36,27 @@ const MyAccountPage = () => {
         return newArr.join(" ");
     };
 
+    const onClickDeleteAccount = () => {
+        deleteAccount(userData.token)
+            .then(() => {
+                toggleModal();
+                dispatchUserData(logOutAction());
+                deleteUserOnCookie();
+                history.push("/home");
+            })
+            .catch((err) => console.log(err));
+    };
+
     useEffect(() => {
-        setActiveComponent(
-            <Greeting setActiveComponent={setActiveComponent} />
-        );
+        let isComponentExist = true;
+
+        if (isComponentExist) {
+            setActiveComponent(
+                <Greeting setActiveComponent={setActiveComponent} />
+            );
+        }
+
+        return () => (isComponentExist = false);
     }, []);
 
     const onClickChangeComponent = (componentName) => {
@@ -60,6 +88,16 @@ const MyAccountPage = () => {
         <div className="main__container">
             {isModalActive && (
                 <div onClick={toggleModal} className="blur-background"></div>
+            )}
+            {isModalActive && (
+                <AdminModal
+                    message={modalMessage}
+                    closeButton={isChangeDetails ? "CLOSE" : "NO"}
+                >
+                    {!isChangeDetails && (
+                        <button onClick={onClickDeleteAccount}>YES</button>
+                    )}
+                </AdminModal>
             )}
             <div className="my-account-page__content center">
                 <div className="menu__container">

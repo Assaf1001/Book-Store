@@ -18,8 +18,6 @@ import GenrePage from "../genres/GenrePage";
 import CartPage from "../cart/CartPage";
 import PaymentPage from "../cart/PaymentPage";
 import AddItemsContextProvider from "../../context/AddItemsContext";
-import AddBookPage from "../admin/AddBook";
-import AdminRoute from "./AdminRoute";
 
 const AppRouter = () => (
     <BrowserRouter>
@@ -31,8 +29,6 @@ const AppRouter = () => (
                     <Route path="/" exact>
                         <Redirect to="/home" />
                     </Route>
-
-                    {/* <AdminRoute path="/addBook" component={AddBookPage} /> */}
 
                     <Route path="/home" component={HomePage} />
                     <Route path="/genres/:genre" component={GenrePage} />

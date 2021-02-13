@@ -52,7 +52,10 @@
     .user {
         display: flex;
     }
+}
 
-    // .general {
-    // }
+@media (max-width: $tablet) {
+    .login-bar__container {
+        display: none;
+    }
 }

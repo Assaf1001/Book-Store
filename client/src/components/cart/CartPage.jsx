@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { LoginContext } from "../../context/LoginContext";
 import { getCart } from "../../server/user";
+
 import CartItem from "./CartPageItem";
-import { useHistory } from "react-router-dom";
 
 import icons from "../../icons/icons";
 
@@ -40,17 +41,25 @@ const CartPage = () => {
     };
 
     useEffect(() => {
-        getCart(userData.token)
-            .then((cartData) => {
-                const { cart, subtotalCount, subtotalPrice } = setBooksQuantity(
-                    cartData
-                );
-                setCart(cart);
-                setSubtotal([subtotalCount, subtotalPrice]);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        let isComponentExist = true;
+
+        if (isComponentExist) {
+            getCart(userData.token)
+                .then((cartData) => {
+                    const {
+                        cart,
+                        subtotalCount,
+                        subtotalPrice,
+                    } = setBooksQuantity(cartData);
+                    setCart(cart);
+                    setSubtotal([subtotalCount, subtotalPrice]);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+
+        return () => (isComponentExist = false);
     }, [userData.token]);
 
     return (
@@ -100,7 +109,7 @@ const CartPage = () => {
                         }}
                         disabled={cart.length === 0}
                     >
-                        CHECKOUT <span>{icons.rightArrow}</span>
+                        <p> CHECKOUT</p> <span>{icons.rightArrow}</span>
                     </button>
                 </div>
             </div>

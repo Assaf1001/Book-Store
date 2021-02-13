@@ -1,14 +1,31 @@
 import React, { useContext } from "react";
-
+import { useHistory } from "react-router-dom";
 import { LoginContext } from "../../../context/LoginContext";
+import { AddItemsContext } from "../../../context/AddItemsContext";
+import { logOutAction } from "../../../actions/loginActions";
+import { logOutFromAllDevices } from "../../../server/auth";
+import { deleteUserOnCookie } from "../../../cookies/cookies";
 
-import backgroundImage from "../../../images/SevenDeadlySins.jpg";
 import AddAdmin from "../../admin/AddAdmin";
 import AddBook from "../../admin/AddBook";
 import AdminsList from "../../admin/AdminsList";
 
+import backgroundImage from "../../../images/SevenDeadlySins.jpg";
+
 const Greeting = ({ setActiveComponent }) => {
-    const { userData } = useContext(LoginContext);
+    const { userData, dispatchUserData } = useContext(LoginContext);
+    const { toggleModal } = useContext(AddItemsContext);
+    const history = useHistory();
+
+    const onClickLogOutAllDevices = () => {
+        logOutFromAllDevices(userData.token)
+            .then(() => {
+                dispatchUserData(logOutAction());
+                deleteUserOnCookie();
+                history.push("/home");
+            })
+            .catch((err) => console.log(err));
+    };
 
     return (
         <div
@@ -30,6 +47,21 @@ const Greeting = ({ setActiveComponent }) => {
                     </button>
                 </div>
             )}
+            <div className="buttons">
+                <button onClick={onClickLogOutAllDevices}>
+                    LOGOUT ALL DEVICES
+                </button>
+                <button
+                    onClick={() =>
+                        toggleModal(
+                            "Are you sure you want to delete your account?"
+                        )
+                    }
+                    className="delete-button"
+                >
+                    DELETE ACCOUNT
+                </button>
+            </div>
         </div>
     );
 };
