@@ -1,8 +1,5 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { NavLink, useHistory } from "react-router-dom";
-import { LoginContext } from "../../../../context/LoginContext";
-import { logOutAction } from "../../../../actions/loginActions";
-import { deleteUserOnCookie } from "../../../../cookies/cookies";
 
 import icons from "../../../../icons/icons";
 
@@ -10,7 +7,6 @@ import logo from "../../../../images/logo.png";
 import HamburgerMenu from "./HabmurgerMenu";
 
 const HeaderMobile = () => {
-    const { userData, dispatchUserData } = useContext(LoginContext);
     const history = useHistory();
 
     const OnSubmitForm = (event) => {

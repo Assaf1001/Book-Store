@@ -15,6 +15,7 @@
 
     button {
         width: 40%;
+        min-width: 310px;
         margin-top: 1rem;
         padding: 0.8rem 4rem;
         border: none;
@@ -30,7 +31,7 @@
     margin-top: 1rem;
     padding: 2rem;
     background: $lightGray;
-    width: 60%;
+    // width: 60%;
 
     h1 {
         font-size: 3rem;
@@ -285,15 +286,137 @@
 
 .edit-book__modal {
     position: absolute;
+    top: 100px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     overflow: auto;
-    width: 80%;
+    width: 90%;
+    max-width: 1200px;
+    height: 80%;
     min-height: 600px;
+    z-index: 8;
+    background: $lightGray;
+    border: 2px solid $darkBlue;
+    border-radius: 10px;
 
     .edit-book__modal-contnet {
-        margin-top: 540px;
+        width: 100%;
+    }
+}
+
+@media (max-width: $tablet) {
+    .add-book__container {
+        margin-bottom: 2rem;
+        h1 {
+            font-size: 2.8rem;
+            align-self: center;
+        }
+    }
+
+    .add-admin__container {
+        margin-bottom: 2rem;
+        h1 {
+            font-size: 2.8rem;
+            align-self: center;
+            margin: 2rem 0;
+        }
+    }
+
+    .admins-list__container {
+        margin-bottom: 2rem;
+        h1 {
+            font-size: 2.8rem;
+            align-self: center;
+            margin: 2rem 0;
+        }
+    }
+
+    .edit-book__modal {
+        .edit-book__modal-contnet {
+            width: 100%;
+            h1 {
+                margin: 0;
+            }
+        }
+    }
+}
+
+@media (max-width: $mobile) {
+    .admin-options {
+        button {
+            width: 90%;
+        }
+    }
+
+    .add-book__container {
+        margin-bottom: 0;
+        .add-book__form {
+            display: grid;
+            grid-template-areas: "a" "b" "c";
+            width: 100%;
+            .part3 {
+                .buttons-container {
+                    margin-top: 0;
+                    button {
+                        width: 100%;
+                        margin-top: 2.5rem;
+                        margin-left: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .add-admin__container {
+        form {
+            width: 80%;
+        }
+    }
+
+    .admins-list__container {
+        div {
+            width: 80%;
+        }
+    }
+
+    .add-book__form {
+        .part3 {
+            .buttons-container {
+                flex-direction: column;
+            }
+        }
+    }
+
+    .admin__modal {
+        top: 100px;
+        width: calc(100% - 2rem);
+        min-width: calc(350px - 2rem);
+        min-height: 280px;
+
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 3rem;
+            margin-bottom: 2rem;
+            width: 100%;
+            button {
+                margin-top: 1rem;
+                width: 90%;
+            }
+        }
+    }
+
+    .edit-book__modal {
+        height: 100%;
+        .edit-book__modal-contnet {
+            width: 100%;
+        }
     }
 }

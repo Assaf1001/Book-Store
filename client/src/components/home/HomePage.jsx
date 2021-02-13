@@ -113,7 +113,7 @@ const HomePage = () => {
         }
 
         return () => (isComponentExist = false);
-    }, [booksList]);
+    }, [booksList.length]);
 
     return (
         <div className="home-page__container">

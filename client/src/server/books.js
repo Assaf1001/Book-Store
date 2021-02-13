@@ -28,7 +28,7 @@ export const getDicountedBooks = async () => {
 
 export const getBooksByFieldAndValue = async (field, value) => {
     try {
-        const res = await Axios.get(`10.0.0.127:2000/books/find`, {
+        const res = await Axios.get(`${booksURL}/find`, {
             params: { field, value },
         });
 

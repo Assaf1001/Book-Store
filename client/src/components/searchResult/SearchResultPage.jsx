@@ -54,7 +54,16 @@ const SearchResultPage = (props) => {
                     "author",
                     result
                 );
-                const booksData = searchByTitleData.concat(searchByAuthorData);
+                const booksData = searchByTitleData;
+                const booksDataIdArr = [];
+                for (let book of booksData) {
+                    booksDataIdArr.push(book._id);
+                }
+                for (let book of searchByAuthorData) {
+                    if (!booksDataIdArr.includes(book._id))
+                        booksData.push(book);
+                }
+
                 return booksData;
             };
             setSearch()

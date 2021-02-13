@@ -28,7 +28,6 @@
                 }
                 .content-right {
                     width: 29%;
-                    // min-width: 390px;
                     height: 100%;
                     margin-left: 1rem;
                 }
@@ -80,12 +79,10 @@
                 margin: 1rem auto;
                 img {
                     grid-area: a;
-                    // width: 7vw;
                     width: 100px;
                 }
                 p {
                     grid-area: b;
-                    // font-size: 1.8vw;
                     font-size: 1.7rem;
                     margin-bottom: 0;
                     @media (max-width: 1117px) {
@@ -256,9 +253,6 @@
                 }
             }
         }
-    }
-    .react-multiple-carousel__arrow {
-        display: none;
     }
     .customer-info__continer {
         h3 {

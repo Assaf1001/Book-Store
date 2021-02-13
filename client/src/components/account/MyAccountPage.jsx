@@ -4,15 +4,15 @@ import { AddItemsContext } from "../../context/AddItemsContext";
 import { logOutAction } from "../../actions/loginActions";
 import { useHistory } from "react-router-dom";
 import { deleteUserOnCookie } from "../../cookies/cookies";
+import { deleteAccount } from "../../server/auth";
 
+import MyAccountMenu from "./MyAccountMenu";
 import Greeting from "./accountItems/Greeting";
-import MyDetails from "./accountItems/MyDetails";
-import MyOrders from "./accountItems/MyOrders";
-import AdressBook from "./accountItems/AdressBook";
 import AdminModal from "../admin/AdminModal";
 
-import icons from "../../icons/icons";
-import { deleteAccount } from "../../server/auth";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const MyAccountPage = () => {
     const { userData, dispatchUserData } = useContext(LoginContext);
@@ -22,19 +22,19 @@ const MyAccountPage = () => {
         modalMessage,
         isChangeDetails,
     } = useContext(AddItemsContext);
-    const history = useHistory();
 
     const [activeComponent, setActiveComponent] = useState("");
-    const [activeClass, setActiveClass] = useState(["menu-active", "", "", ""]);
+    const [isDesktopMode, setIsDesktopMode] = useState(false);
 
-    const capitalizeFirstCharacter = (nameStr) => {
-        const nameArr = nameStr.split(" ");
-        const newArr = [];
-        for (let name of nameArr) {
-            newArr.push(name[0].toUpperCase() + name.slice(1));
-        }
-        return newArr.join(" ");
+    const history = useHistory();
+
+    const onCangeDesktopMode = () => {
+        let windowWidth = window.innerWidth;
+        if (windowWidth <= 1024) setIsDesktopMode(false);
+        else setIsDesktopMode(true);
     };
+
+    window.addEventListener("resize", onCangeDesktopMode);
 
     const onClickDeleteAccount = () => {
         deleteAccount(userData.token)
@@ -48,6 +48,10 @@ const MyAccountPage = () => {
     };
 
     useEffect(() => {
+        onCangeDesktopMode();
+    }, [isDesktopMode]);
+
+    useEffect(() => {
         let isComponentExist = true;
 
         if (isComponentExist) {
@@ -58,31 +62,6 @@ const MyAccountPage = () => {
 
         return () => (isComponentExist = false);
     }, []);
-
-    const onClickChangeComponent = (componentName) => {
-        switch (componentName) {
-            case "greeting":
-                setActiveComponent(
-                    <Greeting setActiveComponent={setActiveComponent} />
-                );
-                setActiveClass(["menu-active", "", "", ""]);
-                break;
-            case "myDetails":
-                setActiveComponent(<MyDetails />);
-                setActiveClass(["", "menu-active", "", ""]);
-                break;
-            case "myOrders":
-                setActiveComponent(<MyOrders />);
-                setActiveClass(["", "", "menu-active", ""]);
-                break;
-            case "adressBook":
-                setActiveComponent(<AdressBook />);
-                setActiveClass(["", "", "", "menu-active"]);
-                break;
-            default:
-                return;
-        }
-    };
 
     return (
         <div className="main__container">
@@ -100,39 +79,23 @@ const MyAccountPage = () => {
                 </AdminModal>
             )}
             <div className="my-account-page__content center">
-                <div className="menu__container">
-                    <div
-                        onClick={() => onClickChangeComponent("greeting")}
-                        className={activeClass[0]}
-                    >
-                        Hi {userData.isAdmin && "Admin"}, <br />{" "}
-                        {capitalizeFirstCharacter(userData.user.name)}
-                    </div>
-                    <div
-                        onClick={() => onClickChangeComponent("myDetails")}
-                        className={activeClass[1]}
-                    >
-                        <span>{icons.user}</span> My Details
-                    </div>
-                    <div
-                        onClick={() => onClickChangeComponent("myOrders")}
-                        className={activeClass[2]}
-                    >
-                        <span>{icons.cart}</span> My Orders
-                    </div>
-                    <div
-                        onClick={() => onClickChangeComponent("adressBook")}
-                        className={activeClass[3]}
-                    >
-                        <span>{icons.home}</span> Adress Book
-                    </div>
-                    <div>
-                        <span>{icons.creditCard}</span> Payment Methods
-                    </div>
-                    <div>
-                        <span>{icons.help}</span> Help
-                    </div>
-                </div>
+                {isDesktopMode ? (
+                    <MyAccountMenu
+                        setActiveComponent={setActiveComponent}
+                        isDesktopMode={isDesktopMode}
+                    />
+                ) : (
+                    <Accordion>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                            <h2>My Account Menu</h2>
+                        </AccordionSummary>
+                        <MyAccountMenu
+                            setActiveComponent={setActiveComponent}
+                            isDesktopMode={isDesktopMode}
+                        />
+                    </Accordion>
+                )}
+
                 <div className="content__container">{activeComponent}</div>
             </div>
         </div>

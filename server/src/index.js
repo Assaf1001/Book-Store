@@ -11,12 +11,11 @@ const app = express();
 
 const corsOptions = {
     origin: "http://localhost:3000",
-    // origin: "http://localhost:5000",
-    optionsSuccessStatus: 200,
+    optionsSuccessStatus: 201,
 };
 
-app.use(cors(corsOptions));
 app.use(express.json());
+app.use(cors(corsOptions));
 app.use(userRouter);
 app.use(bookRouter);
 app.use(generalRouter);

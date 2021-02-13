@@ -2,22 +2,21 @@
 @import "./base/settings";
 
 @import "./components/main/header/loginBar";
-
 @import "./components/main/header/header";
 @import "./components/main/footer";
-@import "./components/home/homePage";
-@import "./components/login/login";
-@import "./components/main/pageNotFound";
-@import "./components/home/customerInfo";
-@import "./components/carousels/booksCarousel";
-@import "./components/carousels/imagesCarousel";
-@import "./components/book/bookPage";
-@import "./components/searchResult/searchResultPage";
-@import "./components/genres/genrePage.scss";
 
-@import "./components/main/filter";
+@import "./components/home/homePage";
+@import "./components/main/header/headerMobile";
+@import "./components/home/customerInfo";
+@import "./components/genres/genrePage.scss";
+@import "./components/login/login";
+@import "./components/book/bookPage";
 @import "./components/cart/cartPage";
 @import "./components/cart/paymentPage";
 @import "./components/myAccount/myAccountPage";
+@import "./components/main/pageNotFound";
+
+@import "./components/carousels/booksCarousel";
+@import "./components/carousels/imagesCarousel";
+@import "./components/main/filter";
 @import "./components/admin/admin";
-@import "./components/main/header/headerMobile";
