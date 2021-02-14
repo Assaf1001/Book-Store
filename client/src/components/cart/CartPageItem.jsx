@@ -12,7 +12,7 @@ const CartItem = ({
     setSubtotal,
 }) => {
     const calculateDiscount = (price, discount) =>
-        price - (price * discount) / 100;
+        Math.floor(price - (price * discount) / 100);
 
     const [quantity, setQuantity] = useState(book.quantity);
 

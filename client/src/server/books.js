@@ -26,6 +26,30 @@ export const getDicountedBooks = async () => {
     }
 };
 
+export const getBestSellersBooks = async () => {
+    try {
+        const res = await Axios.get(`${booksURL}/bestSellers`);
+
+        return res.data;
+    } catch (err) {
+        if (err.response.status === 404) {
+            throw new Error(err.response.data.message);
+        }
+    }
+};
+
+export const getNewReleasesBooks = async () => {
+    try {
+        const res = await Axios.get(`${booksURL}/newReleases`);
+
+        return res.data;
+    } catch (err) {
+        if (err.response.status === 404) {
+            throw new Error(err.response.data.message);
+        }
+    }
+};
+
 export const getBooksByFieldAndValue = async (field, value) => {
     try {
         const res = await Axios.get(`${booksURL}/find`, {

@@ -40,7 +40,7 @@ const ViewOrderModal = ({ order, formatDate, setIsViewOrder }) => {
                 <div className="cart-details">
                     <h2>Cart:</h2>
                     {cart.map((cartItem) => (
-                        <div className="cart-item">
+                        <div key={cartItem.title} className="cart-item">
                             <p>
                                 {cartItem.title} by {cartItem.author} -{" "}
                                 {cartItem.price}$ X {cartItem.quantity}

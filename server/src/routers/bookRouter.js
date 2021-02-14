@@ -64,6 +64,51 @@ router.get("/books/discounted", async (req, res) => {
     }
 });
 
+// Get Best Sellers books
+router.get("/books/bestSellers", async (req, res) => {
+    try {
+        const books = await Book.find({});
+
+        const bestSellerGreaterThan10000 = [];
+        for (let book of books) {
+            if (book.details.bestSellersRank.length >= 6) {
+                bestSellerGreaterThan10000.push(book);
+            }
+        }
+
+        if (books.length === 0) {
+            return res.status(404).send({
+                status: 404,
+                message: "Cannot find any books",
+            });
+        }
+
+        res.send(bestSellerGreaterThan10000);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+// Get New Releases books
+router.get("/books/newReleases", async (req, res) => {
+    try {
+        const books = await Book.find({
+            "details.year": { $gte: 2014 },
+        });
+
+        if (books.length === 0) {
+            return res.status(404).send({
+                status: 404,
+                message: "Cannot find any books",
+            });
+        }
+
+        res.send(books);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
 // Get Books by field & value
 router.get("/books/find", async (req, res) => {
     const field = req.query.field;

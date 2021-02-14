@@ -65,11 +65,11 @@ const HamburgerMenu = () => {
         <NavLink to="/newReleases" activeClassName="menu-active">
             NEW RELEASES
         </NavLink>,
-        <NavLink to="/comingSoon" activeClassName="menu-active">
-            COMING SOON
-        </NavLink>,
         <NavLink to="/onSale" activeClassName="menu-active">
             ON SALE
+        </NavLink>,
+        <NavLink to="/comingSoon" activeClassName="menu-active">
+            COMING SOON
         </NavLink>,
     ];
 

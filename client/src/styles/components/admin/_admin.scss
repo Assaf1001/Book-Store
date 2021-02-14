@@ -411,6 +411,10 @@
                 width: 90%;
             }
         }
+
+        .view-order__modal {
+            width: calc(100% - 2rem);
+        }
     }
 
     .edit-book__modal {

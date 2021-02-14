@@ -35,11 +35,11 @@ const SearchBar = () => {
                         <button type="submit">SEARCH</button>
                     </form>
                 </div>
-                <div className="filter-by__container">
+                {/* <div className="filter-by__container">
                     <span>{icons.fliter}</span>
                     <h4>FILTER BY</h4>
                     <span>{icons.downArrow}</span>
-                </div>
+                </div> */}
             </div>
         </div>
     );

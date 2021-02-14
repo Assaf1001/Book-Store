@@ -17,6 +17,7 @@ import SearchResultPage from "../searchResult/SearchResultPage";
 import GenrePage from "../genres/GenrePage";
 import CartPage from "../cart/CartPage";
 import PaymentPage from "../cart/PaymentPage";
+import GeneralPage from "../home/homePages/GeneralPage";
 import AddItemsContextProvider from "../../context/AddItemsContext";
 
 const AppRouter = () => (
@@ -44,8 +45,9 @@ const AppRouter = () => (
 
                     <PrivateRoute path="/myAccount" component={MyAccountPage} />
 
-                    <Route path="/bestSellers" />
-                    <Route path="/newReleases" />
+                    <Route path="/bestSellers" component={GeneralPage} />
+                    <Route path="/newReleases" component={GeneralPage} />
+                    <Route path="/onSale" component={GeneralPage} />
                     <Route path="/coomingSoon" />
 
                     <PrivateRoute path="/wishList" component={WishListPage} />

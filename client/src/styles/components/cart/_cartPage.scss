@@ -283,6 +283,12 @@
                         .section1 {
                             margin-right: 1rem;
                         }
+                        .section2 {
+                            h2,
+                            h3 {
+                                text-align: left;
+                            }
+                        }
                     }
                 }
             }
@@ -321,6 +327,12 @@
                             }
                         }
                         .section2 {
+                            .section2 {
+                                h2,
+                                h3 {
+                                    text-align: center;
+                                }
+                            }
                             div {
                                 justify-content: center;
                             }

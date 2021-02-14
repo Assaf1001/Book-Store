@@ -17,7 +17,7 @@ const BooksCarouselItem = ({ book }) => {
     const history = useHistory();
 
     const calculateDiscount = (price, discount) =>
-        price - (price * discount) / 100;
+        Math.floor(price - (price * discount) / 100);
 
     return (
         <div className="books-carousel__item">

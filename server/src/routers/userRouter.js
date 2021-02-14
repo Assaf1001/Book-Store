@@ -187,6 +187,7 @@ router.post("/users/me/moveToCart", userAuth, async (req, res) => {
         user.books.wishList.splice(user.books.cart.indexOf(bookId), 1);
         user.books.cart.unshift(bookId);
 
+        await user.populate({ path: "books.wishList" }).execPopulate();
         await user.save();
 
         res.send(user.books.wishList);
@@ -323,8 +324,9 @@ router.post("/users/me/cart", userAuth, async (req, res) => {
             }
         }
 
-        await user.populate({ path: "books.cart" }).execPopulate();
         await user.save();
+        await user.populate({ path: "books.cart" }).execPopulate();
+
         res.send(user.books.cart);
     } catch (err) {
         res.status(500).send(err);
